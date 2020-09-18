@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BomBom_Kiosk
+namespace BomBom_Kiosk.Control
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for HomeControl.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class HomeControl : UserControl
     {
-        public MainWindow()
+        public HomeControl()
         {
             InitializeComponent();
         }

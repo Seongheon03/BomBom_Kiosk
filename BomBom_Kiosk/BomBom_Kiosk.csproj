@@ -55,7 +55,60 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Compile Include="Control\Payment\ChoosePaymentControl.xaml.cs">
+      <DependentUpon>ChoosePaymentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Payment\ChoosePlaceControl.xaml.cs">
+      <DependentUpon>ChoosePlaceControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Payment\InShopControl.xaml.cs">
+      <DependentUpon>InShopControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Payment\PaymentByCardControl.xaml.cs">
+      <DependentUpon>PaymentByCardControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Payment\PaymentByCashControl.xaml.cs">
+      <DependentUpon>PaymentByCashControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Payment\PaymentResultControl.xaml.cs">
+      <DependentUpon>PaymentResultControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\PaymentWindow.xaml.cs">
+      <DependentUpon>PaymentWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Control\HomeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\OrderControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Payment\ChoosePaymentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Payment\ChoosePlaceControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Payment\InShopControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Payment\PaymentByCardControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Payment\PaymentByCashControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Payment\PaymentResultControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -63,10 +116,20 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Control\HomeControl.xaml.cs">
+      <DependentUpon>HomeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\OrderControl.xaml.cs">
+      <DependentUpon>OrderControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\PaymentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -95,7 +158,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Control\" />
     <Folder Include="Model\" />
     <Folder Include="Resources\" />
     <Folder Include="Service\" />
