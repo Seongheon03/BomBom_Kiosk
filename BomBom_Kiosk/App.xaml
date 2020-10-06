@@ -2,8 +2,9 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:BomBom_Kiosk"
+             xmlns:cvts="clr-namespace:BomBom_Kiosk.Converter"
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
-         
+        <cvts:PriceToStringConverter x:Key="PriceToString"/>
     </Application.Resources>
 </Application>

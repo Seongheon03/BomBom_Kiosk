@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BomBom_Kiosk.ViewModel;
 using System.Windows;
 
 namespace BomBom_Kiosk
@@ -13,5 +8,8 @@ namespace BomBom_Kiosk
     /// </summary>
     public partial class App : Application
     {
+        public static readonly string connStr = "Server=10.80.161.127;Database=kiosk;Uid=maryoh;Pwd=1234;";
+
+        public static OrderViewModel orderViewModel = new OrderViewModel();
     }
 }

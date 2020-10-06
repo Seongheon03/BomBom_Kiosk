@@ -23,6 +23,17 @@ namespace BomBom_Kiosk.Control
         public OrderControl()
         {
             InitializeComponent();
+            Loaded += OrderControl_Loaded;
+        }
+
+        private void OrderControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            DataContext = App.orderViewModel;
+        }
+
+        private void lvDrinks_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            lvDrinks.UnselectAll();
         }
     }
 }

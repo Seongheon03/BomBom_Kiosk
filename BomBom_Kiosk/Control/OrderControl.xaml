@@ -6,7 +6,170 @@
              xmlns:local="clr-namespace:BomBom_Kiosk.Control"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="200"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="#FFEA00"/>
+            
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10" BorderThickness="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Cursor" Value="Hand"/>
+                    <Setter Property="Background" Value="#FFBA0D"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition Width="0.5*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="0.8*"/>
+                <RowDefinition Height="0.1*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <ListBox x:Name="lvCategory" ItemsSource="{Binding Categories}" 
+                         BorderThickness="0" SelectedIndex="{Binding SelectedCategory, Mode=TwoWay}"
+                         HorizontalAlignment="Center">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel IsItemsHost="True" Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                            <Setter Property="Margin" Value="13 0 13 0"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <Border x:Name="border"
+                                                Background="#FFEA00" CornerRadius="10"
+                                                Width="240" Height="60">
+                                            <ContentPresenter ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter Property="Background" TargetName="border" Value="#FFBA0D"/>
+                                            </Trigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Cursor" Value="Hand"/>
+                                                <Setter Property="Background" TargetName="border" Value="#FFBA0D"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" FontWeight="Bold"  FontSize="20"
+                                           TextAlignment="Center" VerticalAlignment="Center"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <ListBox x:Name="lvDrinks" ItemsSource="{Binding DisplayDrinks}"
+                         SelectedItem="{Binding SelectedDrink}"
+                         SelectionChanged="lvDrinks_SelectionChanged" 
+                         HorizontalAlignment="Left" BorderThickness="0" Margin="70 0 0 0"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <Border x:Name="border" Width="270" Height="240">
+                                            <ContentPresenter ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Cursor" Value="Hand"/>
+                                                <Setter Property="Background" TargetName="border" Value="#FFEA00"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Width="260" Height="240">
+                                <Image Source="{Binding Image}" Height="150" Margin="0 15 0 0"/>
+                                <TextBlock Text="{Binding Name}" 
+                                           FontSize="15" FontWeight="Bold" 
+                                           HorizontalAlignment="Center" Margin="0 10 0 10"/>
+                                <TextBlock Text="{Binding Price, Converter={StaticResource PriceToString}}" 
+                                           FontSize="15" FontWeight="Bold" 
+                                           HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <DockPanel Height="50" Margin="20 0 20 0">
+                    <Button Content="이전"/>
+                    <Button Content="다음" HorizontalAlignment="Right"/>
+                </DockPanel>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.9*"/>
+                <RowDefinition Height="0.1*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <ScrollViewer VerticalScrollBarVisibility="Hidden">
+                    <ItemsControl>
+                        <GridViewColumn Header="메뉴"/>
+                        <GridViewColumn Header="수량">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Button Content="-"/>
+                                        <TextBlock />
+                                        <Button Content="+"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>
