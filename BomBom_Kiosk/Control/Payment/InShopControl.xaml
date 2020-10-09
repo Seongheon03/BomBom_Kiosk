@@ -6,7 +6,30 @@
              xmlns:local="clr-namespace:BomBom_Kiosk.Control.Payment"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style x:Key="tableBtnStyle" TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="160"/>
+            <Setter Property="Height" Value="80"/>
+            <Setter Property="FontSize" Value="30" />
+            <Setter Property="Margin" Value="0 20 20 0"/>
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
-            
+        <ListBox x:Name="lvTables" ItemsSource="{Binding Tables}" HorizontalAlignment="Center" 
+                 VerticalAlignment="Top">
+            <ListBox.ItemTemplate >
+                <DataTemplate >
+                    <Button Content="{Binding Number}" Style="{StaticResource tableBtnStyle}"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel>
+            <Button Content="이전"></Button>
+            <Button Content="다음"></Button>
+        </StackPanel>
     </Grid>
+
 </UserControl>
+
