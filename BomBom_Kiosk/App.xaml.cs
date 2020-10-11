@@ -11,5 +11,6 @@ namespace BomBom_Kiosk
         public static readonly string connStr = "Server=10.80.161.127;Database=kiosk;Uid=maryoh;Pwd=1234;";
 
         public static OrderViewModel orderViewModel = new OrderViewModel();
+        public static PaymentViewModel paymentViewModel = new PaymentViewModel();
     }
 }

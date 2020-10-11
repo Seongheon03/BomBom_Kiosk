@@ -24,7 +24,12 @@ namespace BomBom_Kiosk.Control.Payment
         public InShopControl()
         {
             InitializeComponent();
-            this.DataContext = new PaymentViewModel();
+            Loaded += InShopControl_Loaded;
+        }
+
+        private void InShopControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            DataContext = App.paymentViewModel;
         }
     }
 }
