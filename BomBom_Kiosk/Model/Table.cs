@@ -9,6 +9,6 @@ namespace BomBom_Kiosk.Model
     public class Table
     {
         public int Number { get; set; }
-        public string LeftTime { get; set; }
+        public DateTime LeftTime { get; set; }
     }
 }
