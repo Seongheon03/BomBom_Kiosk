@@ -1,4 +1,4 @@
-﻿<Window x:Class="BomBom_Kiosk.View.MainWindow"
+﻿<Window x:Class="BomBom_Kiosk.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -48,6 +48,12 @@
         <Grid Grid.Row="1">
             <ctrl:HomeControl x:Name="ctrlHome" Visibility="Collapsed"/>
             <ctrl:OrderControl x:Name="ctrlOrder" Visibility="Collapsed"/>
+            <ctrl:ChoosePaymentControl x:Name="choosePaymentControl" Visibility="Collapsed"/>
+            <ctrl:ChoosePlaceControl x:Name="choosePlaceControl" Visibility="Collapsed"/>
+            <ctrl:InShopControl x:Name="inShopControl" Visibility="Collapsed"/>
+            <ctrl:PaymentByCardControl x:Name="paymentByCardControl" Visibility="Collapsed"/>
+            <ctrl:PaymentByCashControl x:Name="paymentByCashControl" Visibility="Collapsed"/>
+            <ctrl:PaymentResultControl x:Name="paymentByResultControl" Visibility="Collapsed"/>
         </Grid>
     </Grid>
 </Window>

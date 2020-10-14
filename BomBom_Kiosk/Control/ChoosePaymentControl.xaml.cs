@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BomBom_Kiosk.Control.Payment
+namespace BomBom_Kiosk.Control
 {
     /// <summary>
-    /// Interaction logic for PaymentResultControl.xaml
+    /// Interaction logic for ChoosePaymentControl.xaml
     /// </summary>
-    public partial class PaymentResultControl : UserControl
+    public partial class ChoosePaymentControl : UserControl
     {
-        public PaymentResultControl()
+        public ChoosePaymentControl()
         {
             InitializeComponent();
         }

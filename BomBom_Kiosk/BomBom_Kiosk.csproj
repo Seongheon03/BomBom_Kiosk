@@ -109,22 +109,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Control\Payment\ChoosePaymentControl.xaml.cs">
+    <Compile Include="Control\ChoosePaymentControl.xaml.cs">
       <DependentUpon>ChoosePaymentControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Control\Payment\ChoosePlaceControl.xaml.cs">
+    <Compile Include="Control\ChoosePlaceControl.xaml.cs">
       <DependentUpon>ChoosePlaceControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Control\Payment\InShopControl.xaml.cs">
+    <Compile Include="Control\InShopControl.xaml.cs">
       <DependentUpon>InShopControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Control\Payment\PaymentByCardControl.xaml.cs">
+    <Compile Include="Control\PaymentByCardControl.xaml.cs">
       <DependentUpon>PaymentByCardControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Control\Payment\PaymentByCashControl.xaml.cs">
+    <Compile Include="Control\PaymentByCashControl.xaml.cs">
       <DependentUpon>PaymentByCashControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Control\Payment\PaymentResultControl.xaml.cs">
+    <Compile Include="Control\PaymentResultControl.xaml.cs">
       <DependentUpon>PaymentResultControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converter\LeftTimeToStringConverter.cs" />
@@ -138,9 +138,6 @@
     <Compile Include="Service\UIManager.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\PaymentViewModel.cs" />
-    <Compile Include="View\PaymentWindow.xaml.cs">
-      <DependentUpon>PaymentWindow.xaml</DependentUpon>
-    </Compile>
     <Page Include="Control\HomeControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -149,27 +146,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Control\Payment\ChoosePaymentControl.xaml">
+    <Page Include="Control\ChoosePaymentControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Control\Payment\ChoosePlaceControl.xaml">
+    <Page Include="Control\ChoosePlaceControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Control\Payment\InShopControl.xaml">
+    <Page Include="Control\InShopControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Control\Payment\PaymentByCardControl.xaml">
+    <Page Include="Control\PaymentByCardControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Control\Payment\PaymentByCashControl.xaml">
+    <Page Include="Control\PaymentByCashControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Control\Payment\PaymentResultControl.xaml">
+    <Page Include="Control\PaymentResultControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -177,7 +174,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\MainWindow.xaml">
+    <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -191,14 +188,10 @@
     <Compile Include="Control\OrderControl.xaml.cs">
       <DependentUpon>OrderControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\MainWindow.xaml.cs">
+    <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\PaymentWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

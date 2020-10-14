@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Threading;
 
-namespace BomBom_Kiosk.View
+namespace BomBom_Kiosk
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

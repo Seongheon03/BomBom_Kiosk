@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BomBom_Kiosk.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,21 +14,22 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BomBom_Kiosk.Control.Payment
+namespace BomBom_Kiosk.Control
 {
     /// <summary>
-    /// Interaction logic for ChoosePlaceControl.xaml
+    /// Interaction logic for InShopControl.xaml
     /// </summary>
-    public partial class ChoosePlaceControl : UserControl
+    public partial class InShopControl : UserControl
     {
-        public ChoosePlaceControl()
+        public InShopControl()
         {
             InitializeComponent();
+            Loaded += InShopControl_Loaded;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void InShopControl_Loaded(object sender, RoutedEventArgs e)
         {
-
+            DataContext = App.paymentViewModel;
         }
     }
 }
