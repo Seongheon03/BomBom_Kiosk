@@ -3,8 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:BomBom_Kiosk"
              xmlns:cvts="clr-namespace:BomBom_Kiosk.Converter"
-             StartupUri="View/MainWindow.xaml">
+             StartupUri="View/PaymentWindow.xaml">
     <Application.Resources>
-        <cvts:PriceToStringConverter x:Key="PriceToString"/>
+        <ResourceDictionary>
+            <cvts:PriceToStringConverter x:Key="PriceToString"/>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Theme/Button.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
