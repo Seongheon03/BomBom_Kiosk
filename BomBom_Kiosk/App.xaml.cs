@@ -1,4 +1,5 @@
-﻿using BomBom_Kiosk.ViewModel;
+﻿using BomBom_Kiosk.Service;
+using BomBom_Kiosk.ViewModel;
 using System.Windows;
 
 namespace BomBom_Kiosk
