@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BomBom_Kiosk.Service;
+using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Threading;
@@ -23,24 +24,24 @@ namespace BomBom_Kiosk
             SetTimer();
             InitUIDic();
 
-            App.uiManager.Push(Service.UICategory.ORDER);
+            App.uiManager.Push(UICategory.ORDER);
         }
 
         private void InitUIDic()
         {
-            App.uiManager.AddUserControl(Service.UICategory.HOME, ctrlHome);
-            App.uiManager.AddUserControl(Service.UICategory.ORDER, ctrlOrder);
-            App.uiManager.AddUserControl(Service.UICategory.CHOOSEPLACE, ctrlChoosePlace);
-            App.uiManager.AddUserControl(Service.UICategory.INSHOP, ctrlInShop);
-            App.uiManager.AddUserControl(Service.UICategory.CHOOSEPAYMENT, ctrlChoosePayment);
-            App.uiManager.AddUserControl(Service.UICategory.PAYMENTBYCASH, ctrlPaymentByCash);
-            App.uiManager.AddUserControl(Service.UICategory.PAYMENTBYCARD, ctrlPaymentByCard);
-            App.uiManager.AddUserControl(Service.UICategory.PAYMENTRESULT, ctrlPaymentByResult);
+            App.uiManager.AddUserControl(UICategory.HOME, ctrlHome);
+            App.uiManager.AddUserControl(UICategory.ORDER, ctrlOrder);
+            App.uiManager.AddUserControl(UICategory.CHOOSEPLACE, ctrlChoosePlace);
+            App.uiManager.AddUserControl(UICategory.INSHOP, ctrlInShop);
+            App.uiManager.AddUserControl(UICategory.CHOOSEPAYMENT, ctrlChoosePayment);
+            App.uiManager.AddUserControl(UICategory.PAYMENTBYCASH, ctrlPaymentByCash);
+            App.uiManager.AddUserControl(UICategory.PAYMENTBYCARD, ctrlPaymentByCard);
+            App.uiManager.AddUserControl(UICategory.PAYMENTRESULT, ctrlPaymentByResult);
         }
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-            App.uiManager.Push(Service.UICategory.HOME);
+            App.uiManager.Push(UICategory.HOME);
         }
 
         private void SetBackground()
