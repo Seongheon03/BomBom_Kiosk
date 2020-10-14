@@ -127,13 +127,15 @@
     <Compile Include="Control\Payment\PaymentResultControl.xaml.cs">
       <DependentUpon>PaymentResultControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter\LeftTimeToStringConverter.cs" />
     <Compile Include="Converter\PriceToStringConverter.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Drink.cs" />
+    <Compile Include="Model\OrderData.cs" />
     <Compile Include="Model\OrderedDrink.cs" />
     <Compile Include="Model\Table.cs" />
     <Compile Include="Service\DBManager.cs" />
-    <Compile Include="UIManager.cs" />
+    <Compile Include="Service\UIManager.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\PaymentViewModel.cs" />
     <Compile Include="View\PaymentWindow.xaml.cs">
@@ -170,6 +172,10 @@
     <Page Include="Control\Payment\PaymentResultControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Theme\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

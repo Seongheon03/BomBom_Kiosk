@@ -9,7 +9,7 @@
         WindowStartupLocation="CenterScreen"
         Title="PaymentWindow" Height="450" Width="800">
     <Grid>
-        <control:ChoosePaymentControl x:Name="choosePaymentControl"/>
+        <control:ChoosePaymentControl Visibility="Collapsed" x:Name="choosePaymentControl"/>
         <control:ChoosePlaceControl x:Name="choosePlaceControl"/>
         <control:InShopControl x:Name="inShopControl"/>
         <control:PaymentByCardControl x:Name="paymentByCardControl"/>

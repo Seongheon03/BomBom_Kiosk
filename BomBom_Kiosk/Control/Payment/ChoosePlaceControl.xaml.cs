@@ -24,5 +24,10 @@ namespace BomBom_Kiosk.Control.Payment
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
