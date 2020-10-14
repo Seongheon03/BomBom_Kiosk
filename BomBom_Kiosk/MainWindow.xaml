@@ -48,12 +48,12 @@
         <Grid Grid.Row="1">
             <ctrl:HomeControl x:Name="ctrlHome" Visibility="Collapsed"/>
             <ctrl:OrderControl x:Name="ctrlOrder" Visibility="Collapsed"/>
-            <ctrl:ChoosePaymentControl x:Name="choosePaymentControl" Visibility="Collapsed"/>
-            <ctrl:ChoosePlaceControl x:Name="choosePlaceControl" Visibility="Collapsed"/>
-            <ctrl:InShopControl x:Name="inShopControl" Visibility="Collapsed"/>
-            <ctrl:PaymentByCardControl x:Name="paymentByCardControl" Visibility="Collapsed"/>
-            <ctrl:PaymentByCashControl x:Name="paymentByCashControl" Visibility="Collapsed"/>
-            <ctrl:PaymentResultControl x:Name="paymentByResultControl" Visibility="Collapsed"/>
+            <ctrl:ChoosePaymentControl x:Name="ctrlChoosePayment" Visibility="Collapsed"/>
+            <ctrl:ChoosePlaceControl x:Name="ctrlChoosePlace" Visibility="Collapsed"/>
+            <ctrl:InShopControl x:Name="ctrlInShop" Visibility="Collapsed"/>
+            <ctrl:PaymentByCardControl x:Name="ctrlPaymentByCard" Visibility="Collapsed"/>
+            <ctrl:PaymentByCashControl x:Name="ctrlPaymentByCash" Visibility="Collapsed"/>
+            <ctrl:PaymentResultControl x:Name="ctrlPaymentByResult" Visibility="Collapsed"/>
         </Grid>
     </Grid>
 </Window>

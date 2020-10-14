@@ -18,17 +18,29 @@ namespace BomBom_Kiosk
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            DataContext = this;
             SetBackground();
             SetTimer();
+            InitUIDic();
 
-            App.uiManager.Push(ctrlOrder);
+            App.uiManager.Push(Service.UICategory.ORDER);
+        }
 
-            DataContext = this;
+        private void InitUIDic()
+        {
+            App.uiManager.AddUserControl(Service.UICategory.HOME, ctrlHome);
+            App.uiManager.AddUserControl(Service.UICategory.ORDER, ctrlOrder);
+            App.uiManager.AddUserControl(Service.UICategory.CHOOSEPLACE, ctrlChoosePlace);
+            App.uiManager.AddUserControl(Service.UICategory.INSHOP, ctrlInShop);
+            App.uiManager.AddUserControl(Service.UICategory.CHOOSEPAYMENT, ctrlChoosePayment);
+            App.uiManager.AddUserControl(Service.UICategory.PAYMENTBYCASH, ctrlPaymentByCash);
+            App.uiManager.AddUserControl(Service.UICategory.PAYMENTBYCARD, ctrlPaymentByCard);
+            App.uiManager.AddUserControl(Service.UICategory.PAYMENTRESULT, ctrlPaymentByResult);
         }
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-            App.uiManager.Push(ctrlHome);
+            App.uiManager.Push(Service.UICategory.HOME);
         }
 
         private void SetBackground()

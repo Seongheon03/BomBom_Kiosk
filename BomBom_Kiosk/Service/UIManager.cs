@@ -6,14 +6,22 @@ namespace BomBom_Kiosk.Service
 {
     public class UIManager
     {
-        public Stack<UserControl> uiStack = new Stack<UserControl>();
+        private Dictionary<UICategory, UserControl> uiDic = new Dictionary<UICategory, UserControl>();
+        private Stack<UserControl> uiStack = new Stack<UserControl>();
 
-        public void Push(UserControl userControl)
+        public void AddUserControl(UICategory category, UserControl userControl)
+        {
+            uiDic.Add(category, userControl);
+        }
+
+        public void Push(UICategory category)
         {
             if (uiStack.Count != 0)
             {
-                uiStack.Peek().Visibility = Visibility.Collapsed;
+                SetVisible(uiStack.Peek(), Visibility.Collapsed);
             }
+
+            UserControl userControl = uiDic[category];
 
             uiStack.Push(userControl);
             SetVisible(userControl, Visibility.Visible);
@@ -21,19 +29,29 @@ namespace BomBom_Kiosk.Service
 
         public void Pop()
         {
-            uiStack.Pop();
+            SetVisible(uiStack.Pop(), Visibility.Collapsed);
 
-            if (uiStack.Count == 0)
+            if (uiStack.Count != 0)
             {
-                return;
+                SetVisible(uiStack.Peek(), Visibility.Visible);
             }
-
-            SetVisible(uiStack.Peek(), Visibility.Collapsed);
         }
 
-        public void SetVisible(UserControl userControl, Visibility visible)
+        public void SetVisible(UserControl ctrl, Visibility visible)
         {
-            userControl.Visibility = visible;
+            ctrl.Visibility = visible;
         }
+    }
+
+    public enum UICategory
+    {
+        HOME,
+        ORDER,
+        CHOOSEPLACE,
+        INSHOP,
+        CHOOSEPAYMENT,
+        PAYMENTBYCASH,
+        PAYMENTBYCARD,
+        PAYMENTRESULT,
     }
 }
