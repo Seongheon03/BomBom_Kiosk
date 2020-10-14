@@ -16,21 +16,23 @@ namespace BomBom_Kiosk.ViewModel
             get => _tables;
             set => SetProperty(ref _tables, value);
         }
+
+        public OrderData orderData;
         public PaymentViewModel()
         {
             SetTables();
         }
         private void SetTables()
         {
-            Tables.Add(new Table { Number = 1, LeftTime = "" });
-            Tables.Add(new Table { Number = 2, LeftTime = "" });
-            Tables.Add(new Table { Number = 3, LeftTime = "" });
-            Tables.Add(new Table { Number = 4, LeftTime = "" });
-            Tables.Add(new Table { Number = 5, LeftTime = "" });
-            Tables.Add(new Table { Number = 6, LeftTime = "" });
-            Tables.Add(new Table { Number = 7, LeftTime = "" });
-            Tables.Add(new Table { Number = 8, LeftTime = "" });
-            Tables.Add(new Table { Number = 9, LeftTime = "" });
+            Tables.Add(new Table { Number = 1, LeftTime = null });
+            Tables.Add(new Table { Number = 2, LeftTime = null });
+            Tables.Add(new Table { Number = 3, LeftTime = null });
+            Tables.Add(new Table { Number = 4, LeftTime = null });
+            Tables.Add(new Table { Number = 5, LeftTime = null });
+            Tables.Add(new Table { Number = 6, LeftTime = null });
+            Tables.Add(new Table { Number = 7, LeftTime = null });
+            Tables.Add(new Table { Number = 8, LeftTime = null });
+            Tables.Add(new Table { Number = 9, LeftTime = null });
         }
     }
 }
