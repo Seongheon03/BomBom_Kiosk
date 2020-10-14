@@ -7,12 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <Style TargetType="{x:Type Button}">
+        <Style x:Key="btnStyle" TargetType="{x:Type Button}">
             <Setter Property="Width" Value="200"/>
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Background" Value="#FFEA00"/>
-            
+
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -28,6 +28,30 @@
                     <Setter Property="Background" Value="#FFBA0D"/>
                 </Trigger>
             </Style.Triggers>
+        </Style>
+
+        <Style x:Key="btnSubStyle" TargetType="{x:Type Button}">
+            <Setter Property="Width" Value="10"/>
+            <Setter Property="Height" Value="10"/>
+        </Style>
+        
+        <Style TargetType="HeaderedItemsControl">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type HeaderedItemsControl}">
+                        <StackPanel>
+                            <Grid>
+                                <Rectangle Fill="{TemplateBinding Background}"/>
+                                <ContentPresenter ContentSource="Header"/>
+                            </Grid>
+                            <Grid>
+                                <Rectangle Stroke="{TemplateBinding BorderBrush}"/>
+                                <ItemsPresenter Margin="2,0,0,0"/>
+                            </Grid>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -88,23 +112,24 @@
             </Grid>
 
             <Grid Grid.Row="1">
-                <ListBox x:Name="lvDrinks" ItemsSource="{Binding DisplayDrinks}"
-                         SelectedItem="{Binding SelectedDrink}"
-                         SelectionChanged="lvDrinks_SelectionChanged" 
-                         HorizontalAlignment="Left" BorderThickness="0" Margin="70 0 0 0"
-                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                    <ListBox.ItemsPanel>
+                <ListView x:Name="lvDrinks" ItemsSource="{Binding DisplayDrinks}"
+                          SelectedItem="{Binding SelectedDrink}"
+                          SelectionChanged="lvDrinks_SelectionChanged" 
+                          HorizontalAlignment="Left" BorderThickness="0" Margin="70 0 0 0"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                    <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel/>
                         </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListBoxItem}">
+                    </ListView.ItemsPanel>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
                             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
                             <Setter Property="Template">
                                 <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                        <Border x:Name="border" Width="270" Height="240">
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
+                                        <Border x:Name="border" Width="270" Height="260">
                                             <ContentPresenter ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"/>
                                         </Border>
                                         <ControlTemplate.Triggers>
@@ -117,10 +142,10 @@
                                 </Setter.Value>
                             </Setter>
                         </Style>
-                    </ListBox.ItemContainerStyle>
+                    </ListView.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Width="260" Height="240">
+                            <StackPanel>
                                 <Image Source="{Binding Image}" Height="150" Margin="0 15 0 0"/>
                                 <TextBlock Text="{Binding Name}" 
                                            FontSize="15" FontWeight="Bold" 
@@ -131,43 +156,93 @@
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
-                </ListBox>
+                </ListView>
             </Grid>
 
             <Grid Grid.Row="2">
                 <DockPanel Height="50" Margin="20 0 20 0">
-                    <Button Content="이전"/>
-                    <Button Content="다음" HorizontalAlignment="Right"/>
+                    <Button Content="이전"
+                            Style="{StaticResource btnStyle}"/>
+                    <Button Content="다음"
+                            Style="{StaticResource btnStyle}"
+                            HorizontalAlignment="Right"/>
                 </DockPanel>
             </Grid>
         </Grid>
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.9*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.4*"/>
                 <RowDefinition Height="0.1*"/>
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
-                <ScrollViewer VerticalScrollBarVisibility="Hidden">
-                    <ItemsControl>
-                        <GridViewColumn Header="메뉴"/>
-                        <GridViewColumn Header="수량">
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <StackPanel>
-                                        <Button Content="-"/>
-                                        <TextBlock />
-                                        <Button Content="+"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
-                    </ItemsControl>
-                </ScrollViewer>
+                <ListView x:Name="lvOrderList" 
+                          ItemsSource="{Binding OrderList}" 
+                          FontSize="20" FontWeight="Bold"
+                          Background="#EEEEEE"
+                          BorderThickness="0"
+                          Margin="10 20 10 0">
+                    <ListView.View>
+                        <GridView>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="Background" Value="LightGray"/>
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                            <GridViewColumn Header="메뉴"
+                                            DisplayMemberBinding="{Binding Name}"
+                                            Width="400" />
+                            <GridViewColumn Header="수량" Width="200">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Width="200" Orientation="Horizontal">
+                                            <Button Content="-"
+                                                    Command="{Binding ElementName=lvOrderList, Path=DataContext.DecreaseCommand}"
+                                                    CommandParameter="{Binding MenuIdx}"/>
+                                            <TextBlock Text="{Binding Count}" HorizontalAlignment="Center"/>
+                                            <Button Content="+"
+                                                    HorizontalAlignment="Right"
+                                                    Command="{Binding ElementName=lvOrderList, Path=DataContext.IncreaseCommand}"
+                                                    CommandParameter="{Binding MenuIdx}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="가격" Width="200">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding TotalPrice, Converter={StaticResource PriceToString}}"/>
+                                            <Button Content="X"
+                                                    Command="{Binding ElementName=lvOrderList, Path=DataContext.RemoveCommand}"
+                                                    CommandParameter="{Binding MenuIdx}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </Grid>
 
             <Grid Grid.Row="1">
+                <DockPanel VerticalAlignment="Top"
+                           Height="40"
+                           Margin="10 10 10 0">
+                    <TextBlock Text="{Binding TotalPrice, Converter={StaticResource PriceToString}, 
+                                      StringFormat=총 가격 : {0}}" 
+                               FontSize="20"
+                               VerticalAlignment="Center"/>
+                    <Button Content="전체 삭제"
+                            Command="{Binding RemoveAllCommand}"
+                            Width="120"
+                            HorizontalAlignment="Right"/>
+                </DockPanel>
+            </Grid>
+
+            <Grid Grid.Row="2">
                 
             </Grid>
         </Grid>

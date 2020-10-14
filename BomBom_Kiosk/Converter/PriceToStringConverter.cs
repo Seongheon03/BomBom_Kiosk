@@ -12,7 +12,10 @@ namespace BomBom_Kiosk.Converter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            //string price = (parameter != null) ? ((int)value * (int)parameter).ToString() : ((int)value).ToString();
+
             string price = ((int)value).ToString();
+
             double count = System.Convert.ToDouble(price.Length) / 3;
             int index = price.Length;
 

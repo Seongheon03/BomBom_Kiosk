@@ -11,8 +11,6 @@ namespace BomBom_Kiosk.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        UserControl currentControl = new UserControl();
-
         public MainWindow()
         {
             InitializeComponent();
@@ -21,16 +19,17 @@ namespace BomBom_Kiosk.View
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            currentControl = ctrlHome;
             SetBackground();
             SetTimer();
+
+            App.uiManager.Push(ctrlOrder);
 
             DataContext = this;
         }
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-            ChangeControl(ctrlHome);
+            App.uiManager.Push(ctrlHome);
         }
 
         private void SetBackground()
@@ -60,13 +59,6 @@ namespace BomBom_Kiosk.View
         private void SetTime()
         {
             tbCurrentTime.Text = DateTime.Now.ToString(string.Format("MM월 dd일 (ddd) tt hh시 mm분", CultureInfo.CreateSpecificCulture("ko-KR")));
-        }
-
-        private void ChangeControl(UserControl tragetControl)
-        {
-            currentControl.Visibility = Visibility.Collapsed;
-            currentControl = tragetControl;
-            currentControl.Visibility = Visibility.Visible;
         }
     }
 }

@@ -46,8 +46,8 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <ctrl:HomeControl x:Name="ctrlHome"/>
-            <ctrl:OrderControl x:Name="ctlrOrder"/>
+            <ctrl:HomeControl x:Name="ctrlHome" Visibility="Collapsed"/>
+            <ctrl:OrderControl x:Name="ctrlOrder" Visibility="Collapsed"/>
         </Grid>
     </Grid>
 </Window>

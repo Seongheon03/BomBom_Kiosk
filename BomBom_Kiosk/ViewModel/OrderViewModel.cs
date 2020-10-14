@@ -1,12 +1,18 @@
 ﻿using BomBom_Kiosk.Model;
+using BomBom_Kiosk.Service;
+using Prism.Commands;
 using Prism.Mvvm;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Input;
 
 namespace BomBom_Kiosk.ViewModel
 {
     public class OrderViewModel : BindableBase
     {
+        private DBManager dbManager = new DBManager();
+
         #region Property
         private List<Category> _categories = new List<Category>();
         public List<Category> Categories
@@ -47,22 +53,89 @@ namespace BomBom_Kiosk.ViewModel
             set
             {
                 _selectedDrink = value;
-                AddToOrderList();
+
+                if (_selectedDrink != null)
+                {
+                    AddToOrderList();
+                }
             }
         }
 
-        private List<Drink> _orderList = new List<Drink>();
-        public List<Drink> OrderList
+        private ObservableCollection<OrderedDrink> _orderList = new ObservableCollection<OrderedDrink>();
+        public ObservableCollection<OrderedDrink> OrderList
         {
             get => _orderList;
             set => SetProperty(ref _orderList, value);
         }
+
+        private int _totalPrice = 0;
+        public int TotalPrice
+        {
+            get => _totalPrice;
+            set => SetProperty(ref _totalPrice, value);
+        }
         #endregion
+
+        public ICommand IncreaseCommand { get; set; }
+        public ICommand DecreaseCommand { get; set; }
+        public ICommand RemoveCommand { get; set; }
+        public ICommand RemoveAllCommand { get; set; }
 
         public OrderViewModel()
         {
+            InitCommand();
             SetCategories();
             SetDrinks();
+            SetDisplayDrinks();
+        }
+
+        private void InitCommand()
+        {
+            IncreaseCommand = new DelegateCommand<int?>(IncreaseCount);
+            DecreaseCommand = new DelegateCommand<int?>(DecreaseCount);
+            RemoveCommand = new DelegateCommand<int?>(RemoveDrink);
+            RemoveAllCommand = new DelegateCommand(RemoveAllDrink);
+        }
+
+        private void IncreaseCount(int? drinkIdx)
+        {
+            OrderedDrink orderedDrink = OrderList.Where(x => x.MenuIdx == drinkIdx).FirstOrDefault();
+
+            orderedDrink.Count++;
+            orderedDrink.TotalPrice = orderedDrink.Price * orderedDrink.Count;
+
+            TotalPrice += orderedDrink.Price;
+        }
+
+        private void DecreaseCount(int? drinkIdx)
+        {
+            OrderedDrink orderedDrink = OrderList.Where(x => x.MenuIdx == drinkIdx).FirstOrDefault();
+
+            if (orderedDrink.Count == 1)
+            {
+                OrderList.Remove(orderedDrink);
+            }
+            else
+            {
+                orderedDrink.Count--;
+                orderedDrink.TotalPrice = orderedDrink.Price * orderedDrink.Count;
+            }
+
+            TotalPrice -= orderedDrink.Price;
+        }
+
+        private void RemoveDrink(int? drinkIdx)
+        {
+            OrderedDrink removeDrink = OrderList.Where(x => x.MenuIdx == drinkIdx).FirstOrDefault();
+
+            OrderList.Remove(removeDrink);
+            TotalPrice -= removeDrink.TotalPrice;
+        }
+
+        private void RemoveAllDrink()
+        {
+            OrderList.Clear();
+            TotalPrice = 0;
         }
 
         private void SetCategories()
@@ -74,44 +147,13 @@ namespace BomBom_Kiosk.ViewModel
 
         private void SetDrinks()
         {
-            //MySqlConnection conn = new MySqlConnection(App.connStr);
-            //MySqlCommand cmd = conn.CreateCommand();
-
-            //string query = "SELECT * FROM menu";
-            //cmd.CommandText = query;
-
-            //try
-            //{
-            //    conn.Open();
-            //}
-            //catch
-            //{
-            //    MessageBox.Show("DB 연결이 되지 않았습니다.");
-            //    return;
-            //}
-
-            //MySqlDataReader reader = cmd.ExecuteReader();
-
-            //while(reader.Read())
-            //{
-            //    Drink drink = new Drink();
-            //    drink.Name = reader["name"].ToString();
-            //    drink.Price = int.Parse(reader["price"].ToString());
-            //    drink.Image = reader["image"].ToString();
-            //    drink.Category = (ECategory)int.Parse(reader["type"].ToString());
-
-            //    Drinks.Add(drink);
-            //}
-
-            Drinks.Add(new Drink { Image = "https://cafebombom.co.kr/images/sub/menu08_img_200730_1.png", Name = "옛날빙수", Price = 3000, Category = ECategory.COFFEE });
-            Drinks.Add(new Drink { Name = "b", Price = 4500, Category = ECategory.COFFEE });
-            Drinks.Add(new Drink { Name = "c", Price = 100, Category = ECategory.COFFEE });
-            Drinks.Add(new Drink { Name = "d", Price = 30000, Category = ECategory.ADE });
-            Drinks.Add(new Drink { Name = "d", Price = 30000, Category = ECategory.SMOOTHIE });
-            Drinks.Add(new Drink { Name = "d", Price = 30000, Category = ECategory.SMOOTHIE });
-            Drinks.Add(new Drink { Name = "d", Price = 30000, Category = ECategory.SMOOTHIE });
-            Drinks.Add(new Drink { Name = "d", Price = 30000, Category = ECategory.SMOOTHIE });
-            Drinks.Add(new Drink { Name = "d", Price = 30000 });
+            Drinks = dbManager.GetDrinks();
+            //Drinks.Add(new Drink { Idx = 1, Name = "a", Price = 1000, DiscountPrice = 100, Category = ECategory.ADE });
+            //Drinks.Add(new Drink { Idx = 2, Name = "a", Price = 2000, DiscountPrice = 100, Category = ECategory.ADE });
+            //Drinks.Add(new Drink { Idx = 3, Name = "a", Price = 3000, DiscountPrice = 100, Category = ECategory.ADE });
+            //Drinks.Add(new Drink { Idx = 4, Name = "a", Price = 4000, DiscountPrice = 100, Category = ECategory.ADE });
+            //Drinks.Add(new Drink { Idx = 5, Name = "a", Price = 5000, DiscountPrice = 100, Category = ECategory.ADE });
+            //Drinks.Add(new Drink { Idx = 6, Name = "a", Price = 6000, DiscountPrice = 100, Category = ECategory.ADE });
         }
 
         private void SetDisplayDrinks()
@@ -123,7 +165,18 @@ namespace BomBom_Kiosk.ViewModel
 
         private void AddToOrderList()
         {
+            if (OrderList.Where(x => x.MenuIdx == SelectedDrink.Idx).Count() == 0)
+            {
+                OrderList.Add(new OrderedDrink
+                {
+                    MenuIdx = SelectedDrink.Idx,
+                    Name = SelectedDrink.Name,
+                    Price = SelectedDrink.Price,
+                    TotalPrice = SelectedDrink.Price
+                });
+            }
 
+            IncreaseCount(SelectedDrink.Idx);
         }
     }
 }

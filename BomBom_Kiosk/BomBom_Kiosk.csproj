@@ -131,8 +131,11 @@
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Drink.cs" />
     <Compile Include="Model\OrderedDrink.cs" />
-    <Compile Include="Model\OrderType.cs" />
+    <Compile Include="Model\Table.cs" />
+    <Compile Include="Service\DBManager.cs" />
+    <Compile Include="UIManager.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
+    <Compile Include="ViewModel\PaymentViewModel.cs" />
     <Compile Include="View\PaymentWindow.xaml.cs">
       <DependentUpon>PaymentWindow.xaml</DependentUpon>
     </Compile>
@@ -218,9 +221,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Service\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\home.png" />
   </ItemGroup>
