@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BomBom_Kiosk.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -34,6 +35,16 @@ namespace BomBom_Kiosk.Control
         private void lvDrinks_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             lvDrinks.UnselectAll();
+        }
+
+        private void btnPrev_Click(object sender, RoutedEventArgs e)
+        {
+            App.uiManager.Pop();
+        }
+
+        private void btnOrder_Click(object sender, RoutedEventArgs e)
+        {
+            App.uiManager.Push(UICategory.CHOOSEPLACE);
         }
     }
 }

@@ -128,8 +128,8 @@
 
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.5*"/>
-                <RowDefinition Height="0.4*"/>
+                <RowDefinition Height="0.6*"/>
+                <RowDefinition Height="0.3*"/>
                 <RowDefinition Height="0.1*"/>
             </Grid.RowDefinitions>
 
@@ -145,6 +145,7 @@
                         <GridView>
                             <GridView.ColumnHeaderContainerStyle>
                                 <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="Height" Value="40"/>
                                     <Setter Property="Background" Value="LightGray"/>
                                 </Style>
                             </GridView.ColumnHeaderContainerStyle>
@@ -154,7 +155,7 @@
                             <GridViewColumn Header="수량" Width="250">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <StackPanel Width="200" Orientation="Horizontal">
+                                        <StackPanel Orientation="Horizontal">
                                             <Button Content="-"
                                                     Command="{Binding ElementName=lvOrderList, Path=DataContext.DecreaseCommand}"
                                                     CommandParameter="{Binding MenuIdx}"/>
@@ -173,6 +174,7 @@
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock Text="{Binding TotalPrice, Converter={StaticResource PriceToString}}"/>
                                             <Button Content="X"
+                                                    HorizontalAlignment="Right"
                                                     Command="{Binding ElementName=lvOrderList, Path=DataContext.RemoveCommand}"
                                                     CommandParameter="{Binding MenuIdx}"/>
                                         </StackPanel>
@@ -189,17 +191,47 @@
                            Margin="10 10 20 0">
                     <TextBlock Text="{Binding TotalPrice, Converter={StaticResource PriceToString}, 
                                       StringFormat=총 가격 : {0}}" 
-                               FontSize="20"
+                               FontSize="20" FontWeight="Bold"
                                VerticalAlignment="Center"/>
+                    
                     <Button Content="전체 삭제"
+                            FontSize="18" FontWeight="Bold"
+                            Height="50" Width="200"
                             Command="{Binding RemoveAllCommand}"
-                            Style="{StaticResource btnBaseStyle}"
-                            HorizontalAlignment="Right"/>
+                            HorizontalAlignment="Right">
+                        <Button.Style>
+                            <Style TargetType="{x:Type Button}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}" CornerRadius="10" BorderThickness="0">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                        <Setter Property="Background" Value="LightGray"/>
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
                 </DockPanel>
             </Grid>
 
             <Grid Grid.Row="2">
-                
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="이전"
+                            Style="{StaticResource btnBaseStyle}"
+                            Click="btnPrev_Click"/>
+                    <Button Content="주문하기"
+                            Style="{StaticResource btnBaseStyle}"
+                            Click="btnOrder_Click"
+                            Margin="20 0 20 0"/>
+                </StackPanel>
             </Grid>
         </Grid>
     </Grid>
