@@ -5,6 +5,7 @@ using Prism.Mvvm;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Input;
 
 namespace BomBom_Kiosk.ViewModel
@@ -12,6 +13,7 @@ namespace BomBom_Kiosk.ViewModel
     public class OrderViewModel : BindableBase
     {
         private DBManager dbManager = new DBManager();
+        private readonly int MAX_DRINK_NUM = 9;
 
         #region Property
         private List<Category> _categories = new List<Category>();
@@ -28,7 +30,7 @@ namespace BomBom_Kiosk.ViewModel
             set
             {
                 SetProperty(ref _selectedCategory, value);
-                SetDisplayDrinks();
+                CurrentDrinkPage = 1;
             }
         }
 
@@ -39,8 +41,8 @@ namespace BomBom_Kiosk.ViewModel
             set => SetProperty(ref _drinks, value);
         }
 
-        private List<Drink> _displayDrinks = new List<Drink>();
-        public List<Drink> DisplayDrinks
+        private ObservableCollection<Drink> _displayDrinks = new ObservableCollection<Drink>();
+        public ObservableCollection<Drink> DisplayDrinks
         {
             get => _displayDrinks;
             set => SetProperty(ref _displayDrinks, value);
@@ -61,6 +63,17 @@ namespace BomBom_Kiosk.ViewModel
             }
         }
 
+        private int _currentDrinkPage = 1;
+        public int CurrentDrinkPage
+        {
+            get => _currentDrinkPage;
+            set
+            {
+                _currentDrinkPage = value;
+                SetDisplayDrinks();
+            }
+        }
+
         private ObservableCollection<OrderedDrink> _orderList = new ObservableCollection<OrderedDrink>();
         public ObservableCollection<OrderedDrink> OrderList
         {
@@ -76,6 +89,8 @@ namespace BomBom_Kiosk.ViewModel
         }
         #endregion
 
+        public ICommand NextDrinkCommand { get; set; }
+        public ICommand PrevDrinkCommand { get; set; }
         public ICommand IncreaseCommand { get; set; }
         public ICommand DecreaseCommand { get; set; }
         public ICommand RemoveCommand { get; set; }
@@ -84,13 +99,15 @@ namespace BomBom_Kiosk.ViewModel
         public OrderViewModel()
         {
             InitCommand();
-            SetCategories();
             SetDrinks();
+            SetCategories();
             SetDisplayDrinks();
         }
 
         private void InitCommand()
         {
+            NextDrinkCommand = new DelegateCommand(() => CurrentDrinkPage++);
+            PrevDrinkCommand = new DelegateCommand(() => CurrentDrinkPage--);
             IncreaseCommand = new DelegateCommand<int?>(IncreaseCount);
             DecreaseCommand = new DelegateCommand<int?>(DecreaseCount);
             RemoveCommand = new DelegateCommand<int?>(RemoveDrink);
@@ -138,29 +155,66 @@ namespace BomBom_Kiosk.ViewModel
             TotalPrice = 0;
         }
 
-        private void SetCategories()
-        {
-            Categories.Add(new Category { Type = ECategory.COFFEE, Name = "커피" });
-            Categories.Add(new Category { Type = ECategory.SMOOTHIE, Name = "스무디" });
-            Categories.Add(new Category { Type = ECategory.ADE, Name = "에이드" });
-        }
-
         private void SetDrinks()
         {
-            Drinks = dbManager.GetDrinks();
-            //Drinks.Add(new Drink { Idx = 1, Name = "a", Price = 1000, DiscountPrice = 100, Category = ECategory.ADE });
-            //Drinks.Add(new Drink { Idx = 2, Name = "a", Price = 2000, DiscountPrice = 100, Category = ECategory.ADE });
-            //Drinks.Add(new Drink { Idx = 3, Name = "a", Price = 3000, DiscountPrice = 100, Category = ECategory.ADE });
-            //Drinks.Add(new Drink { Idx = 4, Name = "a", Price = 4000, DiscountPrice = 100, Category = ECategory.ADE });
-            //Drinks.Add(new Drink { Idx = 5, Name = "a", Price = 5000, DiscountPrice = 100, Category = ECategory.ADE });
-            //Drinks.Add(new Drink { Idx = 6, Name = "a", Price = 6000, DiscountPrice = 100, Category = ECategory.ADE });
+            //Drinks = dbManager.GetDrinks();
+            Drinks.Add(new Drink { Idx = 1, Name = "a", Price = 1000, DiscountPrice = 100, Category = ECategory.COFFEE });
+            Drinks.Add(new Drink { Idx = 2, Name = "a", Price = 2000, DiscountPrice = 100, Category = ECategory.COFFEE });
+            Drinks.Add(new Drink { Idx = 3, Name = "a", Price = 3000, DiscountPrice = 100, Category = ECategory.COFFEE });
+            Drinks.Add(new Drink { Idx = 4, Name = "a", Price = 4000, DiscountPrice = 100, Category = ECategory.COFFEE });
+            Drinks.Add(new Drink { Idx = 5, Name = "a", Price = 5000, DiscountPrice = 100, Category = ECategory.COFFEE });
+            Drinks.Add(new Drink { Idx = 6, Name = "a", Price = 6000, DiscountPrice = 100, Category = ECategory.COFFEE });
+            Drinks.Add(new Drink { Idx = 7, Name = "a", Price = 6000, DiscountPrice = 100, Category = ECategory.COFFEE });
+            Drinks.Add(new Drink { Idx = 8, Name = "a", Price = 6000, DiscountPrice = 100, Category = ECategory.COFFEE });
+            Drinks.Add(new Drink { Idx = 9, Name = "a", Price = 6000, DiscountPrice = 100, Category = ECategory.COFFEE });
+            Drinks.Add(new Drink { Idx = 10, Name = "a", Price = 6000, DiscountPrice = 100, Category = ECategory.COFFEE });
+        }
+
+        private void SetCategories()
+        {
+            Categories.Add(new Category { Type = ECategory.COFFEE, Name = "커피", Page = GetCategoryPage(ECategory.COFFEE) });
+            Categories.Add(new Category { Type = ECategory.SMOOTHIE, Name = "스무디", Page = GetCategoryPage(ECategory.SMOOTHIE) });
+            Categories.Add(new Category { Type = ECategory.ADE, Name = "에이드", Page = GetCategoryPage(ECategory.ADE) });
+        }
+
+        private int GetCategoryPage(ECategory category)
+        {
+            int count = Drinks.Where(x => x.Category == category).Count();
+            int page = (int)(count - 0.1) / MAX_DRINK_NUM + 1;
+
+            return page;
         }
 
         private void SetDisplayDrinks()
         {
             ECategory selectedCategory = (ECategory)SelectedCategory;
+            int page = Categories.Where(x => x.Type == selectedCategory).FirstOrDefault().Page;
 
-            DisplayDrinks = Drinks.Where(x => x.Category == selectedCategory).ToList();
+            if (CurrentDrinkPage > page)
+            {
+                CurrentDrinkPage = 1;
+            }
+            else if (CurrentDrinkPage < 1)
+            {
+                CurrentDrinkPage = page;
+            }
+
+            int maxIndex = CurrentDrinkPage * MAX_DRINK_NUM;
+            var drinks = Drinks.Where(x => x.Category == selectedCategory).ToList();
+
+            DisplayDrinks.Clear();
+
+            for (int i = maxIndex - MAX_DRINK_NUM; i < maxIndex; i++)
+            {
+                try
+                {
+                    DisplayDrinks.Add(drinks[i]);
+                }
+                catch
+                {
+                    return;
+                }
+            }
         }
 
         private void AddToOrderList()

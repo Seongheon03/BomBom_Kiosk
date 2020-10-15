@@ -6,54 +6,6 @@
              xmlns:local="clr-namespace:BomBom_Kiosk.Control"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <Style x:Key="btnStyle" TargetType="{x:Type Button}">
-            <Setter Property="Width" Value="200"/>
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Background" Value="#FFEA00"/>
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="10" BorderThickness="0">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Cursor" Value="Hand"/>
-                    <Setter Property="Background" Value="#FFBA0D"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-
-        <Style x:Key="btnSubStyle" TargetType="{x:Type Button}">
-            <Setter Property="Width" Value="10"/>
-            <Setter Property="Height" Value="10"/>
-        </Style>
-        
-        <Style TargetType="HeaderedItemsControl">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type HeaderedItemsControl}">
-                        <StackPanel>
-                            <Grid>
-                                <Rectangle Fill="{TemplateBinding Background}"/>
-                                <ContentPresenter ContentSource="Header"/>
-                            </Grid>
-                            <Grid>
-                                <Rectangle Stroke="{TemplateBinding BorderBrush}"/>
-                                <ItemsPresenter Margin="2,0,0,0"/>
-                            </Grid>
-                        </StackPanel>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.5*"/>
@@ -69,7 +21,8 @@
 
             <Grid Grid.Row="0">
                 <ListBox x:Name="lvCategory" ItemsSource="{Binding Categories}" 
-                         BorderThickness="0" SelectedIndex="{Binding SelectedCategory, Mode=TwoWay}"
+                         SelectedIndex="{Binding SelectedCategory, Mode=TwoWay}"
+                         BorderThickness="0" 
                          HorizontalAlignment="Center">
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -115,9 +68,10 @@
                 <ListView x:Name="lvDrinks" ItemsSource="{Binding DisplayDrinks}"
                           SelectedItem="{Binding SelectedDrink}"
                           SelectionChanged="lvDrinks_SelectionChanged" 
-                          HorizontalAlignment="Left" BorderThickness="0" Margin="70 0 0 0"
-                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                          ScrollViewer.VerticalScrollBarVisibility="Hidden">
+                          BorderThickness="0"
+                          HorizontalAlignment="Left" VerticalAlignment="Top" 
+                          Margin="70 10 0 0"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel/>
@@ -129,7 +83,7 @@
                             <Setter Property="Template">
                                 <Setter.Value>
                                     <ControlTemplate TargetType="{x:Type ListViewItem}">
-                                        <Border x:Name="border" Width="270" Height="260">
+                                        <Border x:Name="border" Width="270" Height="250">
                                             <ContentPresenter ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"/>
                                         </Border>
                                         <ControlTemplate.Triggers>
@@ -162,9 +116,11 @@
             <Grid Grid.Row="2">
                 <DockPanel Height="50" Margin="20 0 20 0">
                     <Button Content="이전"
-                            Style="{StaticResource btnStyle}"/>
+                            Command="{Binding PrevDrinkCommand}"
+                            Style="{StaticResource btnBaseStyle}"/>
                     <Button Content="다음"
-                            Style="{StaticResource btnStyle}"
+                            Command="{Binding NextDrinkCommand}"
+                            Style="{StaticResource btnBaseStyle}"
                             HorizontalAlignment="Right"/>
                 </DockPanel>
             </Grid>
@@ -183,7 +139,8 @@
                           FontSize="20" FontWeight="Bold"
                           Background="#EEEEEE"
                           BorderThickness="0"
-                          Margin="10 20 10 0">
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          Margin="10 20 20 0">
                     <ListView.View>
                         <GridView>
                             <GridView.ColumnHeaderContainerStyle>
@@ -193,8 +150,8 @@
                             </GridView.ColumnHeaderContainerStyle>
                             <GridViewColumn Header="메뉴"
                                             DisplayMemberBinding="{Binding Name}"
-                                            Width="400" />
-                            <GridViewColumn Header="수량" Width="200">
+                                            Width="420" />
+                            <GridViewColumn Header="수량" Width="250">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Width="200" Orientation="Horizontal">
@@ -210,7 +167,7 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="가격" Width="200">
+                            <GridViewColumn Header="가격" Width="250">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
@@ -229,15 +186,14 @@
 
             <Grid Grid.Row="1">
                 <DockPanel VerticalAlignment="Top"
-                           Height="40"
-                           Margin="10 10 10 0">
+                           Margin="10 10 20 0">
                     <TextBlock Text="{Binding TotalPrice, Converter={StaticResource PriceToString}, 
                                       StringFormat=총 가격 : {0}}" 
                                FontSize="20"
                                VerticalAlignment="Center"/>
                     <Button Content="전체 삭제"
                             Command="{Binding RemoveAllCommand}"
-                            Width="120"
+                            Style="{StaticResource btnBaseStyle}"
                             HorizontalAlignment="Right"/>
                 </DockPanel>
             </Grid>

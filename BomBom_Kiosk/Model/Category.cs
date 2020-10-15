@@ -10,6 +10,7 @@ namespace BomBom_Kiosk.Model
     {
         public ECategory Type { get; set; }
         public string Name { get; set; }
+        public int Page { get; set; }
     }
 
     public enum ECategory
