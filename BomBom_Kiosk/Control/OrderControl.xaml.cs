@@ -39,12 +39,12 @@ namespace BomBom_Kiosk.Control
 
         private void btnPrev_Click(object sender, RoutedEventArgs e)
         {
-            App.uiManager.Pop();
+            App.uiManager.PopUC();
         }
 
         private void btnOrder_Click(object sender, RoutedEventArgs e)
         {
-            App.uiManager.Push(UICategory.CHOOSEPLACE);
+            App.uiManager.PushUC(UICategory.CHOOSEPLACE);
         }
     }
 }

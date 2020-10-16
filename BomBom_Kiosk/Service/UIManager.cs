@@ -6,35 +6,37 @@ namespace BomBom_Kiosk.Service
 {
     public class UIManager
     {
-        private Dictionary<UICategory, UserControl> uiDic = new Dictionary<UICategory, UserControl>();
-        private Stack<UserControl> uiStack = new Stack<UserControl>();
+        // UC = UserControl
+        private Dictionary<UICategory, UserControl> ucDic = new Dictionary<UICategory, UserControl>();
+        private Stack<UserControl> ucStack = new Stack<UserControl>();
 
-        public void AddUserControl(UICategory category, UserControl userControl)
+        public void AddUC(UICategory category, UserControl userControl)
         {
-            uiDic.Add(category, userControl);
+            ucDic.Add(category, userControl);
         }
 
-        public void Push(UICategory category)
+        public UserControl GetCurrentUC()
         {
-            if (uiStack.Count != 0)
-            {
-                SetVisible(uiStack.Peek(), Visibility.Collapsed);
-            }
-
-            UserControl userControl = uiDic[category];
-
-            uiStack.Push(userControl);
-            SetVisible(userControl, Visibility.Visible);
+            return ucStack.Peek();
         }
 
-        public void Pop()
+        public void PushUC(UICategory category)
         {
-            SetVisible(uiStack.Pop(), Visibility.Collapsed);
-
-            if (uiStack.Count != 0)
+            if (ucStack.Count != 0)
             {
-                SetVisible(uiStack.Peek(), Visibility.Visible);
+                SetVisible(ucStack.Peek(), Visibility.Collapsed);
             }
+
+            UserControl currentUC = ucDic[category];
+
+            ucStack.Push(currentUC);
+            SetVisible(currentUC, Visibility.Visible);
+        }
+
+        public void PopUC()
+        {
+            SetVisible(ucStack.Pop(), Visibility.Collapsed);
+            SetVisible(ucStack.Peek(), Visibility.Visible);
         }
 
         public void SetVisible(UserControl ctrl, Visibility visible)

@@ -24,24 +24,24 @@ namespace BomBom_Kiosk
             SetTimer();
             InitUIDic();
 
-            App.uiManager.Push(UICategory.ORDER);
+            App.uiManager.PushUC(UICategory.ORDER);
         }
 
         private void InitUIDic()
         {
-            App.uiManager.AddUserControl(UICategory.HOME, ctrlHome);
-            App.uiManager.AddUserControl(UICategory.ORDER, ctrlOrder);
-            App.uiManager.AddUserControl(UICategory.CHOOSEPLACE, ctrlChoosePlace);
-            App.uiManager.AddUserControl(UICategory.INSHOP, ctrlInShop);
-            App.uiManager.AddUserControl(UICategory.CHOOSEPAYMENT, ctrlChoosePayment);
-            App.uiManager.AddUserControl(UICategory.PAYMENTBYCASH, ctrlPaymentByCash);
-            App.uiManager.AddUserControl(UICategory.PAYMENTBYCARD, ctrlPaymentByCard);
-            App.uiManager.AddUserControl(UICategory.PAYMENTRESULT, ctrlPaymentByResult);
+            App.uiManager.AddUC(UICategory.HOME, ctrlHome);
+            App.uiManager.AddUC(UICategory.ORDER, ctrlOrder);
+            App.uiManager.AddUC(UICategory.CHOOSEPLACE, ctrlChoosePlace);
+            App.uiManager.AddUC(UICategory.INSHOP, ctrlInShop);
+            App.uiManager.AddUC(UICategory.CHOOSEPAYMENT, ctrlChoosePayment);
+            App.uiManager.AddUC(UICategory.PAYMENTBYCASH, ctrlPaymentByCash);
+            App.uiManager.AddUC(UICategory.PAYMENTBYCARD, ctrlPaymentByCard);
+            App.uiManager.AddUC(UICategory.PAYMENTRESULT, ctrlPaymentByResult);
         }
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
-            App.uiManager.Push(UICategory.HOME);
+            App.uiManager.PushUC(UICategory.HOME);
         }
 
         private void SetBackground()

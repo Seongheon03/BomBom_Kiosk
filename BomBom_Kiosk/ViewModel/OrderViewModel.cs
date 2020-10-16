@@ -5,7 +5,6 @@ using Prism.Mvvm;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows.Input;
 
 namespace BomBom_Kiosk.ViewModel
