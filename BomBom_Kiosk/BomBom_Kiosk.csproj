@@ -129,6 +129,9 @@
     </Compile>
     <Compile Include="Converter\LeftTimeToStringConverter.cs" />
     <Compile Include="Converter\PriceToStringConverter.cs" />
+    <Compile Include="Control\ManagerControl.xaml.cs">
+      <DependentUpon>ManagerControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Drink.cs" />
     <Compile Include="Model\OrderData.cs" />
@@ -167,6 +170,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Control\PaymentResultControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\ManagerControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -220,7 +227,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\bombom.mp4" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\home.png" />
   </ItemGroup>
