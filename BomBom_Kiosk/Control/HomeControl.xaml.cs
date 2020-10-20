@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BomBom_Kiosk.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,10 @@ namespace BomBom_Kiosk.Control
         public HomeControl()
         {
             InitializeComponent();
+        }
+        private void OrderButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.uiManager.PushUC(UICategory.MANAGER);
         }
     }
 }
