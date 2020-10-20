@@ -30,6 +30,7 @@ namespace BomBom_Kiosk
         private void InitUIDic()
         {
             App.uiManager.AddUC(UICategory.HOME, ctrlHome);
+            App.uiManager.AddUC(UICategory.MANAGER, ctrlManager);
             App.uiManager.AddUC(UICategory.ORDER, ctrlOrder);
             App.uiManager.AddUC(UICategory.CHOOSEPLACE, ctrlChoosePlace);
             App.uiManager.AddUC(UICategory.INSHOP, ctrlInShop);
@@ -71,6 +72,14 @@ namespace BomBom_Kiosk
         private void SetTime()
         {
             tbCurrentTime.Text = DateTime.Now.ToString(string.Format("MM월 dd일 (ddd) tt hh시 mm분", CultureInfo.CreateSpecificCulture("ko-KR")));
+        }
+
+        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (App.uiManager.GetCurrentUC() == ctrlHome && e.Key == System.Windows.Input.Key.F2)
+            {
+                App.uiManager.PushUC(UICategory.MANAGER);
+            }
         }
     }
 }
