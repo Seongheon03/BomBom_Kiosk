@@ -10,13 +10,23 @@
         <StackPanel>
             <StackPanel Orientation="Horizontal" Margin="170 0 0 50">
                 <Border CornerRadius="10" Background="#ffea00" Width="180" Height="170">
-                    <Button Style="{StaticResource btnStyle2}" Content="현금" FontWeight="UltraBold"/>
+                    <Button 
+                        Style="{StaticResource btnCommonStyle}" 
+                        Content="현금" 
+                        FontWeight="UltraBold"
+                        Click="UseCash_Click"
+                        />
                 </Border>
                 <Border CornerRadius="10" Background="#ffea00" Width="180" Height="170" Margin="50 0 0 0">
-                    <Button Style="{StaticResource btnStyle2}" Content="카드" FontWeight="UltraBold"/>
+                    <Button 
+                        Style="{StaticResource btnCommonStyle}" 
+                        Content="카드" 
+                        FontWeight="UltraBold"
+                        Click="UseCard_Click"
+                        />
                 </Border>
             </StackPanel>
-            <Button Style="{StaticResource btnStyle1}" Content="이전" FontSize="13"/>
+            <Button Style="{StaticResource btnBaseStyle}" Content="이전"/>
         </StackPanel>
     </Grid>
 </UserControl>
