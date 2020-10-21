@@ -46,7 +46,14 @@
             <ListBox.ItemTemplate >
                 <DataTemplate >
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Button Content="{Binding Number}" Style="{StaticResource tableBtnStyle}"/>
+                        <Button Style="{StaticResource tableBtnStyle}"
+                                Command="{Binding ChooseTableCommand}"
+                                CommandParameter="{Binding Number}">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Number}"/>
+                                <TextBlock Text="{Binding LeftTime}"/>
+                            </StackPanel>
+                        </Button>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -54,11 +61,15 @@
 
         <DockPanel VerticalAlignment="Bottom">
             <Button Content="이전" 
-                    Style="{StaticResource btnStyle1}"
-                    HorizontalAlignment="Left"/>
+                    Style="{StaticResource btnBaseStyle}"
+                    HorizontalAlignment="Left"
+                    Click="btnPrev_Click"
+                    />
             <Button Content="다음"
-                    Style="{StaticResource btnStyle1}"
-                    HorizontalAlignment="Right"></Button>
+                    Style="{StaticResource btnBaseStyle}"
+                    HorizontalAlignment="Right"
+                    Click="btnNext_Click"
+                    />
         </DockPanel>
     </Grid>
 
