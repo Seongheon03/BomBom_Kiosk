@@ -20,10 +20,15 @@ namespace BomBom_Kiosk.Control
 
         }
 
+        private void goBack_Click(object sender, RoutedEventArgs e)
+        {
+            App.uiManager.PopUC();
+        }
+
         private void InShop_Click(object sender, RoutedEventArgs e)
         {
             App.paymentViewModel.orderData.Place = Model.EOrderPlace.InShop;
-            App.uiManager.PopUC();
+            App.uiManager.PushUC(UICategory.INSHOP);
         }
 
         private void TakeOut_Click(object sender, RoutedEventArgs e)

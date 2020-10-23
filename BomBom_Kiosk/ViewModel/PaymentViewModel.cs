@@ -22,7 +22,7 @@ namespace BomBom_Kiosk.ViewModel
             set => SetProperty(ref _tables, value);
         }
 
-        public OrderData orderData;
+        public OrderData orderData = new OrderData();
 
         public ICommand ChooseTableCommand { get; set; }
         public PaymentViewModel()

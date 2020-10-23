@@ -26,7 +26,10 @@
                         />
                 </Border>
             </StackPanel>
-            <Button Style="{StaticResource btnBaseStyle}" Content="이전"/>
+            <Button 
+                Style="{StaticResource btnBaseStyle}" 
+                Content="이전"
+                Click="goBack_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>

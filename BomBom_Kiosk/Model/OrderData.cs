@@ -13,6 +13,8 @@ namespace BomBom_Kiosk.Model
         public EOrderType Type { get; set; }
 
         public int Table { get; set; }
+
+        public String Barcode { get; set; }
         
     }
 

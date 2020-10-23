@@ -30,6 +30,11 @@ namespace BomBom_Kiosk.Control
         {
 
         }
+
+        private void goBack_Click(object sender, RoutedEventArgs e)
+        {
+            App.uiManager.PopUC();
+        }
         private void UseCash_Click(object sender, RoutedEventArgs e)
         {
             App.paymentViewModel.orderData.Type = Model.EOrderType.Cash;
