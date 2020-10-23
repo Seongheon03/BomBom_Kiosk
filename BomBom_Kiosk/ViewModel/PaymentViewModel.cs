@@ -39,7 +39,6 @@ namespace BomBom_Kiosk.ViewModel
         private void ChooseTable(int? tableNumber)
         {
             DispatcherTimer timer = new DispatcherTimer();
-
         }
 
         private void SetTables()
