@@ -64,11 +64,13 @@
                     Style="{StaticResource btnBaseStyle}"
                     HorizontalAlignment="Left"
                     Click="btnPrev_Click"
+                    Margin="50 0 0 40"
                     />
             <Button Content="다음"
                     Style="{StaticResource btnBaseStyle}"
                     HorizontalAlignment="Right"
                     Click="btnNext_Click"
+                    Margin="0 0 50 40"
                     />
         </DockPanel>
     </Grid>
