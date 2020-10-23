@@ -156,17 +156,17 @@ namespace BomBom_Kiosk.ViewModel
 
         private void SetDrinks()
         {
-            //Drinks = dbManager.GetDrinks();
-            Drinks.Add(new Drink { Idx = 1, Name = "a", Price = 1000, DiscountPrice = 100, Category = ECategory.COFFEE });
-            Drinks.Add(new Drink { Idx = 2, Name = "a", Price = 2000, DiscountPrice = 100, Category = ECategory.COFFEE });
-            Drinks.Add(new Drink { Idx = 3, Name = "a", Price = 3000, DiscountPrice = 100, Category = ECategory.COFFEE });
-            Drinks.Add(new Drink { Idx = 4, Name = "a", Price = 4000, DiscountPrice = 100, Category = ECategory.COFFEE });
-            Drinks.Add(new Drink { Idx = 5, Name = "a", Price = 5000, DiscountPrice = 100, Category = ECategory.COFFEE });
-            Drinks.Add(new Drink { Idx = 6, Name = "a", Price = 6000, DiscountPrice = 100, Category = ECategory.COFFEE });
-            Drinks.Add(new Drink { Idx = 7, Name = "a", Price = 6000, DiscountPrice = 100, Category = ECategory.COFFEE });
-            Drinks.Add(new Drink { Idx = 8, Name = "a", Price = 6000, DiscountPrice = 100, Category = ECategory.COFFEE });
-            Drinks.Add(new Drink { Idx = 9, Name = "a", Price = 6000, DiscountPrice = 100, Category = ECategory.COFFEE });
-            Drinks.Add(new Drink { Idx = 10, Name = "a", Price = 6000, DiscountPrice = 100, Category = ECategory.COFFEE });
+            Drinks = dbManager.GetDrinks();
+            //Drinks.Add(new Drink { Idx = 1, Name = "a", Price = 1000, DiscountPrice = 100, Category = ECategory.COFFEE });
+            //Drinks.Add(new Drink { Idx = 2, Name = "a", Price = 2000, DiscountPrice = 100, Category = ECategory.COFFEE });
+            //Drinks.Add(new Drink { Idx = 3, Name = "a", Price = 3000, DiscountPrice = 100, Category = ECategory.COFFEE });
+            //Drinks.Add(new Drink { Idx = 4, Name = "a", Price = 4000, DiscountPrice = 100, Category = ECategory.COFFEE });
+            //Drinks.Add(new Drink { Idx = 5, Name = "a", Price = 5000, DiscountPrice = 100, Category = ECategory.COFFEE });
+            //Drinks.Add(new Drink { Idx = 6, Name = "a", Price = 6000, DiscountPrice = 100, Category = ECategory.COFFEE });
+            //Drinks.Add(new Drink { Idx = 7, Name = "a", Price = 6000, DiscountPrice = 100, Category = ECategory.COFFEE });
+            //Drinks.Add(new Drink { Idx = 8, Name = "a", Price = 6000, DiscountPrice = 100, Category = ECategory.COFFEE });
+            //Drinks.Add(new Drink { Idx = 9, Name = "a", Price = 6000, DiscountPrice = 100, Category = ECategory.COFFEE });
+            //Drinks.Add(new Drink { Idx = 10, Name = "a", Price = 6000, DiscountPrice = 100, Category = ECategory.COFFEE });
         }
 
         private void SetCategories()
