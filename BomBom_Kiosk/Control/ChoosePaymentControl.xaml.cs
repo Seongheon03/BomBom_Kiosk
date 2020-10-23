@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BomBom_Kiosk.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,27 @@ namespace BomBom_Kiosk.Control
         public ChoosePaymentControl()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void goBack_Click(object sender, RoutedEventArgs e)
+        {
+            App.uiManager.PopUC();
+        }
+        private void UseCash_Click(object sender, RoutedEventArgs e)
+        {
+            App.paymentViewModel.orderData.Type = Model.EOrderType.Cash;
+            App.uiManager.PushUC(UICategory.PAYMENTBYCASH);
+        }
+
+        private void UseCard_Click(object sender, RoutedEventArgs e)
+        {
+            App.paymentViewModel.orderData.Type = Model.EOrderType.Card;
+            App.uiManager.PushUC(UICategory.PAYMENTBYCARD);
         }
     }
 }
