@@ -14,7 +14,8 @@ namespace BomBom_Kiosk.Model
 
         public int Table { get; set; }
 
-        public String Barcode { get; set; }
+        public string Barcode { get; set; }
+        public string Name { get; set; }
         
     }
 
