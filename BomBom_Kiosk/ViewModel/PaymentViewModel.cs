@@ -21,10 +21,6 @@ namespace BomBom_Kiosk.ViewModel
             get => _tables;
             set => SetProperty(ref _tables, value);
         }
-
-        public OrderData orderData = new OrderData();
-
-        public ICommand ChooseTableCommand { get; set; }
         public PaymentViewModel()
         {
             InitCommand();

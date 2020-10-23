@@ -10,6 +10,12 @@ namespace BomBom_Kiosk.Control
         public PaymentResultControl()
         {
             InitializeComponent();
+            Loaded += PaymentResultControl_Loaded;
+        }
+
+        private void PaymentResultControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            DataContext = App.paymentViewModel;
         }
     }
 }
