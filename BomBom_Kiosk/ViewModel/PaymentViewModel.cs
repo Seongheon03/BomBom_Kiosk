@@ -17,6 +17,13 @@ namespace BomBom_Kiosk.ViewModel
             set => SetProperty(ref _tables, value);
         }
 
+        private string _barcode;
+        public string Barcode 
+        {
+            get => _barcode;
+            set => SetProperty(ref _barcode, value);
+        }
+
         public OrderData orderData;
         public PaymentViewModel()
         {
