@@ -11,6 +11,7 @@ namespace BomBom_Kiosk
     /// </summary>
     public partial class MainWindow : Window
     {
+        TimeSpan driving_time = new TimeSpan(0, 0, 0);
         public MainWindow()
         {
             InitializeComponent();
@@ -66,6 +67,8 @@ namespace BomBom_Kiosk
 
         private void Timer_Tick(object sender, EventArgs e)
         {
+            TimeSpan duration = new System.TimeSpan(0, 0, 1);
+            driving_time = driving_time.Add(duration);
             SetTime();
         }
 
