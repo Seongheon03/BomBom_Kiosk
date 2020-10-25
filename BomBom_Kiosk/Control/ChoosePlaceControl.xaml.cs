@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using BomBom_Kiosk.Service;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace BomBom_Kiosk.Control
@@ -16,6 +17,24 @@ namespace BomBom_Kiosk.Control
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
+
+        }
+
+        private void goBack_Click(object sender, RoutedEventArgs e)
+        {
+            App.uiManager.PopUC();
+        }
+
+        private void InShop_Click(object sender, RoutedEventArgs e)
+        {
+            App.paymentViewModel.orderData.Place = Model.EOrderPlace.InShop;
+            App.uiManager.PushUC(UICategory.INSHOP);
+        }
+
+        private void TakeOut_Click(object sender, RoutedEventArgs e)
+        {
+            App.paymentViewModel.orderData.Place = Model.EOrderPlace.Packing;
+            App.uiManager.PushUC(UICategory.CHOOSEPAYMENT);
         }
     }
 }

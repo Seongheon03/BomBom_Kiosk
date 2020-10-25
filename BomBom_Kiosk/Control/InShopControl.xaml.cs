@@ -1,4 +1,5 @@
-﻿using BomBom_Kiosk.ViewModel;
+﻿using BomBom_Kiosk.Service;
+using BomBom_Kiosk.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +31,16 @@ namespace BomBom_Kiosk.Control
         private void InShopControl_Loaded(object sender, RoutedEventArgs e)
         {
             DataContext = App.paymentViewModel;
+        }
+
+        private void btnPrev_Click(object sender, RoutedEventArgs e)
+        {
+            App.uiManager.PopUC();
+        }
+
+        private void btnNext_Click(object sender, RoutedEventArgs e)
+        {
+            App.uiManager.PushUC(UICategory.CHOOSEPAYMENT);
         }
     }
 }

@@ -1,10 +1,15 @@
 ﻿using BomBom_Kiosk.Model;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace BomBom_Kiosk.ViewModel
 {
@@ -17,22 +22,44 @@ namespace BomBom_Kiosk.ViewModel
             set => SetProperty(ref _tables, value);
         }
 
-        public OrderData orderData;
+        public OrderData OrderInfo = new OrderData();
+
+        public ICommand ChooseTableCommand { get; set; }
+
         public PaymentViewModel()
         {
+            InitCommand();
             SetTables();
         }
+
+        private void InitCommand()
+        {
+            ChooseTableCommand = new DelegateCommand<int?>(ChooseTable);
+        }
+
+        private void ChooseTable(int? tableNumber)
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+        }
+
         private void SetTables()
         {
-            Tables.Add(new Table { Number = 1, LeftTime = null });
-            Tables.Add(new Table { Number = 2, LeftTime = null });
-            Tables.Add(new Table { Number = 3, LeftTime = null });
-            Tables.Add(new Table { Number = 4, LeftTime = null });
-            Tables.Add(new Table { Number = 5, LeftTime = null });
-            Tables.Add(new Table { Number = 6, LeftTime = null });
-            Tables.Add(new Table { Number = 7, LeftTime = null });
-            Tables.Add(new Table { Number = 8, LeftTime = null });
-            Tables.Add(new Table { Number = 9, LeftTime = null });
+            Tables.Add(new Table { Number = 1 });
+            Tables.Add(new Table { Number = 2 });
+            Tables.Add(new Table { Number = 3 });
+            Tables.Add(new Table { Number = 4 });
+            Tables.Add(new Table { Number = 5 });
+            Tables.Add(new Table { Number = 6 });
+            Tables.Add(new Table { Number = 7 });
+            Tables.Add(new Table { Number = 8 });
+            Tables.Add(new Table { Number = 9 });
+        }
+
+        private void setOrderData(EOrderPlace place, EOrderType type, int table)
+        {
+            OrderInfo.Place = place;
+            OrderInfo.Type = type;
+            OrderInfo.Table = table;
         }
     }
 }
