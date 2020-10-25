@@ -27,7 +27,7 @@ namespace BomBom_Kiosk.Control
         }
         private void OrderButton_Click(object sender, RoutedEventArgs e)
         {
-            App.uiManager.PushUC(UICategory.MANAGER);
+            App.uiManager.PushUC(UICategory.ORDER);
         }
     }
 }
