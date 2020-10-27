@@ -1,4 +1,5 @@
-﻿using BomBom_Kiosk.ViewModel;
+﻿using BomBom_Kiosk.Service;
+using BomBom_Kiosk.ViewModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -9,6 +10,7 @@ namespace BomBom_Kiosk.Control
     /// </summary>
     public partial class PaymentByCashControl : UserControl
     {
+        private DBManager dbManager = new DBManager();
         public OrderViewModel OrderViewModel { get; set; } = App.orderViewModel;
         public PaymentViewModel PaymentViewModel { get; set; } = App.paymentViewModel;
 
@@ -35,6 +37,7 @@ namespace BomBom_Kiosk.Control
             if ((bool)e.NewValue == true)
             {
                 tbBarcode.Text = "";
+                tbStatus.Visibility = Visibility.Hidden;
             }
         }
 
@@ -42,7 +45,19 @@ namespace BomBom_Kiosk.Control
         {
             if (e.Key == System.Windows.Input.Key.Return)
             {
-                App.uiManager.PushUC(Service.UICategory.PAYMENTRESULT);
+                string name = dbManager.GetMember(tbBarcode.Text);
+
+                if (name == null)
+                {
+                    tbBarcode.Text = "";
+                    tbStatus.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    App.paymentViewModel.OrderInfo.Name = name;
+                    tbStatus.Visibility = Visibility.Hidden;
+                    App.uiManager.PushUC(UICategory.PAYMENTRESULT);
+                }
             }
         }
 

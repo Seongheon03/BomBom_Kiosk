@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using BomBom_Kiosk.ViewModel;
+using System.Windows.Controls;
 
 namespace BomBom_Kiosk.Control
 {
@@ -7,6 +8,9 @@ namespace BomBom_Kiosk.Control
     /// </summary>
     public partial class PaymentResultControl : UserControl
     {
+        public OrderViewModel OrderViewModel { get; set; } = App.orderViewModel;
+        public PaymentViewModel PaymentViewModel { get; set; } = App.paymentViewModel;
+
         public PaymentResultControl()
         {
             InitializeComponent();
