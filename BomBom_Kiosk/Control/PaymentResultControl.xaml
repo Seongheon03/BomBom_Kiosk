@@ -6,7 +6,19 @@
              xmlns:local="clr-namespace:BomBom_Kiosk.Control"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0 100 0 0"/>
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        <TextBlock Text="{Binding Barcode, StringFormat=인식된 카드번호 : {0}}"/>
+        <StackPanel>
+            <TextBlock Text="{Binding PaymentViewModel.OrderInfo.Name, StringFormat=회원명 : {0}}"/>
+            <TextBlock Text="{Binding PaymentViewModel.OrderInfo.Barcode, StringFormat=인식된 카드번호 : {0}}"/>
+            <TextBlock Text="{Binding OrderViewModel.ToTalPrice, StringFormat=총 금액 : {0} 결제되었습니다.,
+                              Converter={StaticResource PriceToString}}"/>
+        </StackPanel>
     </Grid>
 </UserControl>

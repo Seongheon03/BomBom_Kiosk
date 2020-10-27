@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BomBom_Kiosk.Control"
              mc:Ignorable="d" 
-             
              KeyDown="UserControl_KeyDown"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
@@ -19,9 +18,8 @@
         <StackPanel HorizontalAlignment="Center" Margin="0 50 0 0">
             <TextBlock Text="현금 계산을 선택하셨습니다. 현금영수증카드를 제시해주세요"/>
             <TextBlock Text="{Binding OrderViewModel.TotalPrice, StringFormat=총 금액 : {0}, Converter={StaticResource PriceToString}}" Margin="0 100 0 0"/>
-
             <TextBox x:Name="tbBarcode"
-                     Text="{Binding PaymentViewModel.Barcode, UpdateSourceTrigger=PropertyChanged}"
+                     Text="{Binding PaymentViewModel.OrderInfo.Barcode, UpdateSourceTrigger=PropertyChanged}"
                      Background="Transparent"
                      CaretBrush="Transparent"
                      Foreground="Transparent"
@@ -36,11 +34,14 @@
                     </Style>
                 </TextBox.Style>
             </TextBox>
+            <TextBlock x:Name="tbStatus" 
+                       Text="등록된 회원이 아닙니다."
+                       Visibility="Hidden"/>
 
             <Button Content="이전" HorizontalAlignment="Left"
                     Style="{StaticResource btnBaseStyle}"
                     Click="btnPrev_Click"
-                    Margin="0 500 0 0"/>
+                    Margin="0 400 0 0"/>
         </StackPanel>
     </Grid>
 </UserControl>
