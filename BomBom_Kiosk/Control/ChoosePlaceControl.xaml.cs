@@ -14,12 +14,6 @@ namespace BomBom_Kiosk.Control
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-
-        }
-
         private void goBack_Click(object sender, RoutedEventArgs e)
         {
             App.uiManager.PopUC();
@@ -27,13 +21,13 @@ namespace BomBom_Kiosk.Control
 
         private void InShop_Click(object sender, RoutedEventArgs e)
         {
-            App.paymentViewModel.orderData.Place = Model.EOrderPlace.InShop;
+            App.paymentViewModel.OrderInfo.Place = Model.EOrderPlace.InShop;
             App.uiManager.PushUC(UICategory.INSHOP);
         }
 
         private void TakeOut_Click(object sender, RoutedEventArgs e)
         {
-            App.paymentViewModel.orderData.Place = Model.EOrderPlace.Packing;
+            App.paymentViewModel.OrderInfo.Place = Model.EOrderPlace.Packing;
             App.uiManager.PushUC(UICategory.CHOOSEPAYMENT);
         }
     }

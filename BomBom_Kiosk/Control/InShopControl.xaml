@@ -4,9 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BomBom_Kiosk.Control"
+             xmlns:cvts="clr-namespace:BomBom_Kiosk.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
+        <cvts:BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
+
         <Style x:Key="tableBtnStyle" TargetType="{x:Type Button}">
             <Setter Property="Width" Value="120"/>
             <Setter Property="Height" Value="50"/>
@@ -43,15 +46,16 @@
                     </Setter>
                 </Style>
             </ListBox.ItemContainerStyle>
-            <ListBox.ItemTemplate >
-                <DataTemplate >
+            <ListBox.ItemTemplate>
+                <DataTemplate>
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Button Style="{StaticResource tableBtnStyle}"
                                 Command="{Binding ChooseTableCommand}"
                                 CommandParameter="{Binding Number}">
                             <StackPanel>
                                 <TextBlock Text="{Binding Number}"/>
-                                <TextBlock Text="{Binding LeftTime}"/>
+                                <TextBlock Text="{Binding LeftTime}" 
+                                           Visibility="{Binding IsUsing, Converter=BooleanToVisibility}"/>
                             </StackPanel>
                         </Button>
                     </StackPanel>

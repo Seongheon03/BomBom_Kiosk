@@ -26,24 +26,19 @@ namespace BomBom_Kiosk.Control
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void goBack_Click(object sender, RoutedEventArgs e)
         {
             App.uiManager.PopUC();
         }
         private void UseCash_Click(object sender, RoutedEventArgs e)
         {
-            App.paymentViewModel.orderData.Type = Model.EOrderType.Cash;
+            App.paymentViewModel.OrderInfo.Type = Model.EOrderType.Cash;
             App.uiManager.PushUC(UICategory.PAYMENTBYCASH);
         }
 
         private void UseCard_Click(object sender, RoutedEventArgs e)
         {
-            App.paymentViewModel.orderData.Type = Model.EOrderType.Card;
+            App.paymentViewModel.OrderInfo.Type = Model.EOrderType.Card;
             App.uiManager.PushUC(UICategory.PAYMENTBYCARD);
         }
     }
