@@ -133,6 +133,7 @@
     <Compile Include="Control\PaymentResultControl.xaml.cs">
       <DependentUpon>PaymentResultControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converter\LeftTimeToStringConverter.cs" />
     <Compile Include="Converter\PriceToStringConverter.cs" />
     <Compile Include="Control\ManagerControl.xaml.cs">
