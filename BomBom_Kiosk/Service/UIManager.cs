@@ -48,6 +48,7 @@ namespace BomBom_Kiosk.Service
     public enum UICategory
     {
         HOME,
+        MANAGER,
         ORDER,
         CHOOSEPLACE,
         INSHOP,

@@ -7,6 +7,20 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        
+        <MediaElement 
+               Source ="Resources\bombom.mp4"
+               Height="290"
+               Margin="0, 0, 0, 150"/>
+        <Label Content="안녕하세요 주문을 원하시면 아래 주문하기 버튼을 클릭해주세요"  
+               FontSize="18" 
+               HorizontalAlignment="Center"
+               Margin="0, 500, 0, 0"/>
+        <Button Content="주문하기" 
+                Height="64" 
+                Width="300" 
+                Click="OrderButton_Click" 
+                FontSize="20" 
+                Background="#FFF7DF07"
+                Margin="0, 500, 0, 0"/>
     </Grid>
 </UserControl>
