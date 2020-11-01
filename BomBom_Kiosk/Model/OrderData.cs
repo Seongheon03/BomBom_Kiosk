@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BomBom_Kiosk.Model
 {
-    public class OrderData
+    public class OrderData : BindableBase
     {
         public EOrderPlace Place { get; set; }
 
@@ -14,8 +15,19 @@ namespace BomBom_Kiosk.Model
 
         public int Table { get; set; }
 
-        public string Barcode { get; set; }
-        public string Name { get; set; }
+        private string _code;
+        public string Code
+        {
+            get => _code;
+            set => SetProperty(ref _code, value);
+        }
+
+        private string _name;
+        public string Name 
+        {
+            get => _name;
+            set => SetProperty(ref _name, value);
+        }
         
     }
 

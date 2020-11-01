@@ -15,14 +15,21 @@ namespace BomBom_Kiosk.ViewModel
 {
     public class PaymentViewModel : BindableBase
     {
-        private List<Table> _tables = new List<Table>();
-        public List<Table> Tables
-        {
-            get => _tables;
-            set => SetProperty(ref _tables, value);
-        }
+        //private List<Table> _tables = new List<Table>();
+        //public List<Table> Tables
+        //{
+        //    get => _tables;
+        //    set => SetProperty(ref _tables, value);
+        //}
 
-        public OrderData OrderInfo = new OrderData();
+        public List<Table> Tables { get; set; } = new List<Table>();
+
+        private OrderData _orderInfo = new OrderData();
+        public OrderData OrderInfo
+        {
+            get => _orderInfo;
+            set => SetProperty(ref _orderInfo, value);
+        }
 
         public ICommand ChooseTableCommand { get; set; }
 

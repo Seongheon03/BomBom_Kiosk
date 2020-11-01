@@ -1,5 +1,10 @@
-﻿using BomBom_Kiosk.ViewModel;
+﻿using BomBom_Kiosk.Model;
+using BomBom_Kiosk.ViewModel;
+using System;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace BomBom_Kiosk.Control
 {
@@ -19,7 +24,14 @@ namespace BomBom_Kiosk.Control
 
         private void PaymentResultControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            DataContext = App.paymentViewModel;
+            DataContext = this;
+            IsVisibleChanged += PaymentResultControl_IsVisibleChanged;
+        }
+
+        private async void PaymentResultControl_IsVisibleChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
+        {
+            await Task.Run(() => Thread.Sleep(TimeSpan.FromSeconds(5)));
+            App.uiManager.PushUC(Service.UICategory.HOME);
         }
     }
 }

@@ -4,9 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BomBom_Kiosk.Control"
+             xmlns:qrcode="clr-namespace:KQRCode;assembly=KQRCode"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}">
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Margin" Value="0 50 0 0"/>
+        </Style>
+    </UserControl.Resources>
     <Grid>
-            
+        <StackPanel HorizontalAlignment="Center" Margin="0 50 0 0">
+            <TextBlock Text="카드 계산을 선택하셨습니다. 카메라에 QR코드를 인식하세요."/>
+            <qrcode:KQRWebCam x:Name="webcam" Width="500" Margin="0 100 0 0"
+                              QrDecoded="webcam_QrDecoded" />
+            <TextBlock x:Name="tbStatus" 
+                       Text="등록된 회원이 아닙니다."
+                       Visibility="Hidden"/>
+        </StackPanel>
     </Grid>
 </UserControl>

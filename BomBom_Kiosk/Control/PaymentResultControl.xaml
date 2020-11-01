@@ -10,15 +10,16 @@
         <Style TargetType="{x:Type TextBlock}">
             <Setter Property="FontSize" Value="30"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Margin" Value="0 100 0 0"/>
+            <Setter Property="Margin" Value="0 50 0 0"/>
         </Style>
     </UserControl.Resources>
     <Grid>
-        <StackPanel>
+        <StackPanel HorizontalAlignment="Center" Margin="0 100 0 0">
+            <TextBlock Text="{Binding PaymentViewModel.OrderInfo.Code, StringFormat=인식된 카드번호 : {0}}"/>
             <TextBlock Text="{Binding PaymentViewModel.OrderInfo.Name, StringFormat=회원명 : {0}}"/>
-            <TextBlock Text="{Binding PaymentViewModel.OrderInfo.Barcode, StringFormat=인식된 카드번호 : {0}}"/>
-            <TextBlock Text="{Binding OrderViewModel.ToTalPrice, StringFormat=총 금액 : {0} 결제되었습니다.,
+            <TextBlock Text="{Binding OrderViewModel.TotalPrice, StringFormat=총 금액 : {0}        결제되었습니다.,
                               Converter={StaticResource PriceToString}}"/>
+            <TextBlock Text="주문번호 : 123" Margin="0 200 0 0"/>
         </StackPanel>
     </Grid>
 </UserControl>
