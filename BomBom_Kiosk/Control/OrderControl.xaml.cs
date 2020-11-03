@@ -1,18 +1,7 @@
 ﻿using BomBom_Kiosk.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace BomBom_Kiosk.Control
 {
@@ -30,6 +19,21 @@ namespace BomBom_Kiosk.Control
         private void OrderControl_Loaded(object sender, RoutedEventArgs e)
         {
             DataContext = App.orderViewModel;
+            ((INotifyCollectionChanged)lvOrderList.Items).CollectionChanged += OrderControl_CollectionChanged;
+        }
+
+        private void OrderControl_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (lvOrderList.Items.Count == 0)
+            {
+                btnRemoveAll.IsEnabled = false;
+                btnOrder.IsEnabled = false;
+            }
+            else
+            {
+                btnRemoveAll.IsEnabled = true;
+                btnOrder.IsEnabled = true;
+            }
         }
 
         private void lvDrinks_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -39,6 +43,18 @@ namespace BomBom_Kiosk.Control
 
         private void btnPrev_Click(object sender, RoutedEventArgs e)
         {
+            if (App.orderViewModel.OrderList.Count != 0)
+            {
+                if (MessageBox.Show("주문을 취소하시겠습니까?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    App.orderViewModel.OrderList.Clear();
+                }
+                else
+                {
+                    return;
+                }
+            }
+
             App.uiManager.PopUC();
         }
 

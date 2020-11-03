@@ -194,7 +194,8 @@
                                FontSize="20" FontWeight="Bold"
                                VerticalAlignment="Center"/>
                     
-                    <Button Content="전체 삭제"
+                    <Button x:Name="btnRemoveAll" Content="전체 삭제" 
+                            IsEnabled="False"
                             FontSize="18" FontWeight="Bold"
                             Height="50" Width="200"
                             Command="{Binding RemoveAllCommand}"
@@ -227,7 +228,9 @@
                     <Button Content="이전"
                             Style="{StaticResource btnBaseStyle}"
                             Click="btnPrev_Click"/>
-                    <Button Content="주문하기"
+                    <Button x:Name="btnOrder" 
+                            Content="주문하기"
+                            IsEnabled="False"
                             Style="{StaticResource btnBaseStyle}"
                             Click="btnOrder_Click"
                             Margin="20 0 20 0"/>

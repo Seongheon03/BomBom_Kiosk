@@ -5,6 +5,8 @@ using Prism.Mvvm;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 
 namespace BomBom_Kiosk.ViewModel
@@ -86,6 +88,9 @@ namespace BomBom_Kiosk.ViewModel
             get => _totalPrice;
             set => SetProperty(ref _totalPrice, value);
         }
+
+        public delegate void LoadingEventHandler(object sender, bool isLoaded);
+        public event LoadingEventHandler LoadingAction;
         #endregion
 
         public ICommand NextDrinkCommand { get; set; }
@@ -98,9 +103,7 @@ namespace BomBom_Kiosk.ViewModel
         public OrderViewModel()
         {
             InitCommand();
-            SetDrinks();
-            SetCategories();
-            SetDisplayDrinks();
+            //InitData();
         }
 
         private void InitCommand()
@@ -150,13 +153,33 @@ namespace BomBom_Kiosk.ViewModel
 
         private void RemoveAllDrink()
         {
-            OrderList.Clear();
-            TotalPrice = 0;
+            if (MessageBox.Show("모두 삭제하시겠습니까?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+                OrderList.Clear();
+                TotalPrice = 0;
+            }
         }
 
-        private void SetDrinks()
+        public async void InitData()
         {
-            Drinks = dbManager.GetDrinks();
+            LoadingAction?.Invoke(this, true);
+
+            await SetDrinks();
+            SetCategories();
+            SetDisplayDrinks();
+            //await Task.Run(async () =>
+            //{
+            //    await SetDrinks();
+            //    SetCategories();
+            //    SetDisplayDrinks();
+            //});
+
+            LoadingAction?.Invoke(this, false);
+        }
+
+        private async Task SetDrinks()
+        {
+            Drinks = await Task.Run(() => dbManager.GetDrinks());
             //Drinks.Add(new Drink { Idx = 1, Name = "a", Price = 1000, DiscountPrice = 100, Category = ECategory.COFFEE });
             //Drinks.Add(new Drink { Idx = 2, Name = "a", Price = 2000, DiscountPrice = 100, Category = ECategory.COFFEE });
             //Drinks.Add(new Drink { Idx = 3, Name = "a", Price = 3000, DiscountPrice = 100, Category = ECategory.COFFEE });
@@ -201,7 +224,10 @@ namespace BomBom_Kiosk.ViewModel
             int maxIndex = CurrentDrinkPage * MAX_DRINK_NUM;
             var drinks = Drinks.Where(x => x.Category == selectedCategory).ToList();
 
-            DisplayDrinks.Clear();
+            if (DisplayDrinks.Count != 0)
+            {
+                DisplayDrinks.Clear();
+            }
 
             for (int i = maxIndex - MAX_DRINK_NUM; i < maxIndex; i++)
             {

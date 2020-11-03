@@ -9,6 +9,9 @@
             <cvts:PriceToStringConverter x:Key="PriceToString"/>
 
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Colors.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Styles.xaml"/>
+                
                 <ResourceDictionary Source="/Theme/Button.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

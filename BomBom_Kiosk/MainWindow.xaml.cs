@@ -20,12 +20,21 @@ namespace BomBom_Kiosk
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+            App.orderViewModel.LoadingAction += OrderViewModel_LoadingAction;
+            App.orderViewModel.InitData();
+
             DataContext = this;
+
             SetBackground();
             SetTimer();
             InitUIDic();
 
             App.uiManager.PushUC(UICategory.HOME);
+        }
+
+        private void OrderViewModel_LoadingAction(object sender, bool isLoaded)
+        {
+            progressRing.IsActive = isLoaded;
         }
 
         private void InitUIDic()
@@ -43,6 +52,18 @@ namespace BomBom_Kiosk
 
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
+            if (App.orderViewModel.OrderList.Count != 0)
+            {
+                if (MessageBox.Show("주문을 취소하시겠습니까?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    App.orderViewModel.OrderList.Clear();
+                }
+                else
+                {
+                    return;
+                }
+            }
+
             App.uiManager.PushUC(UICategory.HOME);
         }
 
