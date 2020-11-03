@@ -17,11 +17,18 @@
     <Grid>
         <StackPanel HorizontalAlignment="Center" Margin="0 50 0 0">
             <TextBlock Text="카드 계산을 선택하셨습니다. 카메라에 QR코드를 인식하세요."/>
+            <TextBlock Text="{Binding TotalPrice, StringFormat=총 금액 : {0},
+                                      Converter={StaticResource PriceToString}}"
+                       Margin="0 100 0 0"/>
             <qrcode:KQRWebCam x:Name="webcam" Width="500" Margin="0 100 0 0"
                               QrDecoded="webcam_QrDecoded" />
             <TextBlock x:Name="tbStatus" 
                        Text="등록된 회원이 아닙니다."
                        Visibility="Hidden"/>
+            <Button Content="이전" HorizontalAlignment="Left"
+                    Style="{StaticResource btnBaseStyle}"
+                    Click="btnPrev_Click"
+                    Margin="0 50 0 0"/>
         </StackPanel>
     </Grid>
 </UserControl>

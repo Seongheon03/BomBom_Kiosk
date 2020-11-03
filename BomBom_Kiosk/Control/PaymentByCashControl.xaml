@@ -17,7 +17,9 @@
     <Grid>
         <StackPanel HorizontalAlignment="Center" Margin="0 50 0 0">
             <TextBlock Text="현금 계산을 선택하셨습니다. 현금영수증카드를 제시해주세요"/>
-            <TextBlock Text="{Binding OrderViewModel.TotalPrice, StringFormat=총 금액 : {0}, Converter={StaticResource PriceToString}}" Margin="0 100 0 0"/>
+            <TextBlock Text="{Binding OrderViewModel.TotalPrice, StringFormat=총 금액 : {0}, 
+                                      Converter={StaticResource PriceToString}}" 
+                       Margin="0 100 0 0"/>
             <TextBox x:Name="tbBarcode"
                      Text="{Binding PaymentViewModel.OrderInfo.Code, UpdateSourceTrigger=PropertyChanged}"
                      Background="Transparent"
