@@ -24,7 +24,27 @@ namespace BomBom_Kiosk.Control
         public HomeControl()
         {
             InitializeComponent();
+            Loaded += HomeControl_Loaded;
+            mediaelement.Play();
         }
+
+        private void HomeControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            IsVisibleChanged += HomeControl_IsVisibleChanged;
+        }
+
+        private void HomeControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue == true)
+            {
+                mediaelement.Play();
+            }
+            else
+            {
+                mediaelement.Stop();
+            }
+        }
+
         private void OrderButton_Click(object sender, RoutedEventArgs e)
         {
             App.uiManager.PushUC(UICategory.ORDER);
