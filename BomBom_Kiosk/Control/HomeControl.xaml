@@ -8,7 +8,10 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <MediaElement 
+               x:Name="mediaelement"
                Source ="Resources\bombom.mp4"
+               LoadedBehavior="Manual"
+               UnloadedBehavior="Stop"
                Height="290"
                Margin="0, 0, 0, 150"/>
         <Label Content="안녕하세요 주문을 원하시면 아래 주문하기 버튼을 클릭해주세요"  

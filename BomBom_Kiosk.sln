@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BomBom_Kiosk", "BomBom_Kiosk\BomBom_Kiosk.csproj", "{9E11C57A-87C9-4E09-80B2-B101588A13E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KQRCode", "..\..\Users\seong\source\repos\Test\KQRCode\KQRCode.csproj", "{62F1B37E-4BB2-442B-99A7-36279C5C0F3F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KQRCode", "..\..\..\바탕 화면\KQRCode\KQRCode.csproj", "{62F1B37E-4BB2-442B-99A7-36279C5C0F3F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
