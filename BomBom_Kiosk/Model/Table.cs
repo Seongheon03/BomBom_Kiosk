@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,23 +8,31 @@ using System.Windows.Threading;
 
 namespace BomBom_Kiosk.Model
 {
-    public class Table
+    public class Table : BindableBase
     {
         DispatcherTimer timer = new DispatcherTimer();
 
         public int Number { get; set; }
-        public TimeSpan LeftTime { get; set; } = TimeSpan.FromSeconds(60);
+
+        private TimeSpan _leftTime = TimeSpan.FromSeconds(60);
+        public TimeSpan LeftTime 
+        {
+            get => _leftTime;
+            set => SetProperty(ref _leftTime, value);
+        }
+
+        private bool _isUsing;
         public bool IsUsing
         {
-            get => IsUsing;
+            get => _isUsing;
             set
             {
-                IsUsing = value;
+                _isUsing = value;
 
-                if (IsUsing)
-                {
-                    StartTimer();
-                }
+                //if (IsUsing)
+                //{
+                //    StartTimer();
+                //}
             }
         }
 

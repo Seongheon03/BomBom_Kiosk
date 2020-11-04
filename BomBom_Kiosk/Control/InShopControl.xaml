@@ -18,9 +18,12 @@
     </UserControl.Resources>
 
     <Grid>
-        <ListBox x:Name="lvTables" ItemsSource="{Binding Tables}" HorizontalAlignment="Center" 
+        <ListBox x:Name="lvTables" ItemsSource="{Binding Tables}" 
+                 SelectedItem="{Binding SelectedTable}"
+                 HorizontalAlignment="Center" 
                  VerticalAlignment="Center"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 SelectionChanged="lvTables_SelectionChanged"
                  Margin="0 0 0 50">
             <ListBox.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -33,12 +36,18 @@
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                <Border x:Name="border" Width="500" Height="200">
+                                <Border x:Name="border" Width="500" Height="200"
+                                        BorderBrush="Black"
+                                        BorderThickness="0.3">
                                     <ContentPresenter ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"/>
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter Property="Cursor" Value="Hand"/>
+                                        <Setter Property="Background" TargetName="border" Value="#ffea00"/>
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" TargetName="border" Value="#ffea00"/>
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -49,15 +58,23 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <Button Style="{StaticResource tableBtnStyle}"
+                        <TextBlock Text="{Binding Number}" 
+                                   FontSize="40"  Width="500" 
+                                   Height="100" FontWeight="ExtraBold" 
+                                   Padding="250 55 0 0"/>
+                        <TextBlock Text="{Binding LeftTime}" 
+                                   Width="500" Height="100" 
+                                   Visibility="{Binding IsUsing, Converter={StaticResource BooleanToVisibility}}"
+                                   Padding="240 30 0 0"/>
+                    </StackPanel>
+                        <!--<Button Style="{StaticResource tableBtnStyle}"
                                 Command="{Binding ChooseTableCommand}"
                                 CommandParameter="{Binding Number}">
                             <StackPanel>
                                 <TextBlock Text="{Binding Number}"/>
                                 <TextBlock Text="{Binding LeftTime}"/>
                             </StackPanel>
-                        </Button>
-                    </StackPanel>
+                        </Button>-->
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

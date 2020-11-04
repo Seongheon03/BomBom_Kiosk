@@ -42,5 +42,10 @@ namespace BomBom_Kiosk.Control
         {
             App.uiManager.PushUC(UICategory.CHOOSEPAYMENT);
         }
+
+        private void lvTables_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 }

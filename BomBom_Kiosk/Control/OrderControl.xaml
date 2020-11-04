@@ -58,7 +58,7 @@
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding Name}" FontWeight="Bold"  FontSize="20"
-                                           TextAlignment="Center" VerticalAlignment="Center"/>
+                                       TextAlignment="Center" VerticalAlignment="Center"/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
