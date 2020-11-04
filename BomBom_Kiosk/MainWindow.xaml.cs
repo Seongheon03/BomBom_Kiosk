@@ -32,9 +32,15 @@ namespace BomBom_Kiosk
             App.uiManager.PushUC(UICategory.HOME);
         }
 
-        private void OrderViewModel_LoadingAction(object sender, bool isLoaded)
+        private void OrderViewModel_LoadingAction(object sender, bool isLoading)
         {
-            progressRing.IsActive = isLoaded;
+            progressRing.IsActive = isLoading;
+
+            if (!isLoading)
+            {
+                ctrlHome.tbStatus.Text = "환영합니다. 주문을 원하시면 아래 주문하기 버튼을 클릭해주세요.";
+                ctrlHome.btnOrder.IsEnabled = true;
+            }
         }
 
         private void InitUIDic()

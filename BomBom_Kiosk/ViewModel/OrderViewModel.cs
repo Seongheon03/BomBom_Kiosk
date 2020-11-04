@@ -89,7 +89,7 @@ namespace BomBom_Kiosk.ViewModel
             set => SetProperty(ref _totalPrice, value);
         }
 
-        public delegate void LoadingEventHandler(object sender, bool isLoaded);
+        public delegate void LoadingEventHandler(object sender, bool isLoading);
         public event LoadingEventHandler LoadingAction;
         #endregion
 
