@@ -33,6 +33,24 @@ namespace BomBom_Kiosk.ViewModel
 
         public ICommand ChooseTableCommand { get; set; }
 
+        private Table _selectedTable;
+        public Table SelectedTable
+        {
+            get => _selectedTable;
+            set
+            {
+                _selectedTable = value;
+
+                OrderInfo.Table = SelectedTable.Number;
+                //ChooseTable();
+            }
+        }
+
+        private void ChooseTable()
+        {
+            new Table { Number = SelectedTable.Number };
+        }
+
         public PaymentViewModel()
         {
             InitCommand();
