@@ -8,6 +8,7 @@
         xmlns:loadin="clr-namespace:LoadingIndicators.WPF;assembly=LoadingIndicators.WPF"
         mc:Ignorable="d"
         KeyDown="Window_KeyDown"
+        Closed="Window_Closed"
         ResizeMode="NoResize"
         Title="BomBom_Kiosk">
     <Grid>

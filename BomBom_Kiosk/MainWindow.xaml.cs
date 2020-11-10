@@ -11,7 +11,8 @@ namespace BomBom_Kiosk
     /// </summary>
     public partial class MainWindow : Window
     {
-        TimeSpan driving_time = new TimeSpan(0, 0, 0);
+        TimeSpan usedTime = new TimeSpan();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -20,8 +21,8 @@ namespace BomBom_Kiosk
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            App.orderViewModel.LoadingAction += OrderViewModel_LoadingAction;
-            App.orderViewModel.InitData();
+            App.LoadingAction += App_LoadingAction;
+            App.InitData();
 
             DataContext = this;
 
@@ -32,15 +33,21 @@ namespace BomBom_Kiosk
             App.uiManager.PushUC(UICategory.HOME);
         }
 
-        private void OrderViewModel_LoadingAction(object sender, bool isLoading)
+        private void App_LoadingAction(bool isLoading, string status)
         {
             progressRing.IsActive = isLoading;
 
-            if (!isLoading)
+
+            if (isLoading)
             {
-                ctrlHome.tbStatus.Text = "환영합니다. 주문을 원하시면 아래 주문하기 버튼을 클릭해주세요.";
+                ctrlHome.btnOrder.IsEnabled = false;
+            }
+            else
+            { 
                 ctrlHome.btnOrder.IsEnabled = true;
             }
+
+            ctrlHome.tbStatus.Text = status;
         }
 
         private void InitUIDic()
@@ -94,9 +101,8 @@ namespace BomBom_Kiosk
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            TimeSpan duration = new System.TimeSpan(0, 0, 1);
-            driving_time = driving_time.Add(duration);
             SetTime();
+            usedTime += TimeSpan.FromSeconds(1);
         }
 
         private void SetTime()
@@ -110,6 +116,11 @@ namespace BomBom_Kiosk
             {
                 App.uiManager.PushUC(UICategory.MANAGER);
             }
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            App.dbManager.SaveTime(usedTime);
         }
     }
 }
