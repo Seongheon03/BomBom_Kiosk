@@ -20,22 +20,22 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
-                <ListBox x:Name="lvCategory" ItemsSource="{Binding Categories}" 
-                         SelectedIndex="{Binding SelectedCategory, Mode=TwoWay}"
-                         BorderThickness="0" 
-                         HorizontalAlignment="Center">
-                    <ListBox.ItemsPanel>
+                <ListView x:Name="lvCategory" ItemsSource="{Binding Categories}" 
+                          SelectedIndex="{Binding SelectedCategory, Mode=TwoWay}"
+                          BorderThickness="0" 
+                          HorizontalAlignment="Center">
+                    <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
                             <StackPanel Orientation="Horizontal"/>
                         </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListBoxItem}">
+                    </ListView.ItemsPanel>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
                             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
                             <Setter Property="Margin" Value="13 0 13 0"/>
                             <Setter Property="Template">
                                 <Setter.Value>
-                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <ControlTemplate TargetType="{x:Type ListViewItem}">
                                         <Border x:Name="border"
                                                 Background="#FFEA00" CornerRadius="10"
                                                 Width="240" Height="60">
@@ -54,14 +54,15 @@
                                 </Setter.Value>
                             </Setter>
                         </Style>
-                    </ListBox.ItemContainerStyle>
-                    <ListBox.ItemTemplate>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Name}" FontWeight="Bold"  FontSize="20"
+                            <TextBlock Text="{Binding Name}" 
+                                       FontWeight="Bold"  FontSize="20"
                                        TextAlignment="Center" VerticalAlignment="Center"/>
                         </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                    </ListView.ItemTemplate>
+                </ListView>
             </Grid>
 
             <Grid Grid.Row="1">

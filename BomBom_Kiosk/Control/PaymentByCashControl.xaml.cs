@@ -10,7 +10,6 @@ namespace BomBom_Kiosk.Control
     /// </summary>
     public partial class PaymentByCashControl : UserControl
     {
-        private DBManager dbManager = new DBManager();
         public OrderViewModel OrderViewModel { get; set; } = App.orderViewModel;
         public PaymentViewModel PaymentViewModel { get; set; } = App.paymentViewModel;
 
@@ -45,7 +44,7 @@ namespace BomBom_Kiosk.Control
         {
             if (e.Key == System.Windows.Input.Key.Return)
             {
-                string name = dbManager.GetMember(tbBarcode.Text);
+                string name = App.dbManager.GetMember(tbBarcode.Text);
 
                 if (name == null)
                 {

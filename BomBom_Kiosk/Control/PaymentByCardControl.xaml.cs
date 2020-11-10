@@ -9,8 +9,6 @@ namespace BomBom_Kiosk.Control
     /// </summary>
     public partial class PaymentByCardControl : UserControl
     {
-        private DBManager dbManager = new DBManager();
-
         public PaymentByCardControl()
         {
             InitializeComponent();
@@ -34,7 +32,7 @@ namespace BomBom_Kiosk.Control
 
         private void webcam_QrDecoded(object sender, string qrCode)
         {
-            string name = dbManager.GetMember(qrCode);
+            string name = App.dbManager.GetMember(qrCode);
 
             if (name == null)
             {

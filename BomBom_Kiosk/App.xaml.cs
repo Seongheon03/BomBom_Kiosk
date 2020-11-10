@@ -11,6 +11,7 @@ namespace BomBom_Kiosk
     {
         public static readonly string connStr = "Server=10.80.161.127;Database=kiosk;Uid=abc;Pwd=1234;";
 
+        public static DBManager dbManager = new DBManager();
         public static UIManager uiManager = new UIManager();
         public static OrderViewModel orderViewModel = new OrderViewModel();
         public static PaymentViewModel paymentViewModel = new PaymentViewModel();
