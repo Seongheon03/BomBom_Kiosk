@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BomBom_Kiosk"
         xmlns:ctrl="clr-namespace:BomBom_Kiosk.Control"
-        xmlns:loadin="clr-namespace:LoadingIndicators.WPF;assembly=LoadingIndicators.WPF"
         mc:Ignorable="d"
         KeyDown="Window_KeyDown"
         Closed="Window_Closed"
@@ -58,10 +57,6 @@
             <ctrl:PaymentByCardControl x:Name="ctrlPaymentByCard" Visibility="Collapsed"/>
             <ctrl:PaymentByCashControl x:Name="ctrlPaymentByCash" Visibility="Collapsed"/>
             <ctrl:PaymentResultControl x:Name="ctrlPaymentByResult" Visibility="Collapsed"/>
-
-            <loadin:LoadingIndicator x:Name="progressRing"
-                                     Style="{DynamicResource LoadingIndicatorArcsStyle}"
-                                     SpeedRatio="3" Foreground="Black"/>
         </Grid>
     </Grid>
 </Window>

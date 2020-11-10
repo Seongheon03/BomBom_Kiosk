@@ -31,6 +31,9 @@ namespace BomBom_Kiosk.Control
         private void HomeControl_Loaded(object sender, RoutedEventArgs e)
         {
             IsVisibleChanged += HomeControl_IsVisibleChanged;
+
+            App.LoadingAction += App_LoadingAction;
+            App.InitData();
         }
 
         private void HomeControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
@@ -43,6 +46,23 @@ namespace BomBom_Kiosk.Control
             {
                 mediaelement.Stop();
             }
+        }
+
+        private void App_LoadingAction(bool isLoading, string status)
+        {
+            progressRing.IsActive = isLoading;
+
+
+            if (isLoading)
+            {
+                btnOrder.IsEnabled = false;
+            }
+            else
+            {
+                btnOrder.IsEnabled = true;
+            }
+
+            tbStatus.Text = status;
         }
 
         private void OrderButton_Click(object sender, RoutedEventArgs e)
