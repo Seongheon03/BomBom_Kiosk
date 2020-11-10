@@ -1,5 +1,6 @@
 ﻿using BomBom_Kiosk.Model;
 using MySql.Data.MySqlClient;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -7,18 +8,40 @@ namespace BomBom_Kiosk.Service
 {
     public class DBManager
     {
+        private MySqlCommand cmd;
+
+        public bool ConnectDB()
+        {
+            MySqlConnection conn = new MySqlConnection(App.connStr);
+
+            try
+            {
+                conn.Open();
+                cmd = conn.CreateCommand();
+
+                return true;
+            }
+            catch
+            {
+                MessageBox.Show("DB 연결이 되지 않았습니다.");
+                cmd =  null;
+
+                return false;
+            }
+        }
+
         public List<Drink> GetDrinks()
         {
-            List<Drink> drinks = new List<Drink>();
-
-            MySqlCommand cmd = ConnectDB();
-
-            if (cmd != null)
+            if (cmd == null)
             {
-                string query = "SELECT * FROM menu";
-                cmd.CommandText = query;
+                return null;
+            }
 
-                MySqlDataReader reader = cmd.ExecuteReader();
+            cmd.CommandText = "SELECT * FROM menu";
+
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                List<Drink> drinks = new List<Drink>();
 
                 while (reader.Read())
                 {
@@ -31,48 +54,56 @@ namespace BomBom_Kiosk.Service
 
                     drinks.Add(drink);
                 }
-            }
 
-            return drinks;
+                return drinks;
+            }
         }
 
         public string GetMember(string barcode)
         {
-            MySqlCommand cmd = ConnectDB();
-
-            if (cmd != null)
+            if (cmd == null)
             {
-                string query = "SELECT * FROM member";
-                cmd.CommandText = query;
+                return null;
+            }
 
-                MySqlDataReader reader = cmd.ExecuteReader();
+            cmd.CommandText = "SELECT * FROM member";
 
-                while(reader.Read())
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
                 {
                     if (reader["barcode"].ToString() == barcode)
                     {
-                        return  reader["name"].ToString();
+                        return reader["name"].ToString();
                     }
+                }
+
+                return null;
+            }
+        }
+
+        public void SaveTime(TimeSpan usedTime)
+        {
+            if (cmd == null)
+            {
+                return;
+            }
+
+            DateTime totalTime = new DateTime();
+            cmd.CommandText = "SELECT * FROM time";
+
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+
+                while (reader.Read())
+                {
+                    totalTime = DateTime.Parse(reader["time"].ToString()) + usedTime;
                 }
             }
 
-            return null;
-        }
-
-        private MySqlCommand ConnectDB()
-        {
-            MySqlConnection conn = new MySqlConnection(App.connStr);
-
-            try
-            {
-                conn.Open();
-                return conn.CreateCommand();
-            }
-            catch
-            {
-                MessageBox.Show("DB 연결이 되지 않았습니다.");
-                return null;
-            }
+            cmd.CommandText = "UPDATE time " +
+                                 $"SET time='{totalTime.ToString("yyyy-MM-dd HH:hh:ss")}'";
+            cmd.ExecuteNonQuery();
         }
     }
 }

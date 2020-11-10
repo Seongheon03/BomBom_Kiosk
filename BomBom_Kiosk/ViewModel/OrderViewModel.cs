@@ -13,7 +13,6 @@ namespace BomBom_Kiosk.ViewModel
 {
     public class OrderViewModel : BindableBase
     {
-        private DBManager dbManager = new DBManager();
         private readonly int MAX_DRINK_NUM = 9;
 
         #region Property
@@ -35,7 +34,7 @@ namespace BomBom_Kiosk.ViewModel
             }
         }
 
-        private List<Drink> _drinks = new List<Drink>();
+        private List<Drink> _drinks;
         public List<Drink> Drinks
         {
             get => _drinks;
@@ -88,9 +87,6 @@ namespace BomBom_Kiosk.ViewModel
             get => _totalPrice;
             set => SetProperty(ref _totalPrice, value);
         }
-
-        public delegate void LoadingEventHandler(object sender, bool isLoading);
-        public event LoadingEventHandler LoadingAction;
         #endregion
 
         public ICommand NextDrinkCommand { get; set; }
@@ -160,26 +156,16 @@ namespace BomBom_Kiosk.ViewModel
             }
         }
 
-        public async void InitData()
+        public void InitData()
         {
-            LoadingAction?.Invoke(this, true);
-
-            await SetDrinks();
+            SetDrinks();
             SetCategories();
             SetDisplayDrinks();
-            //await Task.Run(async () =>
-            //{
-            //    await SetDrinks();
-            //    SetCategories();
-            //    SetDisplayDrinks();
-            //});
-
-            LoadingAction?.Invoke(this, false);
         }
 
-        private async Task SetDrinks()
+        private void SetDrinks()
         {
-            Drinks = await Task.Run(() => dbManager.GetDrinks());
+            Drinks = App.dbManager.GetDrinks();
             //Drinks.Add(new Drink { Idx = 1, Name = "a", Price = 1000, DiscountPrice = 100, Category = ECategory.COFFEE });
             //Drinks.Add(new Drink { Idx = 2, Name = "a", Price = 2000, DiscountPrice = 100, Category = ECategory.COFFEE });
             //Drinks.Add(new Drink { Idx = 3, Name = "a", Price = 3000, DiscountPrice = 100, Category = ECategory.COFFEE });
