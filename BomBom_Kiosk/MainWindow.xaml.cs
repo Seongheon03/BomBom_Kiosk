@@ -21,9 +21,6 @@ namespace BomBom_Kiosk
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            App.LoadingAction += App_LoadingAction;
-            App.InitData();
-
             DataContext = this;
 
             SetBackground();
@@ -31,23 +28,6 @@ namespace BomBom_Kiosk
             InitUIDic();
 
             App.uiManager.PushUC(UICategory.HOME);
-        }
-
-        private void App_LoadingAction(bool isLoading, string status)
-        {
-            progressRing.IsActive = isLoading;
-
-
-            if (isLoading)
-            {
-                ctrlHome.btnOrder.IsEnabled = false;
-            }
-            else
-            { 
-                ctrlHome.btnOrder.IsEnabled = true;
-            }
-
-            ctrlHome.tbStatus.Text = status;
         }
 
         private void InitUIDic()
