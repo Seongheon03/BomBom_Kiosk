@@ -7,35 +7,58 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="11*"/>
-            <RowDefinition Height="14*"/>
-        </Grid.RowDefinitions>
-        <StackPanel VerticalAlignment="Center" Margin="0,75" Grid.RowSpan="2">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Border Margin="50 0 0 30">
-                    <Button 
-                        Style="{StaticResource btnCommonStyle}" 
+        <StackPanel VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="500">
+                <ListView x:Name="lvOrderList" 
+                          ItemsSource="{Binding OrderList}" 
+                          FontSize="20" FontWeight="Bold"
+                          Background="#EEEEEE"
+                          BorderThickness="0"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                          Margin="10 20 20 0">
+                    <ListView.View>
+                        <GridView>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="{x:Type GridViewColumnHeader}">
+                                    <Setter Property="Height" Value="40"/>
+                                    <Setter Property="Background" Value="LightGray"/>
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                            <GridViewColumn Header="메뉴"
+                                            DisplayMemberBinding="{Binding Name}"
+                                            Width="420" />
+                            <GridViewColumn Header="수량" Width="250">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Count}" HorizontalAlignment="Center"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="가격" Width="250">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding TotalPrice, Converter={StaticResource PriceToString}}"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+                <Button Style="{StaticResource btnCommonStyle}" 
                         Content="현금" 
                         FontWeight="UltraBold"
                         Click="UseCash_Click"
-                        />
-                </Border>
-                <Border Margin="50 0 0 30">
-                    <Button 
-                        Style="{StaticResource btnCommonStyle}" 
+                        Margin="50 0 0 30"/>
+                <Button Style="{StaticResource btnCommonStyle}" 
                         Content="카드" 
                         FontWeight="UltraBold"
                         Click="UseCard_Click"
-                        />
-                </Border>
+                        Margin="50 0 0 30"/>
             </StackPanel>
-            <Button 
-                Style="{StaticResource btnBaseStyle}" 
-                Content="이전"
-                Click="goBack_Click"
-                Margin="0 20 0 0"
-                />
+            <Button Content="이전"
+                    Style="{StaticResource btnBaseStyle}" 
+                    Click="goBack_Click"
+                    Margin="0 20 0 0"/>
         </StackPanel>
     </Grid>
 </UserControl>

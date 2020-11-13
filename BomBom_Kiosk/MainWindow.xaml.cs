@@ -27,11 +27,12 @@ namespace BomBom_Kiosk
             SetTimer();
             InitUIDic();
 
-            App.uiManager.PushUC(UICategory.HOME);
+            App.uiManager.PushUC(UICategory.LOGIN);
         }
 
         private void InitUIDic()
         {
+            App.uiManager.AddUC(UICategory.LOGIN, ctrlLogin);
             App.uiManager.AddUC(UICategory.HOME, ctrlHome);
             App.uiManager.AddUC(UICategory.MANAGER, ctrlManager);
             App.uiManager.AddUC(UICategory.ORDER, ctrlOrder);

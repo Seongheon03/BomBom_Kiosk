@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BomBom_Kiosk.Control"
-             xmlns:loadin="clr-namespace:LoadingIndicators.WPF;assembly=LoadingIndicators.WPF"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -14,13 +13,12 @@
                           LoadedBehavior="Manual"
                           UnloadedBehavior="Stop"
                           Height="500"/>
-            <TextBlock x:Name="tbStatus" Text="메뉴를 로딩중입니다. 잠시만 기다려주세요."
+            <TextBlock Text="환영합니다. 주문을 원하시면 아래 주문하기 버튼을 클릭해주세요."
                        FontSize="25" 
                        FontWeight="Bold"
                        HorizontalAlignment="Center"
                        Margin="0 50 0 0"/>
             <Button x:Name="btnOrder" Content="주문하기"
-                    IsEnabled="False"
                     Height="64" Width="300" 
                     Click="OrderButton_Click" 
                     FontSize="20" 
@@ -28,9 +26,5 @@
                     Background="#FFF7DF07"
                     Margin="0 50 0 0"/>
         </StackPanel>
-        
-        <loadin:LoadingIndicator x:Name="progressRing"
-                                     Style="{DynamicResource LoadingIndicatorArcsStyle}"
-                                     SpeedRatio="3" Foreground="Black"/>
     </Grid>
 </UserControl>

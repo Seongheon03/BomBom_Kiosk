@@ -9,9 +9,14 @@ namespace BomBom_Kiosk.Model
 {
     public class OrderData : BindableBase
     {
-        public EOrderPlace Place { get; set; }
+        public int MemberIdx { get; set; }
 
-        public EOrderType Type { get; set; }
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set => SetProperty(ref _name, value);
+        }
 
         public int Table { get; set; }
 
@@ -22,13 +27,9 @@ namespace BomBom_Kiosk.Model
             set => SetProperty(ref _code, value);
         }
 
-        private string _name;
-        public string Name 
-        {
-            get => _name;
-            set => SetProperty(ref _name, value);
-        }
-        
+        public EOrderPlace Place { get; set; }
+
+        public EOrderType Type { get; set; }
     }
 
     public enum EOrderPlace

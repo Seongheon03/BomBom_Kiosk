@@ -24,6 +24,7 @@ namespace BomBom_Kiosk.Control
         public ChoosePaymentControl()
         {
             InitializeComponent();
+            DataContext = App.orderViewModel;
         }
 
         private void goBack_Click(object sender, RoutedEventArgs e)
