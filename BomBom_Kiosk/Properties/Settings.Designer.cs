@@ -34,17 +34,5 @@ namespace BomBom_Kiosk.Properties {
                 this["isAutoLogin"] = value;
             }
         }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string id {
-            get {
-                return ((string)(this["id"]));
-            }
-            set {
-                this["id"] = value;
-            }
-        }
     }
 }
