@@ -1,11 +1,9 @@
 ﻿using BomBom_Kiosk.Model;
-using BomBom_Kiosk.Service;
 using Prism.Commands;
 using Prism.Mvvm;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -219,7 +217,10 @@ namespace BomBom_Kiosk.ViewModel
             {
                 try
                 {
-                    DisplayDrinks.Add(drinks[i]);
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        DisplayDrinks.Add(drinks[i]);
+                    });
                 }
                 catch
                 {
