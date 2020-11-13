@@ -1,6 +1,7 @@
 ﻿using BomBom_Kiosk.Model;
 using BomBom_Kiosk.Properties;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -110,9 +111,11 @@ namespace BomBom_Kiosk.Control
             {
                 if (member.Id == tbId.Text && member.Pw == tbPw.Password)
                 {
+                    Settings.Default.id = tbId.Text;
                     Settings.Default.isAutoLogin = (bool)cbAutoLogin.IsChecked;
                     Settings.Default.Save();
 
+                    App.paymentViewModel.OrderInfo.MemberIdx = member.Idx;
                     App.uiManager.PushUC(Service.UICategory.HOME);
                     return;
                 }
@@ -125,6 +128,9 @@ namespace BomBom_Kiosk.Control
         {
             if (Settings.Default.isAutoLogin)
             {
+                int idx = Members.Where(x => x.Id == Settings.Default.id).FirstOrDefault().Idx;
+
+                App.paymentViewModel.OrderInfo.MemberIdx = idx;
                 App.uiManager.PushUC(Service.UICategory.HOME);
             }
         }
