@@ -67,14 +67,6 @@
                                    Visibility="{Binding IsUsing, Converter={StaticResource BooleanToVisibility}}"
                                    Padding="240 30 0 0"/>
                     </StackPanel>
-                        <!--<Button Style="{StaticResource tableBtnStyle}"
-                                Command="{Binding ChooseTableCommand}"
-                                CommandParameter="{Binding Number}">
-                            <StackPanel>
-                                <TextBlock Text="{Binding Number}"/>
-                                <TextBlock Text="{Binding LeftTime}"/>
-                            </StackPanel>
-                        </Button>-->
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
