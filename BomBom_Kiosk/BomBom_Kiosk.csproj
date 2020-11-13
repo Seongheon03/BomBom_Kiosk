@@ -127,6 +127,9 @@
     <Compile Include="Control\InShopControl.xaml.cs">
       <DependentUpon>InShopControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Control\LoginControl.xaml.cs">
+      <DependentUpon>LoginControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Control\PaymentByCardControl.xaml.cs">
       <DependentUpon>PaymentByCardControl.xaml</DependentUpon>
     </Compile>
@@ -144,6 +147,7 @@
     </Compile>
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Drink.cs" />
+    <Compile Include="Model\MemberModel.cs" />
     <Compile Include="Model\OrderData.cs" />
     <Compile Include="Model\OrderedDrink.cs" />
     <Compile Include="Model\Table.cs" />
@@ -152,6 +156,10 @@
     <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\PaymentViewModel.cs" />
     <Page Include="Control\HomeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\LoginControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

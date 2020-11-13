@@ -32,11 +32,6 @@ namespace BomBom_Kiosk.Service
 
         public List<Drink> GetDrinks()
         {
-            if (cmd == null)
-            {
-                return null;
-            }
-
             cmd.CommandText = "SELECT * FROM menu";
 
             using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -56,6 +51,29 @@ namespace BomBom_Kiosk.Service
                 }
 
                 return drinks;
+            }
+        }
+
+        public List<MemberModel> GetMembers()
+        {
+            cmd.CommandText = "SELECT * FROM member";
+
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                List<MemberModel> members = new List<MemberModel>();
+
+                while (reader.Read())
+                {
+                    MemberModel member = new MemberModel();
+                    member.Idx = int.Parse(reader["idx"].ToString());
+                    member.Name = reader["name"].ToString();
+                    member.Id = reader["id"].ToString();
+                    member.Pw = reader["pw"].ToString();
+
+                    members.Add(member);
+                }
+                
+                return members;
             }
         }
 

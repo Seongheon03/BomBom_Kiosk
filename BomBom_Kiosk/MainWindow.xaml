@@ -48,6 +48,7 @@
         </Grid>
 
         <Grid Grid.Row="1">
+            <ctrl:LoginControl x:Name="ctrlLogin" Visibility="Collapsed"/>
             <ctrl:HomeControl x:Name="ctrlHome" Visibility="Collapsed"/>
             <ctrl:ManagerControl x:Name="ctrlManager" Visibility="Collapsed"/>
             <ctrl:OrderControl x:Name="ctrlOrder" Visibility="Collapsed"/>

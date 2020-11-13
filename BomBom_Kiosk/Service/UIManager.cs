@@ -47,6 +47,7 @@ namespace BomBom_Kiosk.Service
 
     public enum UICategory
     {
+        LOGIN,
         HOME,
         MANAGER,
         ORDER,
