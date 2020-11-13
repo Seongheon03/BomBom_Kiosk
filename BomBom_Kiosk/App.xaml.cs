@@ -27,6 +27,8 @@ namespace BomBom_Kiosk
             {
                 LoadingAction?.Invoke(true, "메뉴를 불러오는 중입니다...");
                 await Task.Run(() => orderViewModel.InitData());
+                LoadingAction?.Invoke(true, "회원을 불러오는 중입니다...");
+                await Task.Run(() => paymentViewModel.InitMembers());
                 LoadingAction?.Invoke(false, "로그인을 해주세요.");
             }
             else

@@ -29,10 +29,10 @@ namespace BomBom_Kiosk.Model
             {
                 _isUsing = value;
 
-                //if (IsUsing)
-                //{
-                //    StartTimer();
-                //}
+                if (IsUsing)
+                {
+                    StartTimer();
+                }
             }
         }
 

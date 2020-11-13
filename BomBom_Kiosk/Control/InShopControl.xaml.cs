@@ -45,7 +45,7 @@ namespace BomBom_Kiosk.Control
 
         private void lvTables_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            tbNext.IsEnabled = true;
         }
     }
 }

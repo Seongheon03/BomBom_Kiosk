@@ -67,6 +67,7 @@ namespace BomBom_Kiosk.Service
                     MemberModel member = new MemberModel();
                     member.Idx = int.Parse(reader["idx"].ToString());
                     member.Name = reader["name"].ToString();
+                    member.Code = reader["code"].ToString();
                     member.Id = reader["id"].ToString();
                     member.Pw = reader["pw"].ToString();
 
@@ -74,29 +75,6 @@ namespace BomBom_Kiosk.Service
                 }
                 
                 return members;
-            }
-        }
-
-        public string GetMember(string barcode)
-        {
-            if (cmd == null)
-            {
-                return null;
-            }
-
-            cmd.CommandText = "SELECT * FROM member";
-
-            using (MySqlDataReader reader = cmd.ExecuteReader())
-            {
-                while (reader.Read())
-                {
-                    if (reader["barcode"].ToString() == barcode)
-                    {
-                        return reader["name"].ToString();
-                    }
-                }
-
-                return null;
             }
         }
 

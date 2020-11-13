@@ -30,8 +30,12 @@ namespace BomBom_Kiosk.Control
 
         private async void PaymentResultControl_IsVisibleChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
         {
-            await Task.Run(() => Thread.Sleep(TimeSpan.FromSeconds(5)));
-            App.uiManager.PushUC(Service.UICategory.HOME);
+            if ((bool)e.NewValue == true)
+            {
+                App.paymentViewModel.Payment();
+                await Task.Run(() => Thread.Sleep(TimeSpan.FromSeconds(5)));
+                App.uiManager.PushUC(Service.UICategory.HOME);
+            }
         }
     }
 }
