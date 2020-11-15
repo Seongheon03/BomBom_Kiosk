@@ -56,10 +56,11 @@
                                           VerticalAlignment="Center"
                                           Cursor="IBeam"/>
                                 <TextBlock x:Name="WaterMark" 
-                                       Foreground="LightGray"
-                                       VerticalAlignment="Center"
-                                       Visibility="Collapsed"
-                                       Text="{TemplateBinding Tag}"/>
+                                           FontSize="15"
+                                           Foreground="LightGray"
+                                           VerticalAlignment="Center"
+                                           Visibility="Collapsed"
+                                           Text="{TemplateBinding Tag}"/>
                             </Grid>
                         </Border>
                         <ControlTemplate.Triggers>
@@ -88,14 +89,15 @@
                        FontSize="25" 
                        FontWeight="Bold"
                        HorizontalAlignment="Center"/>
-            <Button x:Name="btnLogin" Content="로그인" 
+            <Button x:Name="btnLogin" Content="로그인"
+                    IsEnabled="False"
                     Style="{StaticResource btnBaseStyle}"
                     Click="btnLogin_Click"
                     Margin="0 50 0 0"/>
         </StackPanel>
         
         <loadin:LoadingIndicator x:Name="progressRing"
-                                     Style="{DynamicResource LoadingIndicatorArcsStyle}"
-                                     SpeedRatio="3" Foreground="Black"/>
+                                 Style="{DynamicResource LoadingIndicatorArcsStyle}"
+                                 SpeedRatio="3" Foreground="Black"/>
     </Grid>
 </UserControl>
