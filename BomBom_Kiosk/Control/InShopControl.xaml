@@ -8,6 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
+        <cvts:InverseBooleanConverter x:Key="InverseBoolean"/>
         <cvts:BooleanToVisibilityConverter x:Key="BooleanToVisibility"/>
 
         <Style x:Key="tableBtnStyle" TargetType="{x:Type Button}">
@@ -20,9 +21,9 @@
     <Grid>
         <ListBox x:Name="lvTables" ItemsSource="{Binding Tables}" 
                  SelectedItem="{Binding SelectedTable}"
-                 HorizontalAlignment="Center" 
-                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center" VerticalAlignment="Center"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 BorderThickness="0"
                  SelectionChanged="lvTables_SelectionChanged"
                  Margin="0 0 0 50">
             <ListBox.ItemsPanel>
@@ -32,22 +33,24 @@
             </ListBox.ItemsPanel>
             <ListBox.ItemContainerStyle>
                 <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="IsEnabled" Value="{Binding IsUsing, Converter={StaticResource InverseBoolean}}"/>
+                    <Setter Property="Margin" Value="15 15 15 15"/>
                     <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                <Border x:Name="border" Width="500" Height="200"
-                                        BorderBrush="Black"
-                                        BorderThickness="0.3">
+                                <Border x:Name="border" 
+                                        Background="{Binding BackColor}"
+                                        Width="500" Height="200"
+                                        CornerRadius="5">
                                     <ContentPresenter ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"/>
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter Property="Cursor" Value="Hand"/>
-                                        <Setter Property="Background" TargetName="border" Value="#ffea00"/>
                                     </Trigger>
                                     <Trigger Property="IsSelected" Value="True">
-                                        <Setter Property="Background" TargetName="border" Value="#ffea00"/>
+                                        <Setter Property="Background" TargetName="border" Value="#FFBA0D"/>
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -58,14 +61,14 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <TextBlock Text="{Binding Number}" 
-                                   FontSize="40"  Width="500" 
-                                   Height="100" FontWeight="ExtraBold" 
-                                   Padding="250 55 0 0"/>
-                        <TextBlock Text="{Binding LeftTime}" 
-                                   Width="500" Height="100" 
+                        <TextBlock Text="{Binding Number, StringFormat={}{0}번 테이블}" 
+                                   FontSize="30" FontWeight="ExtraBold" 
+                                   TextAlignment="Center"/>
+                        <TextBlock Text="{Binding LeftTime, StringFormat={}{0:ss}초}" 
+                                   FontSize="25"
+                                   TextAlignment="Center"
                                    Visibility="{Binding IsUsing, Converter={StaticResource BooleanToVisibility}}"
-                                   Padding="240 30 0 0"/>
+                                   Padding="0 30 0 0"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
