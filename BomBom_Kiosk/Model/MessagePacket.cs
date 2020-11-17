@@ -11,7 +11,7 @@ namespace BomBom_Kiosk.Model
         public EMsgType MessageType { get; set; }
         public string Id { get; set; }
         public string Content { get; set; }
-        public string ShopName { get; set; }
+        public string ShopName = "봄봄 구지점"; 
         public string Name { get; set; }
         public int Count { get; set; }
         public int Price { get; set; }
