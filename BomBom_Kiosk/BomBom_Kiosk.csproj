@@ -38,6 +38,12 @@
     <Reference Include="BouncyCastle.Crypto, Version=1.8.3.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>..\packages\BouncyCastle.1.8.3.1\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
+    <Reference Include="Fable.JsonConverter, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Fable.JsonConverter.1.0.8\lib\net45\Fable.JsonConverter.dll</HintPath>
+    </Reference>
+    <Reference Include="FSharp.Core, Version=4.4.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\FSharp.Core.4.2.3\lib\net45\FSharp.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Google.Protobuf, Version=3.6.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
       <HintPath>..\packages\Google.Protobuf.3.6.1\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
@@ -130,6 +136,9 @@
     <Compile Include="Control\InShopControl.xaml.cs">
       <DependentUpon>InShopControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Control\LoginControl.xaml.cs">
+      <DependentUpon>LoginControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Control\PaymentByCardControl.xaml.cs">
       <DependentUpon>PaymentByCardControl.xaml</DependentUpon>
     </Compile>
@@ -149,6 +158,7 @@
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Drink.cs" />
     <Compile Include="Model\MessagePacket.cs" />
+    <Compile Include="Model\MemberModel.cs" />
     <Compile Include="Model\OrderData.cs" />
     <Compile Include="Model\OrderedDrink.cs" />
     <Compile Include="Model\Table.cs" />
@@ -160,6 +170,10 @@
     <Page Include="Control\HomeControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\LoginControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Control\OrderControl.xaml">
       <SubType>Designer</SubType>
