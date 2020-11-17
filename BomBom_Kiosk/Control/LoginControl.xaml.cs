@@ -2,6 +2,7 @@
 using BomBom_Kiosk.Properties;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -78,31 +79,7 @@ namespace BomBom_Kiosk.Control
 
         private async void LoginControl_Loaded(object sender, RoutedEventArgs e)
         {
-            App.LoadingAction += App_LoadingAction;
-            await App.InitData();
-            SetMembers();
-            CheckIsAutoLogin();
-        }
-
-        private void SetMembers()
-        {
-            Members = App.dbManager.GetMembers();
-        }
-
-        private void App_LoadingAction(bool isLoading, string status)
-        {
-            progressRing.IsActive = isLoading;
-
-            if (isLoading)
-            {
-                btnLogin.IsEnabled = false;
-            }
-            else
-            {
-                btnLogin.IsEnabled = true;
-            }
-
-            tbStatus.Text = status;
+            await InitData();
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
@@ -122,6 +99,37 @@ namespace BomBom_Kiosk.Control
             tbStatus.Text = "아이디 또는 비밀번호를 확인해주세요.";
         }
 
+        public async Task InitData()
+        { 
+            tbStatus.Text = "DB에 연결중입니다...";
+            progressRing.IsActive = true;
+            if (await Task.Run(() => App.dbManager.ConnectDB()))
+            {
+                tbStatus.Text = "메뉴를 불러오는 중입니다...";
+                await Task.Run(() => App.orderViewModel.InitData());
+
+                tbStatus.Text = "회원을 불러오는 중입니다...";
+                await Task.Run(() => App.paymentViewModel.InitMembers());
+                SetMembers();
+
+                CheckIsAutoLogin();
+
+                tbStatus.Text = "로그인을 해주세요.";
+                btnLogin.IsEnabled = true;
+            }
+            else
+            {
+                tbStatus.Text = "DB에 연결되지 않았습니다.";
+            }
+
+            progressRing.IsActive = false;
+        }
+
+        private void SetMembers()
+        {
+            Members = App.dbManager.GetMembers();
+        }
+
         private void CheckIsAutoLogin()
         {
             if (Settings.Default.isAutoLogin)
@@ -129,5 +137,21 @@ namespace BomBom_Kiosk.Control
                 App.uiManager.PushUC(Service.UICategory.HOME);
             }
         }
+
+        //private void LoadingAction(bool isLoading, string status)
+        //{
+        //    progressRing.IsActive = isLoading;
+
+        //    if (isLoading)
+        //    {
+        //        btnLogin.IsEnabled = false;
+        //    }
+        //    else
+        //    {
+        //        btnLogin.IsEnabled = true;
+        //    }
+
+        //    tbStatus.Text = status;
+        //}
     }
 }

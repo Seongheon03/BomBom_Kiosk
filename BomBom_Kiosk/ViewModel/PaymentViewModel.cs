@@ -1,26 +1,13 @@
 ﻿using BomBom_Kiosk.Model;
-using Prism.Commands;
 using Prism.Mvvm;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using System.Windows.Threading;
 
 namespace BomBom_Kiosk.ViewModel
 {
     public class PaymentViewModel : BindableBase
     {
-        //private List<Table> _tables = new List<Table>();
-        //public List<Table> Tables
-        //{
-        //    get => _tables;
-        //    set => SetProperty(ref _tables, value);
-        //}
+        public List<MemberModel> Members { get; set; } = new List<MemberModel>();
 
         public List<Table> Tables { get; set; } = new List<Table>();
 
@@ -31,8 +18,6 @@ namespace BomBom_Kiosk.ViewModel
             set => SetProperty(ref _orderInfo, value);
         }
 
-        public ICommand ChooseTableCommand { get; set; }
-
         private Table _selectedTable;
         public Table SelectedTable
         {
@@ -42,29 +27,40 @@ namespace BomBom_Kiosk.ViewModel
                 _selectedTable = value;
 
                 OrderInfo.Table = SelectedTable.Number;
-                //ChooseTable();
             }
-        }
-
-        private void ChooseTable()
-        {
-            new Table { Number = SelectedTable.Number };
         }
 
         public PaymentViewModel()
         {
-            InitCommand();
             SetTables();
         }
 
-        private void InitCommand()
+        public void InitMembers()
         {
-            ChooseTableCommand = new DelegateCommand<int?>(ChooseTable);
+            Members = App.dbManager.GetMembers();
         }
 
-        private void ChooseTable(int? tableNumber)
+        public bool GetMember(string code)
         {
-            DispatcherTimer timer = new DispatcherTimer();
+            MemberModel member = Members.Where(x => x.Code.Trim() == code).FirstOrDefault();
+
+            if (member == null)
+            {
+                return false;
+            }
+
+            OrderInfo.Code = member.Code;
+            OrderInfo.Name = member.Name;
+
+            return true;
+        }
+
+        public void Payment()
+        {
+            if (OrderInfo.Place == EOrderPlace.InShop)
+            {
+                Tables.Where(x => x.Number == OrderInfo.Table).FirstOrDefault().IsUsing = true;
+            }
         }
 
         private void SetTables()
@@ -78,13 +74,6 @@ namespace BomBom_Kiosk.ViewModel
             Tables.Add(new Table { Number = 7 });
             Tables.Add(new Table { Number = 8 });
             Tables.Add(new Table { Number = 9 });
-        }
-
-        private void setOrderData(EOrderPlace place, EOrderType type, int table)
-        {
-            OrderInfo.Place = place;
-            OrderInfo.Type = type;
-            OrderInfo.Table = table;
         }
     }
 }

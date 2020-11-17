@@ -44,18 +44,15 @@ namespace BomBom_Kiosk.Control
         {
             if (e.Key == System.Windows.Input.Key.Return)
             {
-                string name = App.dbManager.GetMember(tbBarcode.Text);
-
-                if (name == null)
+                if (App.paymentViewModel.GetMember(tbBarcode.Text))
                 {
-                    tbBarcode.Text = "";
-                    tbStatus.Visibility = Visibility.Visible;
+                    tbStatus.Visibility = Visibility.Hidden;
+                    App.uiManager.PushUC(UICategory.PAYMENTRESULT);
                 }
                 else
                 {
-                    App.paymentViewModel.OrderInfo.Name = name;
-                    tbStatus.Visibility = Visibility.Hidden;
-                    App.uiManager.PushUC(UICategory.PAYMENTRESULT);
+                    tbBarcode.Text = "";
+                    tbStatus.Visibility = Visibility.Visible;
                 }
             }
         }

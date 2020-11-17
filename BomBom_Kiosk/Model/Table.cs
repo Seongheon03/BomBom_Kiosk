@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Windows.Threading;
 
 namespace BomBom_Kiosk.Model
@@ -27,12 +28,27 @@ namespace BomBom_Kiosk.Model
             get => _isUsing;
             set
             {
-                _isUsing = value;
+                SetProperty(ref _isUsing, value);
 
-                //if (IsUsing)
-                //{
-                //    StartTimer();
-                //}
+                if (IsUsing)
+                {
+                    StartTimer();
+                    BackColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFBA0D");
+                }
+                else
+                {
+                    BackColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFEA00");
+                }
+            }
+        }
+
+        private SolidColorBrush _backColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFEA00");
+        public SolidColorBrush BackColor
+        {
+            get => _backColor;
+            set
+            {
+                SetProperty(ref _backColor, value);
             }
         }
 

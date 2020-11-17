@@ -32,18 +32,14 @@ namespace BomBom_Kiosk.Control
 
         private void webcam_QrDecoded(object sender, string qrCode)
         {
-            string name = App.dbManager.GetMember(qrCode);
-
-            if (name == null)
+            if (App.paymentViewModel.GetMember(qrCode))
             {
-                tbStatus.Visibility = Visibility.Visible;
+                tbStatus.Visibility = Visibility.Hidden;
+                App.uiManager.PushUC(UICategory.PAYMENTRESULT);
             }
             else
             {
-                App.paymentViewModel.OrderInfo.Code = qrCode;
-                App.paymentViewModel.OrderInfo.Name = name;
-                tbStatus.Visibility = Visibility.Hidden;
-                App.uiManager.PushUC(UICategory.PAYMENTRESULT);
+                tbStatus.Visibility = Visibility.Visible;
             }
         }
 
