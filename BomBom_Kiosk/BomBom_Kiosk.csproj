@@ -130,6 +130,30 @@
     <Compile Include="Control\LoginControl.xaml.cs">
       <DependentUpon>LoginControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Control\Manager\CategoryManager.xaml.cs">
+      <DependentUpon>CategoryManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Manager\DrivingTimeAndTotalTurnOver.xaml.cs">
+      <DependentUpon>DrivingTimeAndTotalTurnOver.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Manager\EachCategoryBySeatManager.xaml.cs">
+      <DependentUpon>EachCategoryBySeatManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Manager\MemberManager.xaml.cs">
+      <DependentUpon>MemberManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Manager\MenuManager.xaml.cs">
+      <DependentUpon>MenuManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Manager\SeatManager.xaml.cs">
+      <DependentUpon>SeatManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Manager\TotalDailyTurnover.xaml.cs">
+      <DependentUpon>TotalDailyTurnover.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Manager\TotalSalesByHourOfTheDay.xaml.cs">
+      <DependentUpon>TotalSalesByHourOfTheDay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Control\PaymentByCardControl.xaml.cs">
       <DependentUpon>PaymentByCardControl.xaml</DependentUpon>
     </Compile>
@@ -163,6 +187,38 @@
     <Page Include="Control\LoginControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Manager\CategoryManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\Manager\DrivingTimeAndTotalTurnOver.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\Manager\EachCategoryBySeatManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\Manager\MemberManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\Manager\MenuManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\Manager\SeatManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\Manager\TotalDailyTurnover.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Control\Manager\TotalSalesByHourOfTheDay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Control\OrderControl.xaml">
       <SubType>Designer</SubType>
