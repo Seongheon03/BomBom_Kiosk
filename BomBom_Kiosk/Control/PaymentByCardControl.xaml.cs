@@ -18,7 +18,6 @@ namespace BomBom_Kiosk.Control
         private void PaymentByCardControl_Loaded(object sender, RoutedEventArgs e)
         {
             DataContext = App.orderViewModel;
-            webcam.CameraIndex = 0;
             IsVisibleChanged += PaymentByCardControl_IsVisibleChanged;
         }
 
@@ -26,7 +25,12 @@ namespace BomBom_Kiosk.Control
         {
             if ((bool)e.NewValue == true)
             {
+                webcam.CameraIndex = 0;
                 tbStatus.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                webcam.DisposeCamera();
             }
         }
 

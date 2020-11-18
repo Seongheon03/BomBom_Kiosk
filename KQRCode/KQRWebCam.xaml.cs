@@ -106,7 +106,7 @@ namespace KQRCode
             Cts = new CancellationTokenSource();
         }
 
-        private void DisposeCamera()
+        public void DisposeCamera()
         {
             Cts?.Cancel();
             Cam.Current?.SignalToStop();
