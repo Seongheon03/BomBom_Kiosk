@@ -2,6 +2,7 @@
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
 namespace BomBom_Kiosk.Service
@@ -78,6 +79,86 @@ namespace BomBom_Kiosk.Service
             }
         }
 
+        public string Payment()
+        {
+            foreach (var item in App.orderViewModel.OrderList)
+            {
+                AddOrderItem(item);
+            }
+
+            int index = GetIndex("order_number");
+
+            cmd.CommandText = "INSERT INTO order_number (idx, member_idx) " +
+                             $"VALUES ({index}, " +
+                             $"{App.paymentViewModel.OrderInfo.MemberIdx})";
+
+            cmd.ExecuteNonQuery();
+
+            string orderNumber = index.ToString();
+
+            while (orderNumber.Length < 3)
+            {
+                orderNumber = "0" + orderNumber;
+            }
+
+            return orderNumber;
+        }
+
+        private void AddOrderItem(OrderedDrink orderedDrink)
+        {
+            OrderData orderInfo = App.paymentViewModel.OrderInfo;
+            int index = GetIndex("order_item");
+
+            if (orderInfo.Place == EOrderPlace.InShop)
+            {
+                cmd.CommandText = "INSERT INTO order_item (idx, menu_idx, count, seat, order_code, place, payment_type, order_date_time) " +
+                                 $"VALUES ({index}," +
+                                 $"{orderedDrink.MenuIdx}, " +
+                                 $"{orderedDrink.Count}, " +
+                                 $"{orderInfo.Table}, " +
+                                 $"'{orderInfo.Code}', " +
+                                 $"{(int)orderInfo.Place}, " +
+                                 $"{(int)orderInfo.Type}, " +
+                                 $"'{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')";
+
+                App.paymentViewModel.Tables.Where(x => x.Number == orderInfo.Table).FirstOrDefault().IsUsing = true;
+            }
+            else
+            {
+                cmd.CommandText = "INSERT INTO order_item (idx, menu_idx, count, order_code, place, payment_type, order_date_time)" +
+                                 $"VALUES ({index}," +
+                                 $"{orderedDrink.MenuIdx}, " +
+                                 $"{orderedDrink.Count}, " +
+                                 $"{orderInfo.Table}, " +
+                                 $"'{orderInfo.Code}', " +
+                                 $"{(int)orderInfo.Place}, " +
+                                 $"{(int)orderInfo.Type}, " +
+                                 $"'{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')";
+            }
+
+            cmd.ExecuteNonQuery();
+        }
+
+        private int GetIndex(string tableName)
+        {
+            int index = 0;
+
+            cmd.CommandText = $"SELECT idx FROM {tableName}";
+
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    if (index < int.Parse(reader["idx"].ToString()))
+                    {
+                        index = int.Parse(reader["idx"].ToString());
+                    }
+                }
+
+                return index + 1;
+            }
+        }
+
         public void SaveTime(TimeSpan usedTime)
         {
             if (cmd == null)
@@ -98,7 +179,7 @@ namespace BomBom_Kiosk.Service
             }
 
             cmd.CommandText = "UPDATE time " +
-                                 $"SET time='{totalTime.ToString("yyyy-MM-dd HH:hh:ss")}'";
+                             $"SET time='{totalTime.ToString("yyyy-MM-dd HH:hh:ss")}'";
             cmd.ExecuteNonQuery();
         }
     }

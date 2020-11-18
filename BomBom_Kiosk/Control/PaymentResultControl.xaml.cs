@@ -1,10 +1,8 @@
-﻿using BomBom_Kiosk.Model;
-using BomBom_Kiosk.ViewModel;
+﻿using BomBom_Kiosk.ViewModel;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using System.Windows.Threading;
 
 namespace BomBom_Kiosk.Control
 {
@@ -32,8 +30,10 @@ namespace BomBom_Kiosk.Control
         {
             if ((bool)e.NewValue == true)
             {
-                App.paymentViewModel.Payment();
+                tbOrderNumber.Text = "주문 번호 : " + App.dbManager.Payment();
+
                 await Task.Run(() => Thread.Sleep(TimeSpan.FromSeconds(5)));
+                App.orderViewModel.ResetData();
                 App.uiManager.PushUC(Service.UICategory.HOME);
             }
         }

@@ -26,8 +26,18 @@ namespace BomBom_Kiosk.ViewModel
             {
                 _selectedTable = value;
 
-                OrderInfo.Table = SelectedTable.Number;
+                if (SelectedTable != null)
+                {
+                    OrderInfo.Table = SelectedTable.Number;
+                }
             }
+        }
+
+        private int _orderNumber;
+        public int OrderNumber
+        {
+            get => _orderNumber;
+            set => SetProperty(ref _orderNumber, value);
         }
 
         public PaymentViewModel()
@@ -53,14 +63,6 @@ namespace BomBom_Kiosk.ViewModel
             OrderInfo.Name = member.Name;
 
             return true;
-        }
-
-        public void Payment()
-        {
-            if (OrderInfo.Place == EOrderPlace.InShop)
-            {
-                Tables.Where(x => x.Number == OrderInfo.Table).FirstOrDefault().IsUsing = true;
-            }
         }
 
         private void SetTables()
