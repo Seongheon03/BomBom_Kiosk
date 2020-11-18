@@ -50,7 +50,7 @@ namespace BomBom_Kiosk.ViewModel
             Members = App.dbManager.GetMembers();
         }
 
-        public bool GetMember(string code)
+        public bool IsExistMember(string code)
         {
             MemberModel member = Members.Where(x => x.Code.Trim() == code).FirstOrDefault();
 

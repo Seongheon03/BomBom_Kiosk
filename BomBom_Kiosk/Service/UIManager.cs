@@ -15,11 +15,6 @@ namespace BomBom_Kiosk.Service
             ucDic.Add(category, userControl);
         }
 
-        public UserControl GetCurrentUC()
-        {
-            return ucStack.Peek();
-        }
-
         public void PushUC(UICategory category)
         {
             if (ucStack.Count != 0)

@@ -32,7 +32,7 @@ namespace BomBom_Kiosk.ViewModel
             }
         }
 
-        private List<Drink> _drinks;
+        private List<Drink> _drinks = new List<Drink>();
         public List<Drink> Drinks
         {
             get => _drinks;
@@ -161,6 +161,12 @@ namespace BomBom_Kiosk.ViewModel
             SetDisplayDrinks();
         }
 
+        public void ResetData()
+        {
+            OrderList.Clear();
+            TotalPrice = 0;
+        }
+
         private void SetDrinks()
         {
             Drinks = App.dbManager.GetDrinks();
@@ -215,17 +221,7 @@ namespace BomBom_Kiosk.ViewModel
 
             for (int i = maxIndex - MAX_DRINK_NUM; i < maxIndex; i++)
             {
-                try
-                {
-                    Application.Current.Dispatcher.Invoke(() =>
-                    {
-                        DisplayDrinks.Add(drinks[i]);
-                    });
-                }
-                catch
-                {
-                    return;
-                }
+                DisplayDrinks.Add(drinks[i]);
             }
         }
 

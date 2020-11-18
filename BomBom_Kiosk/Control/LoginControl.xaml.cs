@@ -1,13 +1,101 @@
 ﻿using BomBom_Kiosk.Model;
 using BomBom_Kiosk.Properties;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace BomBom_Kiosk.Control
 {
+    public partial class LoginControl : UserControl
+    {
+        public List<MemberModel> Members { get; set; } = new List<MemberModel>();
+
+        public delegate void LoginEventHandler(bool success);
+        public event LoginEventHandler LoginAction;
+
+        public LoginControl()
+        {
+            InitializeComponent();
+            Loaded += LoginControl_Loaded;
+            IsVisibleChanged += LoginControl_IsVisibleChanged;
+        }
+
+        private async void LoginControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            await InitData();
+        }
+
+        private void LoginControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue == true)
+            {
+                btnLogin.IsEnabled = false;
+                LoginAction?.Invoke(false);
+            }
+            else
+            {
+                LoginAction?.Invoke(true);
+            }
+        }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var member in Members)
+            {
+                if (member.Id == tbId.Text && member.Pw == tbPw.Password)
+                {
+                    Settings.Default.isAutoLogin = (bool)cbAutoLogin.IsChecked;
+                    Settings.Default.Save();
+
+                    App.uiManager.PushUC(Service.UICategory.HOME);
+                    return;
+                }
+            }
+
+            tbStatus.Text = "아이디 또는 비밀번호를 확인해주세요.";
+        }
+
+        public async Task InitData()
+        { 
+            tbStatus.Text = "DB에 연결중입니다...";
+            progressRing.IsActive = true;
+            
+            if (await Task.Run(() => App.dbManager.ConnectDB()))
+            {
+                //await Task.Run(() => App.orderViewModel.InitData());
+                //await Task.Run(() => App.paymentViewModel.InitMembers());
+
+                App.orderViewModel.InitData();
+                App.paymentViewModel.InitMembers();
+                SetMembers();
+
+                CheckIsAutoLogin();
+
+                tbStatus.Text = "로그인을 해주세요.";
+            }
+            else
+            {
+                tbStatus.Text = "DB에 연결되지 않았습니다.";
+            }
+
+            progressRing.IsActive = false;
+        }
+
+        private void SetMembers()
+        {
+            Members = App.dbManager.GetMembers();
+        }
+
+        private void CheckIsAutoLogin()
+        {
+            if (Settings.Default.isAutoLogin)
+            {
+                App.uiManager.PushUC(Service.UICategory.HOME);
+            }
+        }
+    }
+
     /// <summary>
     /// Interaction logic for LoginControl.xaml
     /// </summary>
@@ -65,93 +153,5 @@ namespace BomBom_Kiosk.Control
             }
             SetPasswordLength(pb, pb.Password.Length);
         }
-    }
-
-    public partial class LoginControl : UserControl
-    {
-        public List<MemberModel> Members { get; set; } = new List<MemberModel>();
-
-        public LoginControl()
-        {
-            InitializeComponent();
-            Loaded += LoginControl_Loaded;
-        }
-
-        private async void LoginControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            await InitData();
-        }
-
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
-        {
-            foreach (var member in Members)
-            {
-                if (member.Id == tbId.Text && member.Pw == tbPw.Password)
-                {
-                    Settings.Default.isAutoLogin = (bool)cbAutoLogin.IsChecked;
-                    Settings.Default.Save();
-
-                    App.uiManager.PushUC(Service.UICategory.HOME);
-                    return;
-                }
-            }
-
-            tbStatus.Text = "아이디 또는 비밀번호를 확인해주세요.";
-        }
-
-        public async Task InitData()
-        { 
-            tbStatus.Text = "DB에 연결중입니다...";
-            progressRing.IsActive = true;
-            if (await Task.Run(() => App.dbManager.ConnectDB()))
-            {
-                tbStatus.Text = "메뉴를 불러오는 중입니다...";
-                await Task.Run(() => App.orderViewModel.InitData());
-
-                tbStatus.Text = "회원을 불러오는 중입니다...";
-                await Task.Run(() => App.paymentViewModel.InitMembers());
-                SetMembers();
-
-                CheckIsAutoLogin();
-
-                tbStatus.Text = "로그인을 해주세요.";
-                btnLogin.IsEnabled = true;
-            }
-            else
-            {
-                tbStatus.Text = "DB에 연결되지 않았습니다.";
-            }
-
-            progressRing.IsActive = false;
-        }
-
-        private void SetMembers()
-        {
-            Members = App.dbManager.GetMembers();
-        }
-
-        private void CheckIsAutoLogin()
-        {
-            if (Settings.Default.isAutoLogin)
-            {
-                App.uiManager.PushUC(Service.UICategory.HOME);
-            }
-        }
-
-        //private void LoadingAction(bool isLoading, string status)
-        //{
-        //    progressRing.IsActive = isLoading;
-
-        //    if (isLoading)
-        //    {
-        //        btnLogin.IsEnabled = false;
-        //    }
-        //    else
-        //    {
-        //        btnLogin.IsEnabled = true;
-        //    }
-
-        //    tbStatus.Text = status;
-        //}
     }
 }

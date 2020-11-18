@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BomBom_Kiosk.Control"
              mc:Ignorable="d" 
+             Focusable="True"
+             KeyDown="UserControl_KeyDown"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <StackPanel VerticalAlignment="Center">

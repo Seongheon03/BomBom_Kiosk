@@ -44,7 +44,7 @@ namespace BomBom_Kiosk.Control
         {
             if (e.Key == System.Windows.Input.Key.Return)
             {
-                if (App.paymentViewModel.GetMember(tbBarcode.Text))
+                if (App.paymentViewModel.IsExistMember(tbBarcode.Text))
                 {
                     tbStatus.Visibility = Visibility.Hidden;
                     App.uiManager.PushUC(UICategory.PAYMENTRESULT);

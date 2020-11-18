@@ -27,7 +27,21 @@ namespace BomBom_Kiosk
             SetTimer();
             InitUIDic();
 
+            ctrlLogin.LoginAction += CtrlLogin_LoginAction;
+
             App.uiManager.PushUC(UICategory.LOGIN);
+        }
+
+        private void CtrlLogin_LoginAction(bool success)
+        {
+            if (success)
+            {
+                btnHome.IsEnabled = true;
+            }
+            else
+            {
+                btnHome.IsEnabled = false;
+            }
         }
 
         private void InitUIDic()
@@ -89,14 +103,6 @@ namespace BomBom_Kiosk
         private void SetTime()
         {
             tbCurrentTime.Text = DateTime.Now.ToString(string.Format("MM월 dd일 (ddd) tt hh시 mm분", CultureInfo.CreateSpecificCulture("ko-KR")));
-        }
-
-        private void Window_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
-        {
-            if (App.uiManager.GetCurrentUC() == ctrlHome && e.Key == System.Windows.Input.Key.F2)
-            {
-                App.uiManager.PushUC(UICategory.MANAGER);
-            }
         }
 
         private void Window_Closed(object sender, EventArgs e)

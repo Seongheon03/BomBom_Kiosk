@@ -26,6 +26,16 @@ namespace BomBom_Kiosk.Control
         {
             InitializeComponent();
             Loaded += InShopControl_Loaded;
+            IsVisibleChanged += InShopControl_IsVisibleChanged;
+        }
+
+        private void InShopControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue == true)
+            {
+                lvTables.UnselectAll();
+                tbNext.IsEnabled = false;
+            }
         }
 
         private void InShopControl_Loaded(object sender, RoutedEventArgs e)

@@ -90,7 +90,6 @@
                        FontWeight="Bold"
                        HorizontalAlignment="Center"/>
             <Button x:Name="btnLogin" Content="로그인"
-                    IsEnabled="False"
                     Style="{StaticResource btnBaseStyle}"
                     Click="btnLogin_Click"
                     Margin="0 50 0 0"/>

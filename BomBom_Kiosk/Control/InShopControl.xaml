@@ -79,10 +79,8 @@
                     Style="{StaticResource btnBaseStyle}"
                     HorizontalAlignment="Left"
                     Click="btnPrev_Click"
-                    Margin="50 0 0 40"
-                    />
+                    Margin="50 0 0 40"/>
             <Button x:Name="tbNext" Content="다음"
-                    IsEnabled="False"
                     Style="{StaticResource btnBaseStyle}"
                     HorizontalAlignment="Right"
                     Click="btnNext_Click"

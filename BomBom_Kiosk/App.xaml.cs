@@ -1,7 +1,5 @@
 ﻿using BomBom_Kiosk.Service;
 using BomBom_Kiosk.ViewModel;
-using System.Security.Policy;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace BomBom_Kiosk
