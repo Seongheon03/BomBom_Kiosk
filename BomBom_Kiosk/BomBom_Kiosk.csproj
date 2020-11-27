@@ -188,6 +188,7 @@
     <Compile Include="Model\MemberModel.cs" />
     <Compile Include="Model\OrderData.cs" />
     <Compile Include="Model\OrderedDrink.cs" />
+    <Compile Include="Model\OrderedItem.cs" />
     <Compile Include="Model\Table.cs" />
     <Compile Include="Service\DBManager.cs" />
     <Compile Include="Service\NetworkManager.cs" />
