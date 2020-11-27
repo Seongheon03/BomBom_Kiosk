@@ -33,8 +33,8 @@ namespace BomBom_Kiosk.ViewModel
             }
         }
 
-        private int _orderNumber;
-        public int OrderNumber
+        private string _orderNumber;
+        public string OrderNumber
         {
             get => _orderNumber;
             set => SetProperty(ref _orderNumber, value);

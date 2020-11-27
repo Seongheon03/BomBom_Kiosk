@@ -79,41 +79,41 @@ namespace BomBom_Kiosk.Service
             }
         }
 
-        public string Payment()
+        public void Payment()
         {
             foreach (var item in App.orderViewModel.OrderList)
             {
                 AddOrderItem(item);
             }
 
-            int index = GetIndex("order_number");
+            int index = GetLastIndex("order_number");
+            string orderNumber = GetOrderNumber(index - 1);
 
-            cmd.CommandText = "INSERT INTO order_number (idx, member_idx) " +
+            cmd.CommandText = "INSERT INTO order_number (idx, order_number) " +
                              $"VALUES ({index}, " +
-                             $"{App.paymentViewModel.OrderInfo.MemberIdx})";
+                             $"{orderNumber})";
 
             cmd.ExecuteNonQuery();
-
-            string orderNumber = index.ToString();
 
             while (orderNumber.Length < 3)
             {
                 orderNumber = "0" + orderNumber;
             }
 
-            return orderNumber;
+            App.paymentViewModel.OrderNumber = orderNumber;
         }
 
         private void AddOrderItem(OrderedDrink orderedDrink)
         {
             OrderData orderInfo = App.paymentViewModel.OrderInfo;
-            int index = GetIndex("order_item");
+            int index = GetLastIndex("order_item");
 
             if (orderInfo.Place == EOrderPlace.InShop)
             {
-                cmd.CommandText = "INSERT INTO order_item (idx, menu_idx, count, seat, order_code, place, payment_type, order_date_time) " +
+                cmd.CommandText = "INSERT INTO order_item (idx, menu_idx, member_idx, count, seat, order_code, place, payment_type, order_date_time) " +
                                  $"VALUES ({index}," +
                                  $"{orderedDrink.MenuIdx}, " +
+                                 $"{orderInfo.MemberIdx}, " +
                                  $"{orderedDrink.Count}, " +
                                  $"{orderInfo.Table}, " +
                                  $"'{orderInfo.Code}', " +
@@ -125,9 +125,10 @@ namespace BomBom_Kiosk.Service
             }
             else
             {
-                cmd.CommandText = "INSERT INTO order_item (idx, menu_idx, count, order_code, place, payment_type, order_date_time)" +
+                cmd.CommandText = "INSERT INTO order_item (idx, menu_idx, member_idx, count, order_code, place, payment_type, order_date_time)" +
                                  $"VALUES ({index}," +
                                  $"{orderedDrink.MenuIdx}, " +
+                                 $"{orderInfo.MemberIdx}, " +
                                  $"{orderedDrink.Count}, " +
                                  $"{orderInfo.Table}, " +
                                  $"'{orderInfo.Code}', " +
@@ -139,7 +140,7 @@ namespace BomBom_Kiosk.Service
             cmd.ExecuteNonQuery();
         }
 
-        private int GetIndex(string tableName)
+        private int GetLastIndex(string tableName)
         {
             int index = 0;
 
@@ -157,6 +158,28 @@ namespace BomBom_Kiosk.Service
 
                 return index + 1;
             }
+        }
+
+        private string GetOrderNumber(int index)
+        {
+            int orderNumber = 0;
+
+            cmd.CommandText = "SELECT order_number FROM order_number WHERE idx=" + index;
+
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    orderNumber = int.Parse(reader["order_number"].ToString()) + 1;
+                }
+            }
+
+            if (orderNumber == 100)
+            {
+                orderNumber = 1;
+            }
+
+            return orderNumber.ToString();
         }
 
         public void SaveTime(TimeSpan usedTime)
