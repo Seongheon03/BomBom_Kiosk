@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BomBom_Kiosk.Control.Manager
 {
     /// <summary>
-    /// MemberManager.xaml에 대한 상호 작용 논리
+    /// Interaction logic for MemberManagerControl.xaml
     /// </summary>
-    public partial class MemberManager : Window
+    public partial class MemberManagerControl : UserControl
     {
-        public MemberManager()
+        public MemberManagerControl()
         {
             InitializeComponent();
         }

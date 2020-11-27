@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BomBom_Kiosk.Control.Manager
+namespace BomBom_Kiosk.Control.Manager.Statistics
 {
     /// <summary>
-    /// MenuStatistics.xaml에 대한 상호 작용 논리
+    /// Interaction logic for StatisticsBySeatControl.xaml
     /// </summary>
-    public partial class MenuStatistics : Window
+    public partial class StatisticsBySeatControl : UserControl
     {
-        public MenuStatistics()
+        public StatisticsBySeatControl()
         {
             InitializeComponent();
         }

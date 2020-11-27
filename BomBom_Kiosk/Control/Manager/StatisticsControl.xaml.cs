@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BomBom_Kiosk.Control.Manager
 {
     /// <summary>
-    /// DrivingTimeAndTotalTurnOver.xaml에 대한 상호 작용 논리
+    /// Interaction logic for StatisticsControl.xaml
     /// </summary>
-    public partial class DrivingTimeAndTotalTurnOver : Window
+    public partial class StatisticsControl : UserControl
     {
-        public DrivingTimeAndTotalTurnOver()
+        public StatisticsControl()
         {
             InitializeComponent();
         }

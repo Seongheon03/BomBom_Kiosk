@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BomBom_Kiosk.Control.Manager
+namespace BomBom_Kiosk.Control.Manager.Statistics
 {
     /// <summary>
-    /// TotalDailyTurnover.xaml에 대한 상호 작용 논리
+    /// Interaction logic for DailyStatisticsControl.xaml
     /// </summary>
-    public partial class TotalDailyTurnover : Window
+    public partial class DailyStatisticsControl : UserControl
     {
-        public TotalDailyTurnover()
+        public DailyStatisticsControl()
         {
             InitializeComponent();
         }

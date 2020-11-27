@@ -3,23 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BomBom_Kiosk"
-             xmlns:ctrl="clr-namespace:BomBom_Kiosk.Control"
-             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
-             mc:Ignorable="d"  d:DataContext="{d:DesignData local:BasicColumn ctrl:ManagerControl}" Height="379" Width="463">
+             xmlns:local="clr-namespace:BomBom_Kiosk.Control"
+             xmlns:ctrl="clr-namespace:BomBom_Kiosk.Control.Manager"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <lvc:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Left" Grid.ColumnSpan="2">
-            <lvc:CartesianChart.AxisX>
-                <lvc:Axis Title="메뉴" Labels="{Binding Labels}"></lvc:Axis>
-            </lvc:CartesianChart.AxisX>
-            <lvc:CartesianChart.AxisY>
-                <lvc:Axis Title="총액" LabelFormatter="{Binding Formatter}"></lvc:Axis>
-            </lvc:CartesianChart.AxisY>
-        </lvc:CartesianChart>
+        <TabControl>
+            <TabItem Header="메뉴">
+                <ctrl:MenuManagerControl />
+            </TabItem>
+            <TabItem Header="회원">
+                <ctrl:MemberManagerControl />
+            </TabItem>
+            <TabItem Header="통계">
+                <ctrl:StatisticsControl />
+            </TabItem>
+        </TabControl>
     </Grid>
 </UserControl>
  

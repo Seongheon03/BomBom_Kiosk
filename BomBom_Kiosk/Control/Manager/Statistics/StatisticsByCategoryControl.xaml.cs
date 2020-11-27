@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BomBom_Kiosk.Control.Manager
+namespace BomBom_Kiosk.Control.Manager.Statistics
 {
     /// <summary>
-    /// TotalSalesByHourOfTheDay.xaml에 대한 상호 작용 논리
+    /// Interaction logic for StatisticsByCategoryControl.xaml
     /// </summary>
-    public partial class TotalSalesByHourOfTheDay : Window
+    public partial class StatisticsByCategoryControl : UserControl
     {
-        public TotalSalesByHourOfTheDay()
+        public StatisticsByCategoryControl()
         {
             InitializeComponent();
         }
