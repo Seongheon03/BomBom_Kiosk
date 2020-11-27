@@ -79,6 +79,45 @@ namespace BomBom_Kiosk.Service
             }
         }
 
+        public List<OrderedItem> GetOrderedItem(int menuIdx)
+        {
+            cmd.CommandText = $"SELECT * FROM order_item WHERE menu_idx = {menuIdx}";
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                List<OrderedItem> orderedItems = new List<OrderedItem>();
+
+                while (reader.Read())
+                {
+                    OrderedItem orderedItem = new OrderedItem();
+                    orderedItem.Idx = int.Parse(reader["idx"].ToString());
+                    orderedItem.Menu.Idx = int.Parse(reader["menu_idx"].ToString());
+                    orderedItem.Member.Idx = int.Parse(reader["member_idx"].ToString());
+                    orderedItem.Count = int.Parse(reader["count"].ToString());
+                    orderedItem.Seat = int.Parse(reader["seat"].ToString());
+                    orderedItem.OrderCode = reader["order_code"].ToString();
+                    if (int.Parse(reader["place"].ToString()) == 0)
+                    {
+                        orderedItem.Place = EOrderPlace.InShop;
+                    }
+                    else if (int.Parse(reader["place"].ToString()) == 1)
+                    {
+                        orderedItem.Place = EOrderPlace.Packing;
+                    }
+                    if (int.Parse(reader["payment_type"].ToString()) == 0)
+                    {
+                        orderedItem.Type = EOrderType.Cash;
+                    }
+                    else if (int.Parse(reader["payment_type"].ToString()) == 1)
+                    {
+                        orderedItem.Type = EOrderType.Card;
+                    }
+                    orderedItem.OrderDateTime = DateTime.Parse(reader["order_code"].ToString());
+                    orderedItems.Add(orderedItem);
+                }
+                return orderedItems;
+            }
+        }
+
         public void Payment()
         {
             foreach (var item in App.orderViewModel.OrderList)
