@@ -50,16 +50,35 @@ namespace BomBom_Kiosk.ViewModel
             Members = App.dbManager.GetMembers();
         }
 
-        public bool IsExistMember(string code)
+        public bool IsExistMember(EOrderType type, string code)
         {
-            MemberModel member = Members.Where(x => x.Code.Trim() == code).FirstOrDefault();
+            MemberModel member = new MemberModel();
+
+            switch (type)
+            {
+                case EOrderType.Card:
+                    member = Members.Where(x => x.QRCode.Trim() == code).FirstOrDefault();
+                    break;
+                case EOrderType.Cash:
+                    member = Members.Where(x => x.Barcode.Trim() == code).FirstOrDefault();
+                    break;
+            }
 
             if (member == null)
             {
                 return false;
             }
 
-            OrderInfo.Code = member.Code;
+            switch (type)
+            {
+                case EOrderType.Card:
+                    OrderInfo.Code = member.QRCode;
+                    break;
+                case EOrderType.Cash:
+                    OrderInfo.Code = member.Barcode;
+                    break;
+            }
+
             OrderInfo.Name = member.Name;
 
             return true;

@@ -54,58 +54,7 @@ namespace BomBom_Kiosk.Service
             }
         }
 
-        public List<MemberModel> GetMembers()
-        {
-            cmd.CommandText = "SELECT * FROM member";
-
-            using (MySqlDataReader reader = cmd.ExecuteReader())
-            {
-                List<MemberModel> members = new List<MemberModel>();
-
-                while (reader.Read())
-                {
-                    MemberModel member = new MemberModel();
-                    member.Idx = int.Parse(reader["idx"].ToString());
-                    member.Name = reader["name"].ToString();
-                    member.Code = reader["code"].ToString();
-                    member.Id = reader["id"].ToString();
-                    member.Pw = reader["pw"].ToString();
-
-                    members.Add(member);
-                }
-                
-                return members;
-            }
-        }
-
-        public List<OrderedItem> GetOrderedItem()
-        {
-            cmd.CommandText = $"SELECT * FROM order_item";
-            using (MySqlDataReader reader = cmd.ExecuteReader())
-            {
-                List<OrderedItem> orderedItems = new List<OrderedItem>();
-
-                while (reader.Read())
-                {
-                    OrderedItem orderedItem = new OrderedItem();
-                    orderedItem.Idx = int.Parse(reader["idx"].ToString());
-                    orderedItem.Menu = GetMenu(int.Parse(reader["menu_idx"].ToString()));
-                    orderedItem.Member = GetMember(int.Parse(reader["member_idx"].ToString()));
-                    orderedItem.Count = int.Parse(reader["count"].ToString());
-                    orderedItem.Seat = int.Parse(reader["seat"].ToString());
-                    orderedItem.OrderCode = reader["order_code"].ToString();
-                    orderedItem.Place = (EOrderPlace)int.Parse(reader["place"].ToString());
-                    orderedItem.Type = (EOrderType)int.Parse(reader["payment_type"].ToString());
-                    orderedItem.OrderDateTime = DateTime.Parse(reader["order_code"].ToString());
-                    orderedItems.Add(orderedItem);
-                }
-                return orderedItems;
-            }
-        }
-
-
-        
-        private MenuModel GetMenu (int idx)
+        private MenuModel GetDrink(int idx)
         {
             cmd.CommandText = $"SELECT * FROM menu WHERE idx = {idx}";
             using (MySqlDataReader reader = cmd.ExecuteReader())
@@ -125,23 +74,86 @@ namespace BomBom_Kiosk.Service
             }
         }
 
+        public List<MemberModel> GetMembers()
+        {
+            cmd.CommandText = "SELECT * FROM member";
+
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                List<MemberModel> members = new List<MemberModel>();
+
+                while (reader.Read())
+                {
+                    MemberModel member = new MemberModel();
+                    member.Idx = int.Parse(reader["idx"].ToString());
+                    member.Name = reader["name"].ToString();
+                    member.Barcode = reader["barcode"].ToString();
+                    member.QRCode = reader["qr_code"].ToString();
+                    member.Id = reader["id"].ToString();
+                    member.Pw = reader["pw"].ToString();
+
+                    members.Add(member);
+                }
+                
+                return members;
+            }
+        }
+
         private MemberModel GetMember(int idx)
         {
             cmd.CommandText = $"SELECT * FROM member WHERE idx = {idx}";
             using (MySqlDataReader reader = cmd.ExecuteReader())
             {
-                MemberModel memberModel = new MemberModel();
+                MemberModel member = new MemberModel();
 
                 while (reader.Read())
                 {
-                    memberModel.Name = reader["name"].ToString();
-                    memberModel.Code = reader["code"].ToString();
-                    memberModel.Idx = int.Parse(reader["idx"].ToString());
-                    memberModel.Id = reader["id"].ToString();
-                    memberModel.Pw = reader["pw"].ToString();
+                    member.Name = reader["name"].ToString();
+                    member.Barcode = reader["barcode"].ToString();
+                    member.QRCode = reader["qr_code"].ToString();
+                    member.Idx = int.Parse(reader["idx"].ToString());
+                    member.Id = reader["id"].ToString();
+                    member.Pw = reader["pw"].ToString();
                 }
-                return memberModel;
+
+                return member;
             }
+        }
+
+        public List<OrderedItem> GetOrderedItems()
+        {
+            List<OrderedItem> orderedItems = new List<OrderedItem>();
+
+            cmd.CommandText = $"SELECT * FROM order_item";
+
+            using (MySqlDataReader reader = cmd.ExecuteReader())
+            {
+                while (reader.Read())
+                {
+                    OrderedItem orderedItem = new OrderedItem();
+                    orderedItem.Idx = int.Parse(reader["idx"].ToString());
+                    orderedItem.Menu.Idx = int.Parse(reader["menu_idx"].ToString());
+                    orderedItem.Member.Idx = int.Parse(reader["member_idx"].ToString());
+                    orderedItem.Count = int.Parse(reader["count"].ToString());
+                    if (Int32.TryParse(reader["seat"].ToString(), out int seat))
+                    {
+                        orderedItem.Seat = seat;
+                    }
+                    orderedItem.OrderCode = reader["order_code"].ToString();
+                    orderedItem.Place = (EOrderPlace)int.Parse(reader["place"].ToString());
+                    orderedItem.Type = (EOrderType)int.Parse(reader["payment_type"].ToString());
+                    orderedItem.OrderDateTime = DateTime.Parse(reader["order_date_time"].ToString());
+                    orderedItems.Add(orderedItem);
+                }
+            }
+
+            foreach (var item in orderedItems)
+            {
+                item.Menu = GetDrink(item.Menu.Idx);
+                item.Member = GetMember(item.Member.Idx);
+            }
+
+            return orderedItems;
         }
 
         public void Payment()

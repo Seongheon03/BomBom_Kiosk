@@ -9,10 +9,10 @@ namespace BomBom_Kiosk.Model
     public class OrderedItem
     {
         public int Idx { get; set; }
-        public MenuModel Menu { get; set; }
-        public MemberModel Member { get; set; }
+        public MenuModel Menu { get; set; } = new MenuModel();
+        public MemberModel Member { get; set; } = new MemberModel();
         public int Count { get; set; }
-        public int Seat { get; set; }
+        public int? Seat { get; set; }
         public string OrderCode { get; set; }
         public EOrderPlace Place { get; set; }
         public EOrderType Type { get; set; }
@@ -31,7 +31,8 @@ namespace BomBom_Kiosk.Model
     {
         public int Idx { get; set; }
         public string Name { get; set; }
-        public string Code { get; set; }
+        public string Barcode { get; set; }
+        public string QRCode { get; set; }
         public string Id { get; set; }
         public string Pw { get; set; }
     }

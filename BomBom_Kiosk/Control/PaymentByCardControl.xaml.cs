@@ -36,7 +36,7 @@ namespace BomBom_Kiosk.Control
 
         private void webcam_QrDecoded(object sender, string qrCode)
         {
-            if (App.paymentViewModel.IsExistMember(qrCode))
+            if (App.paymentViewModel.IsExistMember(Model.EOrderType.Card, qrCode))
             {
                 tbStatus.Visibility = Visibility.Hidden;
                 App.uiManager.PushUC(UICategory.PAYMENTRESULT);
