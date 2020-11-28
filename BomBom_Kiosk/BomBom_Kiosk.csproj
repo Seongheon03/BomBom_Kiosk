@@ -191,6 +191,7 @@
     <Compile Include="Service\DBManager.cs" />
     <Compile Include="Service\NetworkManager.cs" />
     <Compile Include="Service\UIManager.cs" />
+    <Compile Include="ViewModel\ManagerViewModel.cs" />
     <Compile Include="ViewModel\OrderViewModel.cs" />
     <Compile Include="ViewModel\PaymentViewModel.cs" />
     <Page Include="Control\HomeControl.xaml">

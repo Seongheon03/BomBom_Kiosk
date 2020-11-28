@@ -30,6 +30,7 @@ namespace BomBom_Kiosk.Control
         {
             if ((bool)e.NewValue == true)
             {
+                App.dbManager.Payment();
                 await Task.Run(() => Thread.Sleep(TimeSpan.FromSeconds(5)));
                 App.orderViewModel.ResetData();
                 App.uiManager.PushUC(Service.UICategory.HOME);
