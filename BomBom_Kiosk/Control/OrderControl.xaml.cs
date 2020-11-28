@@ -47,7 +47,7 @@ namespace BomBom_Kiosk.Control
             {
                 if (MessageBox.Show("주문을 취소하시겠습니까?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    App.orderViewModel.OrderList.Clear();
+                    App.orderViewModel.ResetData();
                 }
                 else
                 {

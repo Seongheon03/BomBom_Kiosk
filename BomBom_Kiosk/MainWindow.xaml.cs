@@ -62,7 +62,7 @@ namespace BomBom_Kiosk
             {
                 if (MessageBox.Show("주문을 취소하시겠습니까?", "", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    App.orderViewModel.OrderList.Clear();
+                    App.orderViewModel.ResetData();
                 }
                 else
                 {
@@ -95,7 +95,6 @@ namespace BomBom_Kiosk
         private void Timer_Tick(object sender, EventArgs e)
         {
             SetTime();
-            usedTime += TimeSpan.FromSeconds(1);
         }
 
         private void SetTime()
