@@ -23,6 +23,13 @@ namespace BomBom_Kiosk.Control.Manager
         public MemberManagerControl()
         {
             InitializeComponent();
+
+            Loaded += MemberManagerControl_Loaded;
+        }
+
+        private void MemberManagerControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            DataContext = App.managerViewModel;
         }
     }
 }

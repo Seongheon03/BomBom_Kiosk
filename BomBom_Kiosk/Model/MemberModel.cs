@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace BomBom_Kiosk.Model
 {
-    public class Drink
+    public class MemberModel
     {
         public int Idx { get; set; }
-        public string Image { get; set; }
         public string Name { get; set; }
-        public ECategory Category { get; set; }
-        public int Price { get; set; }
-        public int DiscountPrice { get; set; }
+        public string Barcode { get; set; }
+        public string QRCode { get; set; }
+        public string Id { get; set; }
+        public string Pw { get; set; }
     }
 }

@@ -21,7 +21,7 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <TabControl>
+            <TabControl FontSize="20">
                 <TabItem Header="메뉴">
                     <ctrl:MenuManagerControl x:Name="ctrlMenuManager"/>
                 </TabItem>

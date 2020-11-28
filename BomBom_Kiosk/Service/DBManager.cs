@@ -30,17 +30,17 @@ namespace BomBom_Kiosk.Service
             }
         }
 
-        public List<Drink> GetDrinks()
+        public List<MenuModel> GetDrinks()
         {
             cmd.CommandText = "SELECT * FROM menu";
 
             using (MySqlDataReader reader = cmd.ExecuteReader())
             {
-                List<Drink> drinks = new List<Drink>();
+                List<MenuModel> drinks = new List<MenuModel>();
 
                 while (reader.Read())
                 {
-                    Drink drink = new Drink();
+                    MenuModel drink = new MenuModel();
                     drink.Idx = int.Parse(reader["idx"].ToString());
                     drink.Name = reader["name"].ToString();
                     drink.Price = int.Parse(reader["price"].ToString());

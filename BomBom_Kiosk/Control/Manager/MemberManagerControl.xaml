@@ -7,6 +7,30 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <ListView ItemsSource="{Binding Members}" 
+                  Width="1300"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  HorizontalAlignment="Left"
+                  FontSize="20">
+            <ListView.View>
+                <GridView>
+                    <GridView.ColumnHeaderContainerStyle>
+                        <Style TargetType="{x:Type GridViewColumnHeader}">
+                            <Setter Property="Height" Value="40"/>
+                            <Setter Property="Background" Value="LightGray"/>
+                        </Style>
+                    </GridView.ColumnHeaderContainerStyle>
+                    <GridViewColumn Header="이름"
+                                    DisplayMemberBinding="{Binding Name}"
+                                    Width="300" />
+                    <GridViewColumn Header="바코드" 
+                                    DisplayMemberBinding="{Binding Barcode}"
+                                    Width="500" />
+                    <GridViewColumn Header="QR코드"
+                                    DisplayMemberBinding="{Binding QRCode}"
+                                    Width="500" />
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>

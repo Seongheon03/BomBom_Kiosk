@@ -32,22 +32,22 @@ namespace BomBom_Kiosk.ViewModel
             }
         }
 
-        private List<Drink> _drinks = new List<Drink>();
-        public List<Drink> Drinks
+        private List<MenuModel> _drinks = new List<MenuModel>();
+        public List<MenuModel> Drinks
         {
             get => _drinks;
             set => SetProperty(ref _drinks, value);
         }
 
-        private ObservableCollection<Drink> _displayDrinks = new ObservableCollection<Drink>();
-        public ObservableCollection<Drink> DisplayDrinks
+        private ObservableCollection<MenuModel> _displayDrinks = new ObservableCollection<MenuModel>();
+        public ObservableCollection<MenuModel> DisplayDrinks
         {
             get => _displayDrinks;
             set => SetProperty(ref _displayDrinks, value);
         }
 
-        private Drink _selectedDrink;
-        public Drink SelectedDrink
+        private MenuModel _selectedDrink;
+        public MenuModel SelectedDrink
         {
             get => _selectedDrink;
             set
