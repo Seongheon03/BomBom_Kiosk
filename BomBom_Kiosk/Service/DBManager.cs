@@ -247,27 +247,27 @@ namespace BomBom_Kiosk.Service
             return orderNumber.ToString();
         }
 
-        public void SaveTime(TimeSpan usedTime)
+        public TimeSpan GetTime()
         {
-            if (cmd == null)
-            {
-                return;
-            }
+            TimeSpan time = new TimeSpan();
 
-            DateTime totalTime = new DateTime();
             cmd.CommandText = "SELECT * FROM time";
 
             using (MySqlDataReader reader = cmd.ExecuteReader())
             {
-
                 while (reader.Read())
                 {
-                    totalTime = DateTime.Parse(reader["time"].ToString()) + usedTime;
+                    time = TimeSpan.Parse(reader["time"].ToString());
                 }
             }
 
+            return time;
+        }
+
+        public void SaveTime(TimeSpan usedTime)
+        {
             cmd.CommandText = "UPDATE time " +
-                             $"SET time='{totalTime.ToString("yyyy-MM-dd HH:hh:ss")}'";
+                             $"SET time='{usedTime.ToString()}'";
             cmd.ExecuteNonQuery();
         }
     }

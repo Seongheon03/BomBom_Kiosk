@@ -8,17 +8,31 @@
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <TabControl>
-            <TabItem Header="메뉴">
-                <ctrl:MenuManagerControl />
-            </TabItem>
-            <TabItem Header="회원">
-                <ctrl:MemberManagerControl />
-            </TabItem>
-            <TabItem Header="통계">
-                <ctrl:StatisticsControl />
-            </TabItem>
-        </TabControl>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0">
+            <TextBlock Text="{Binding UsedTime, StringFormat=프로그램 구동 시간 - {0}}" 
+                       HorizontalAlignment="Right" VerticalAlignment="Center"
+                       Margin="0 0 10 0"
+                       FontSize="20" FontWeight="Bold"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <TabControl>
+                <TabItem Header="메뉴">
+                    <ctrl:MenuManagerControl x:Name="ctrlMenuManager"/>
+                </TabItem>
+                <TabItem Header="회원">
+                    <ctrl:MemberManagerControl x:Name="ctrlMemberManager"/>
+                </TabItem>
+                <TabItem Header="통계">
+                    <ctrl:StatisticsControl x:Name="ctrlStatistics"/>
+                </TabItem>
+            </TabControl>
+        </Grid>
     </Grid>
 </UserControl>
  

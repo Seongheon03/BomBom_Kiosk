@@ -15,7 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
-
+using System.Windows.Threading;
 
 namespace BomBom_Kiosk.Control
 {
@@ -28,7 +28,12 @@ namespace BomBom_Kiosk.Control
         {
             InitializeComponent();
 
-            DataContext = this;
+            Loaded += ManagerControl_Loaded;
+        }
+
+        private void ManagerControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            DataContext = App.managerViewModel;
         }
     }
 }

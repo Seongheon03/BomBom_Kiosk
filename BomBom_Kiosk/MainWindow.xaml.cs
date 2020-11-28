@@ -11,8 +11,6 @@ namespace BomBom_Kiosk
     /// </summary>
     public partial class MainWindow : Window
     {
-        TimeSpan usedTime = new TimeSpan();
-
         public MainWindow()
         {
             InitializeComponent();
@@ -107,7 +105,7 @@ namespace BomBom_Kiosk
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            App.dbManager.SaveTime(usedTime);
+            App.dbManager.SaveTime(App.managerViewModel.UsedTime);
         }
     }
 }
