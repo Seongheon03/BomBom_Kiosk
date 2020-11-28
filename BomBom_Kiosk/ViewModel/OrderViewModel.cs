@@ -221,7 +221,14 @@ namespace BomBom_Kiosk.ViewModel
 
             for (int i = maxIndex - MAX_DRINK_NUM; i < maxIndex; i++)
             {
-                DisplayDrinks.Add(drinks[i]);
+                try
+                {
+                    DisplayDrinks.Add(drinks[i]);
+                }
+                catch
+                {
+                    return;
+                }
             }
         }
 

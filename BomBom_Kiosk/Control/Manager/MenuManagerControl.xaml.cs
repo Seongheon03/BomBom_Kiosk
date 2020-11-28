@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace BomBom_Kiosk.Control.Manager
 {
     /// <summary>
-    /// CategoryStatistics.xaml에 대한 상호 작용 논리
+    /// Interaction logic for MenuManagerControl.xaml
     /// </summary>
-    public partial class CategoryStatistics : Window
+    public partial class MenuManagerControl : UserControl
     {
-        public CategoryStatistics()
+        public MenuManagerControl()
         {
             InitializeComponent();
         }

@@ -47,6 +47,8 @@ namespace BomBom_Kiosk.Control
                 if (App.paymentViewModel.IsExistMember(tbBarcode.Text))
                 {
                     tbStatus.Visibility = Visibility.Hidden;
+
+                    App.dbManager.Payment();
                     App.uiManager.PushUC(UICategory.PAYMENTRESULT);
                 }
                 else

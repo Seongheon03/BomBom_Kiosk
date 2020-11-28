@@ -20,7 +20,7 @@
             <TextBlock Text="{Binding OrderViewModel.TotalPrice, StringFormat=총 금액 : {0}        결제되었습니다.,
                               Converter={StaticResource PriceToString}}"/>
             <TextBlock x:Name="tbOrderNumber"
-                       Text="주문번호 : 000" Margin="0 200 0 0"/>
+                       Text="{Binding PaymentViewModel.OrderNumber, StringFormat=주문 번호 : {0}}" Margin="0 200 0 0"/>
         </StackPanel>
     </Grid>
 </UserControl>

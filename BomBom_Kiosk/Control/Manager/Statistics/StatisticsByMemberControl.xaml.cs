@@ -1,5 +1,4 @@
-﻿using BomBom_Kiosk.Service;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,22 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using LiveCharts;
-using LiveCharts.Wpf;
 
-
-namespace BomBom_Kiosk.Control
+namespace BomBom_Kiosk.Control.Manager.Statistics
 {
     /// <summary>
-    /// ManagerControl.xaml에 대한 상호 작용 논리
+    /// Interaction logic for StatisticsByMemberControl.xaml
     /// </summary>
-    public partial class ManagerControl : UserControl
+    public partial class StatisticsByMemberControl : UserControl
     {
-        public ManagerControl()
+        public StatisticsByMemberControl()
         {
             InitializeComponent();
-
-            DataContext = this;
         }
     }
 }
