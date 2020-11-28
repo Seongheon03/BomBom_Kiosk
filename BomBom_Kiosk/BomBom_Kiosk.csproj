@@ -184,8 +184,6 @@
     </Compile>
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Drink.cs" />
-    <Compile Include="Model\MessagePacket.cs" />
-    <Compile Include="Model\MemberModel.cs" />
     <Compile Include="Model\OrderData.cs" />
     <Compile Include="Model\OrderedDrink.cs" />
     <Compile Include="Model\OrderedItem.cs" />
