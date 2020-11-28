@@ -1,15 +1,10 @@
 ﻿using BomBom_Kiosk.Model;
-using MySql.Data.MySqlClient.Memcached;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Org.BouncyCastle.Crypto.Tls;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
-using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace BomBom_Kiosk.Service
 {
@@ -59,15 +54,15 @@ namespace BomBom_Kiosk.Service
             sendData(json);
         }
 
-        public void SendOrderData(List<OrderedDrink> orderedDrinks)
+        public void SendOrderData(List<OrderedItem> orderedDrinks)
         {
             JObject menu = new JObject();
             JArray menus = new JArray();
             foreach (var orderedDrink in orderedDrinks)
             {
-                menu.Add("Name", orderedDrink.Name);
+                menu.Add("Name", orderedDrink.Menu.Name);
                 menu.Add("Count", orderedDrink.Count);
-                menu.Add("Price", orderedDrink.Price);
+                menu.Add("Price", orderedDrink.Menu.Price);
                 menus.Add(menu);
             }
 

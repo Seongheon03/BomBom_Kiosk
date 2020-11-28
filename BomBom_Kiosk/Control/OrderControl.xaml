@@ -151,7 +151,7 @@
                                 </Style>
                             </GridView.ColumnHeaderContainerStyle>
                             <GridViewColumn Header="메뉴"
-                                            DisplayMemberBinding="{Binding Name}"
+                                            DisplayMemberBinding="{Binding Menu.Name}"
                                             Width="420" />
                             <GridViewColumn Header="수량" Width="250">
                                 <GridViewColumn.CellTemplate>
@@ -159,12 +159,12 @@
                                         <StackPanel Orientation="Horizontal">
                                             <Button Content="-"
                                                     Command="{Binding ElementName=lvOrderList, Path=DataContext.DecreaseCommand}"
-                                                    CommandParameter="{Binding MenuIdx}"/>
+                                                    CommandParameter="{Binding Menu.Idx}"/>
                                             <TextBlock Text="{Binding Count}" HorizontalAlignment="Center"/>
                                             <Button Content="+"
                                                     HorizontalAlignment="Right"
                                                     Command="{Binding ElementName=lvOrderList, Path=DataContext.IncreaseCommand}"
-                                                    CommandParameter="{Binding MenuIdx}"/>
+                                                    CommandParameter="{Binding Menu.Idx}"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -177,7 +177,7 @@
                                             <Button Content="X"
                                                     HorizontalAlignment="Right"
                                                     Command="{Binding ElementName=lvOrderList, Path=DataContext.RemoveCommand}"
-                                                    CommandParameter="{Binding MenuIdx}"/>
+                                                    CommandParameter="{Binding Menu.Idx}"/>
                                         </StackPanel>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>

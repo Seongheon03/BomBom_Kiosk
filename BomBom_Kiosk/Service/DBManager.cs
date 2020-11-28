@@ -45,7 +45,7 @@ namespace BomBom_Kiosk.Service
                     drink.Name = reader["name"].ToString();
                     drink.Price = int.Parse(reader["price"].ToString());
                     drink.Image = reader["image"].ToString();
-                    drink.Category = (ECategory)int.Parse(reader["type"].ToString());
+                    drink.Type = (ECategory)int.Parse(reader["type"].ToString());
 
                     drinks.Add(drink);
                 }
@@ -67,7 +67,7 @@ namespace BomBom_Kiosk.Service
                     menuModel.Name = reader["name"].ToString();
                     menuModel.Image = reader["image"].ToString();
                     menuModel.Price = int.Parse(reader["price"].ToString());
-                    menuModel.Type = int.Parse(reader["type"].ToString());
+                    menuModel.Type = (ECategory)int.Parse(reader["type"].ToString());
                     menuModel.DiscountPrice = int.Parse(reader["discount_price"].ToString());
                 }
                 return menuModel;
@@ -180,35 +180,34 @@ namespace BomBom_Kiosk.Service
             App.paymentViewModel.OrderNumber = orderNumber;
         }
 
-        private void AddOrderItem(OrderedDrink orderedDrink)
+        private void AddOrderItem(OrderedItem orderedItem)
         {
-            OrderData orderInfo = App.paymentViewModel.OrderInfo;
+            OrderedItem orderInfo = App.paymentViewModel.OrderInfo;
             int index = GetLastIndex("order_item");
 
             if (orderInfo.Place == EOrderPlace.InShop)
             {
                 cmd.CommandText = "INSERT INTO order_item (idx, menu_idx, member_idx, count, seat, order_code, place, payment_type, order_date_time) " +
                                  $"VALUES ({index}," +
-                                 $"{orderedDrink.MenuIdx}, " +
-                                 $"{orderInfo.MemberIdx}, " +
-                                 $"{orderedDrink.Count}, " +
-                                 $"{orderInfo.Table}, " +
-                                 $"'{orderInfo.Code}', " +
+                                 $"{orderedItem.Menu.Idx}, " +
+                                 $"{orderInfo.Member.Idx}, " +
+                                 $"{orderedItem.Count}, " +
+                                 $"{orderInfo.Seat}, " +
+                                 $"'{orderInfo.OrderCode}', " +
                                  $"{(int)orderInfo.Place}, " +
                                  $"{(int)orderInfo.Type}, " +
                                  $"'{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')";
 
-                App.paymentViewModel.Tables.Where(x => x.Number == orderInfo.Table).FirstOrDefault().IsUsing = true;
+                App.paymentViewModel.Tables.Where(x => x.Number == orderInfo.Seat).FirstOrDefault().IsUsing = true;
             }
             else
             {
                 cmd.CommandText = "INSERT INTO order_item (idx, menu_idx, member_idx, count, order_code, place, payment_type, order_date_time)" +
                                  $"VALUES ({index}," +
-                                 $"{orderedDrink.MenuIdx}, " +
-                                 $"{orderInfo.MemberIdx}, " +
-                                 $"{orderedDrink.Count}, " +
-                                 $"{orderInfo.Table}, " +
-                                 $"'{orderInfo.Code}', " +
+                                 $"{orderedItem.Menu.Idx}, " +
+                                 $"{orderInfo.Member.Idx}, " +
+                                 $"{orderedItem.Count}, " +
+                                 $"'{orderInfo.OrderCode}', " +
                                  $"{(int)orderInfo.Place}, " +
                                  $"{(int)orderInfo.Type}, " +
                                  $"'{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}')";
@@ -263,13 +262,13 @@ namespace BomBom_Kiosk.Service
         {
             TimeSpan time = new TimeSpan();
 
-            cmd.CommandText = "SELECT * FROM time";
+            cmd.CommandText = "SELECT * FROM run_time";
 
             using (MySqlDataReader reader = cmd.ExecuteReader())
             {
                 while (reader.Read())
                 {
-                    time = TimeSpan.Parse(reader["time"].ToString());
+                    time = TimeSpan.Parse(reader["run_time"].ToString());
                 }
             }
 

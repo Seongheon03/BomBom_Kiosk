@@ -22,7 +22,6 @@
                                       Converter={StaticResource PriceToString}}" 
                        Margin="0 100 0 0"/>
             <TextBox x:Name="tbBarcode"
-                     Text="{Binding PaymentViewModel.OrderInfo.Code, UpdateSourceTrigger=PropertyChanged}"
                      Background="Transparent"
                      CaretBrush="Transparent"
                      Foreground="Transparent"

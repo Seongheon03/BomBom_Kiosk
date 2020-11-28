@@ -1,9 +1,5 @@
 ﻿using Prism.Mvvm;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -11,8 +7,6 @@ namespace BomBom_Kiosk.Model
 {
     public class Table : BindableBase
     {
-        DispatcherTimer timer = new DispatcherTimer();
-
         public int Number { get; set; }
 
         private TimeSpan _leftTime = TimeSpan.FromSeconds(60);
@@ -28,6 +22,12 @@ namespace BomBom_Kiosk.Model
             get => _isUsing;
             set
             {
+                // 바코드 인식 시 여러번 인식되는 경우 방지
+                if (IsUsing == value)
+                {
+                    return;
+                }
+
                 SetProperty(ref _isUsing, value);
 
                 if (IsUsing)
@@ -54,6 +54,8 @@ namespace BomBom_Kiosk.Model
 
         private void StartTimer()
         {
+            DispatcherTimer timer = new DispatcherTimer();
+
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
             timer.Start();
@@ -65,7 +67,7 @@ namespace BomBom_Kiosk.Model
 
             if (LeftTime == TimeSpan.FromSeconds(0))
             {
-                timer.Stop();
+                ((DispatcherTimer)sender).Stop();
                 IsUsing = false;
             }
         }

@@ -11,7 +11,7 @@ namespace BomBom_Kiosk.Model
         public int Idx { get; set; }
         public string Image { get; set; }
         public string Name { get; set; }
-        public ECategory Category { get; set; }
+        public ECategory Type { get; set; }
         public int Price { get; set; }
         public int DiscountPrice { get; set; }
     }

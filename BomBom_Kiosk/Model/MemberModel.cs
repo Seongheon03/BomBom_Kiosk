@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Prism.Mvvm;
 
 namespace BomBom_Kiosk.Model
 {
-    public class MemberModel
+    public class MemberModel : BindableBase
     {
         public int Idx { get; set; }
-        public string Name { get; set; }
+
+        private string _name;
+        public string Name
+        {
+            get => _name;
+            set => SetProperty(ref _name, value);
+        }
         public string Barcode { get; set; }
         public string QRCode { get; set; }
         public string Id { get; set; }

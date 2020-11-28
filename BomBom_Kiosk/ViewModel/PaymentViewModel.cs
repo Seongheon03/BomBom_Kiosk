@@ -11,8 +11,8 @@ namespace BomBom_Kiosk.ViewModel
 
         public List<Table> Tables { get; set; } = new List<Table>();
 
-        private OrderData _orderInfo = new OrderData();
-        public OrderData OrderInfo
+        private OrderedItem _orderInfo = new OrderedItem();
+        public OrderedItem OrderInfo
         {
             get => _orderInfo;
             set => SetProperty(ref _orderInfo, value);
@@ -28,7 +28,7 @@ namespace BomBom_Kiosk.ViewModel
 
                 if (SelectedTable != null)
                 {
-                    OrderInfo.Table = SelectedTable.Number;
+                    OrderInfo.Seat = SelectedTable.Number;
                 }
             }
         }
@@ -72,14 +72,15 @@ namespace BomBom_Kiosk.ViewModel
             switch (type)
             {
                 case EOrderType.Card:
-                    OrderInfo.Code = member.QRCode;
+                    OrderInfo.OrderCode = member.QRCode;
                     break;
                 case EOrderType.Cash:
-                    OrderInfo.Code = member.Barcode;
+                    OrderInfo.OrderCode = member.Barcode;
                     break;
             }
 
-            OrderInfo.Name = member.Name;
+            OrderInfo.Member.Idx = member.Idx;
+            OrderInfo.Member.Name = member.Name;
 
             return true;
         }

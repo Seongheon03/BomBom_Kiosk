@@ -72,8 +72,8 @@ namespace BomBom_Kiosk.ViewModel
             }
         }
 
-        private ObservableCollection<OrderedDrink> _orderList = new ObservableCollection<OrderedDrink>();
-        public ObservableCollection<OrderedDrink> OrderList
+        private ObservableCollection<OrderedItem> _orderList = new ObservableCollection<OrderedItem>();
+        public ObservableCollection<OrderedItem> OrderList
         {
             get => _orderList;
             set => SetProperty(ref _orderList, value);
@@ -112,34 +112,34 @@ namespace BomBom_Kiosk.ViewModel
 
         private void IncreaseCount(int? drinkIdx)
         {
-            OrderedDrink orderedDrink = OrderList.Where(x => x.MenuIdx == drinkIdx).FirstOrDefault();
+            OrderedItem orderedItem = OrderList.Where(x => x.Menu.Idx == drinkIdx).FirstOrDefault();
 
-            orderedDrink.Count++;
-            orderedDrink.TotalPrice = orderedDrink.Price * orderedDrink.Count;
+            orderedItem.Count++;
+            orderedItem.TotalPrice = orderedItem.Menu.Price * orderedItem.Count;
 
-            TotalPrice += orderedDrink.Price;
+            TotalPrice += orderedItem.Menu.Price;
         }
 
         private void DecreaseCount(int? drinkIdx)
         {
-            OrderedDrink orderedDrink = OrderList.Where(x => x.MenuIdx == drinkIdx).FirstOrDefault();
+            OrderedItem orderedItem = OrderList.Where(x => x.Menu.Idx == drinkIdx).FirstOrDefault();
 
-            if (orderedDrink.Count == 1)
+            if (orderedItem.Count == 1)
             {
-                OrderList.Remove(orderedDrink);
+                OrderList.Remove(orderedItem);
             }
             else
             {
-                orderedDrink.Count--;
-                orderedDrink.TotalPrice = orderedDrink.Price * orderedDrink.Count;
+                orderedItem.Count--;
+                orderedItem.TotalPrice = orderedItem.Menu.Price * orderedItem.Count;
             }
 
-            TotalPrice -= orderedDrink.Price;
+            TotalPrice -= orderedItem.Menu.Price;
         }
 
         private void RemoveDrink(int? drinkIdx)
         {
-            OrderedDrink removeDrink = OrderList.Where(x => x.MenuIdx == drinkIdx).FirstOrDefault();
+            OrderedItem removeDrink = OrderList.Where(x => x.Menu.Idx == drinkIdx).FirstOrDefault();
 
             OrderList.Remove(removeDrink);
             TotalPrice -= removeDrink.TotalPrice;
@@ -191,7 +191,7 @@ namespace BomBom_Kiosk.ViewModel
 
         private int GetCategoryPage(ECategory category)
         {
-            int count = Drinks.Where(x => x.Category == category).Count();
+            int count = Drinks.Where(x => x.Type == category).Count();
             int page = (int)(count - 0.1) / MAX_DRINK_NUM + 1;
 
             return page;
@@ -212,7 +212,7 @@ namespace BomBom_Kiosk.ViewModel
             }
 
             int maxIndex = CurrentDrinkPage * MAX_DRINK_NUM;
-            var drinks = Drinks.Where(x => x.Category == selectedCategory).ToList();
+            var drinks = Drinks.Where(x => x.Type == selectedCategory).ToList();
 
             if (DisplayDrinks.Count != 0)
             {
@@ -234,13 +234,11 @@ namespace BomBom_Kiosk.ViewModel
 
         private void AddToOrderList()
         {
-            if (OrderList.Where(x => x.MenuIdx == SelectedDrink.Idx).Count() == 0)
+            if (OrderList.Where(x => x.Menu.Idx == SelectedDrink.Idx).Count() == 0)
             {
-                OrderList.Add(new OrderedDrink
+                OrderList.Add(new OrderedItem
                 {
-                    MenuIdx = SelectedDrink.Idx,
-                    Name = SelectedDrink.Name,
-                    Price = SelectedDrink.Price,
+                    Menu = SelectedDrink,
                     TotalPrice = SelectedDrink.Price
                 });
             }

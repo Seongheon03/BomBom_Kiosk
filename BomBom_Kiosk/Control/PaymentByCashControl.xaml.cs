@@ -48,7 +48,7 @@ namespace BomBom_Kiosk.Control
                 {
                     tbStatus.Visibility = Visibility.Hidden;
 
-                    App.dbManager.Payment();
+                    App.paymentViewModel.OrderInfo.OrderCode = tbBarcode.Text;
                     App.uiManager.PushUC(UICategory.PAYMENTRESULT);
                 }
                 else

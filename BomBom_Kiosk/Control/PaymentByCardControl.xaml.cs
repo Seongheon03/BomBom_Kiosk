@@ -39,6 +39,8 @@ namespace BomBom_Kiosk.Control
             if (App.paymentViewModel.IsExistMember(Model.EOrderType.Card, qrCode))
             {
                 tbStatus.Visibility = Visibility.Hidden;
+
+                App.paymentViewModel.OrderInfo.OrderCode = qrCode;
                 App.uiManager.PushUC(UICategory.PAYMENTRESULT);
             }
             else
