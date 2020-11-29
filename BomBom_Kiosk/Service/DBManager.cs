@@ -36,21 +36,22 @@ namespace BomBom_Kiosk.Service
 
             using (MySqlDataReader reader = cmd.ExecuteReader())
             {
-                List<MenuModel> drinks = new List<MenuModel>();
+                List<MenuModel> menus = new List<MenuModel>();
 
                 while (reader.Read())
                 {
-                    MenuModel drink = new MenuModel();
-                    drink.Idx = int.Parse(reader["idx"].ToString());
-                    drink.Name = reader["name"].ToString();
-                    drink.Price = int.Parse(reader["price"].ToString());
-                    drink.Image = reader["image"].ToString();
-                    drink.Type = (ECategory)int.Parse(reader["type"].ToString());
+                    MenuModel menu = new MenuModel();
+                    menu.Idx = int.Parse(reader["idx"].ToString());
+                    menu.Name = reader["name"].ToString();
+                    menu.OriginalPrice = int.Parse(reader["price"].ToString());
+                    menu.DiscountPrice = int.Parse(reader["discount_price"].ToString());
+                    menu.Image = reader["image"].ToString();
+                    menu.Type = (ECategory)int.Parse(reader["type"].ToString());
 
-                    drinks.Add(drink);
+                    menus.Add(menu);
                 }
 
-                 return drinks;
+                 return menus;
             }
         }
 
@@ -59,18 +60,19 @@ namespace BomBom_Kiosk.Service
             cmd.CommandText = $"SELECT * FROM menu WHERE idx = {idx}";
             using (MySqlDataReader reader = cmd.ExecuteReader())
             {
-                MenuModel menuModel = new MenuModel();
+                MenuModel menu = new MenuModel();
 
                 while (reader.Read())
                 {
-                    menuModel.Idx = int.Parse(reader["idx"].ToString());
-                    menuModel.Name = reader["name"].ToString();
-                    menuModel.Image = reader["image"].ToString();
-                    menuModel.Price = int.Parse(reader["price"].ToString());
-                    menuModel.Type = (ECategory)int.Parse(reader["type"].ToString());
-                    menuModel.DiscountPrice = int.Parse(reader["discount_price"].ToString());
+                    menu.Idx = int.Parse(reader["idx"].ToString());
+                    menu.Name = reader["name"].ToString();
+                    menu.Image = reader["image"].ToString();
+                    menu.OriginalPrice = int.Parse(reader["price"].ToString());
+                    menu.DiscountPrice = int.Parse(reader["discount_price"].ToString());
+                    menu.Type = (ECategory)int.Parse(reader["type"].ToString());
+                    menu.DiscountPrice = int.Parse(reader["discount_price"].ToString());
                 }
-                return menuModel;
+                return menu;
             }
         }
 
@@ -277,8 +279,8 @@ namespace BomBom_Kiosk.Service
 
         public void SaveTime(TimeSpan usedTime)
         {
-            cmd.CommandText = "UPDATE time " +
-                             $"SET time='{usedTime.ToString()}'";
+            cmd.CommandText = "UPDATE run_time " +
+                             $"SET run_time='{usedTime.ToString()}'";
             cmd.ExecuteNonQuery();
         }
     }

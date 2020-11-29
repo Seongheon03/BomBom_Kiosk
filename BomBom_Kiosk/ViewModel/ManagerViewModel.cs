@@ -23,6 +23,13 @@ namespace BomBom_Kiosk.ViewModel
             set => SetProperty(ref _drinks, value);
         }
 
+        private MenuModel _selectedDrink;
+        public MenuModel SelectedDrink
+        {
+            get => _selectedDrink;
+            set => SetProperty(ref _selectedDrink, value);
+        }
+
         private TimeSpan _usedTime;
         public TimeSpan UsedTime
         {
