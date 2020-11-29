@@ -33,7 +33,16 @@ namespace BomBom_Kiosk.Control
 
         private void ManagerControl_Loaded(object sender, RoutedEventArgs e)
         {
+            IsVisibleChanged += ManagerControl_IsVisibleChanged;
             DataContext = App.managerViewModel;
+        }
+
+        private void ManagerControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (((bool)e.NewValue) == true)
+            {
+                App.managerViewModel.OrderedItems = App.dbManager.GetOrderedItems();
+            }
         }
     }
 }

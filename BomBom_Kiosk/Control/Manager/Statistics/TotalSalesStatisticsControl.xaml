@@ -7,6 +7,57 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+        <StackPanel>
+            <StackPanel.Resources>
+                <Style TargetType="{x:Type TextBlock}" x:Key="tbTitle">
+                    <Setter Property="HorizontalAlignment" Value="Left"/>
+                    <Setter Property="FontSize" Value="40"/>
+                    <Setter Property="FontWeight" Value="Bold"/>
+                    <Setter Property="Margin" Value="0 0 0 20"/>
+                </Style>
+                
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="FontSize" Value="30" />
+                    <Setter Property="Width" Value="600" />
+                </Style>
+
+                <Style TargetType="{x:Type StackPanel}">
+                    <Setter Property="Margin" Value="0 0 0 100" />
+                </Style>
+            </StackPanel.Resources>
             
+            <TextBlock Text="총매출 액" Style="{StaticResource tbTitle}"/>
+            <StackPanel Orientation="Horizontal"
+                        DataContext="{Binding TotalSales}">
+                <TextBlock Text="{Binding TotalPrice, Converter={StaticResource PriceToString}, 
+                                          StringFormat=총 금액 : {0}}"/>
+                <TextBlock Text="{Binding NetSales, Converter={StaticResource PriceToString}, 
+                                          StringFormat=순수 매출액 : {0}}" />
+                <TextBlock Text="{Binding DiscountPrice, Converter={StaticResource PriceToString}, 
+                                          StringFormat=할인 금액 : {0}}" />
+            </StackPanel>
+
+            <TextBlock Text="현금 총매출 액" Style="{StaticResource tbTitle}"/>
+            <StackPanel Orientation="Horizontal" 
+                        DataContext="{Binding CashSales}">
+                <TextBlock Text="{Binding TotalPrice, Converter={StaticResource PriceToString}, 
+                                          StringFormat=총 금액 : {0}}"/>
+                <TextBlock Text="{Binding NetSales, Converter={StaticResource PriceToString}, 
+                                          StringFormat=순수 매출액 : {0}}" />
+                <TextBlock Text="{Binding DiscountPrice, Converter={StaticResource PriceToString}, 
+                                          StringFormat=할인 금액 : {0}}" />
+            </StackPanel>
+
+            <TextBlock Text="카드 총매출 액" Style="{StaticResource tbTitle}"/>
+            <StackPanel Orientation="Horizontal"
+                        DataContext="{Binding CardlSales}">
+                <TextBlock Text="{Binding TotalPrice, Converter={StaticResource PriceToString}, 
+                                          StringFormat=총 금액 : {0}}"/>
+                <TextBlock Text="{Binding NetSales, Converter={StaticResource PriceToString}, 
+                                          StringFormat=순수 매출액 : {0}}" />
+                <TextBlock Text="{Binding DiscountPrice, Converter={StaticResource PriceToString}, 
+                                          StringFormat=할인 금액 : {0}}" />
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>
