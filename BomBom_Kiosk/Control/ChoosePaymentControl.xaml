@@ -25,7 +25,7 @@
                                 </Style>
                             </GridView.ColumnHeaderContainerStyle>
                             <GridViewColumn Header="메뉴"
-                                            DisplayMemberBinding="{Binding Menu.Name}"
+                                            DisplayMemberBinding="{Binding MenuName}"
                                             Width="420" />
                             <GridViewColumn Header="수량" Width="250">
                                 <GridViewColumn.CellTemplate>

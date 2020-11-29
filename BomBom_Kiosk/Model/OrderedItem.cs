@@ -6,7 +6,27 @@ namespace BomBom_Kiosk.Model
     public class OrderedItem : BindableBase
     {
         public int Idx { get; set; }
-        public MenuModel Menu { get; set; } = new MenuModel();
+        public string MenuName { get; set; }
+        public ECategory MenuType { get; set; }
+        public int MenuOriginalPrice { get; set; }
+
+        private int _menuPrice;
+        public int MenuPrice
+        {
+            get => _menuPrice;
+            set => SetProperty(ref _menuPrice, value);
+        }
+
+        private int _menuDiscountPrice;
+        public int MenuDiscountPrice
+        {
+            get => _menuDiscountPrice;
+            set
+            {
+                SetProperty(ref _menuDiscountPrice, value);
+                MenuPrice = MenuOriginalPrice - MenuDiscountPrice;
+            }
+        }
         public MemberModel Member { get; set; } = new MemberModel();
 
         private int _count = 0;

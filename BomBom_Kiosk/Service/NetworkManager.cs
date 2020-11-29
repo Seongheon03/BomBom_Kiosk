@@ -60,9 +60,9 @@ namespace BomBom_Kiosk.Service
             JArray menus = new JArray();
             foreach (var orderedDrink in orderedDrinks)
             {
-                menu.Add("Name", orderedDrink.Menu.Name);
+                menu.Add("Name", orderedDrink.MenuName);
                 menu.Add("Count", orderedDrink.Count);
-                menu.Add("Price", orderedDrink.Menu.Price);
+                menu.Add("Price", orderedDrink.MenuPrice);
                 menus.Add(menu);
             }
 

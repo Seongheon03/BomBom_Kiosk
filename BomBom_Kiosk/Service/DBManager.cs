@@ -55,26 +55,26 @@ namespace BomBom_Kiosk.Service
             }
         }
 
-        private MenuModel GetDrink(int idx)
-        {
-            cmd.CommandText = $"SELECT * FROM menu WHERE idx = {idx}";
-            using (MySqlDataReader reader = cmd.ExecuteReader())
-            {
-                MenuModel menu = new MenuModel();
+        //private MenuModel GetDrink(int idx)
+        //{
+        //    cmd.CommandText = $"SELECT * FROM menu WHERE idx = {idx}";
+        //    using (MySqlDataReader reader = cmd.ExecuteReader())
+        //    {
+        //        MenuModel menu = new MenuModel();
 
-                while (reader.Read())
-                {
-                    menu.Idx = int.Parse(reader["idx"].ToString());
-                    menu.Name = reader["name"].ToString();
-                    menu.Image = reader["image"].ToString();
-                    menu.OriginalPrice = int.Parse(reader["price"].ToString());
-                    menu.DiscountPrice = int.Parse(reader["discount_price"].ToString());
-                    menu.Type = (ECategory)int.Parse(reader["type"].ToString());
-                    menu.DiscountPrice = int.Parse(reader["discount_price"].ToString());
-                }
-                return menu;
-            }
-        }
+        //        while (reader.Read())
+        //        {
+        //            menu.Idx = int.Parse(reader["idx"].ToString());
+        //            menu.Name = reader["name"].ToString();
+        //            menu.Image = reader["image"].ToString();
+        //            menu.OriginalPrice = int.Parse(reader["price"].ToString());
+        //            menu.DiscountPrice = int.Parse(reader["discount_price"].ToString());
+        //            menu.Type = (ECategory)int.Parse(reader["type"].ToString());
+        //            menu.DiscountPrice = int.Parse(reader["discount_price"].ToString());
+        //        }
+        //        return menu;
+        //    }
+        //}
 
         public List<MemberModel> GetMembers()
         {
@@ -134,7 +134,10 @@ namespace BomBom_Kiosk.Service
                 {
                     OrderedItem orderedItem = new OrderedItem();
                     orderedItem.Idx = int.Parse(reader["idx"].ToString());
-                    orderedItem.Menu.Idx = int.Parse(reader["menu_idx"].ToString());
+                    orderedItem.MenuName = reader["menu_name"].ToString();
+                    orderedItem.MenuOriginalPrice = int.Parse(reader["menu_price"].ToString());
+                    orderedItem.MenuDiscountPrice = int.Parse(reader["menu_discount_price"].ToString());
+                    orderedItem.MenuType = (ECategory)int.Parse(reader["menu_type"].ToString());
                     orderedItem.Member.Idx = int.Parse(reader["member_idx"].ToString());
                     orderedItem.Count = int.Parse(reader["count"].ToString());
                     if (Int32.TryParse(reader["seat"].ToString(), out int seat))
@@ -151,7 +154,6 @@ namespace BomBom_Kiosk.Service
 
             foreach (var item in orderedItems)
             {
-                item.Menu = GetDrink(item.Menu.Idx);
                 item.Member = GetMember(item.Member.Idx);
             }
 
@@ -189,9 +191,12 @@ namespace BomBom_Kiosk.Service
 
             if (orderInfo.Place == EOrderPlace.InShop)
             {
-                cmd.CommandText = "INSERT INTO order_item (idx, menu_idx, member_idx, count, seat, order_code, place, payment_type, order_date_time) " +
+                cmd.CommandText = "INSERT INTO order_item (idx, menu_name, menu_price, menu_discount_price, menu_type, member_idx, count, seat, order_code, place, payment_type, order_date_time) " +
                                  $"VALUES ({index}," +
-                                 $"{orderedItem.Menu.Idx}, " +
+                                 $"'{orderedItem.MenuName}', " +
+                                 $"{orderedItem.MenuOriginalPrice}, " +
+                                 $"{orderedItem.MenuDiscountPrice}, " +
+                                 $"{(int)orderedItem.MenuType}, " +
                                  $"{orderInfo.Member.Idx}, " +
                                  $"{orderedItem.Count}, " +
                                  $"{orderInfo.Seat}, " +
@@ -204,9 +209,12 @@ namespace BomBom_Kiosk.Service
             }
             else
             {
-                cmd.CommandText = "INSERT INTO order_item (idx, menu_idx, member_idx, count, order_code, place, payment_type, order_date_time)" +
+                cmd.CommandText = "INSERT INTO order_item (idx, menu_name, menu_price, menu_discount_price, menu_type, member_idx, count, order_code, place, payment_type, order_date_time)" +
                                  $"VALUES ({index}," +
-                                 $"{orderedItem.Menu.Idx}, " +
+                                 $"'{orderedItem.MenuName}', " +
+                                 $"{orderedItem.MenuOriginalPrice}, " +
+                                 $"{orderedItem.MenuDiscountPrice}, " +
+                                 $"{(int)orderedItem.MenuType}, " +
                                  $"{orderInfo.Member.Idx}, " +
                                  $"{orderedItem.Count}, " +
                                  $"'{orderInfo.OrderCode}', " +
@@ -240,7 +248,7 @@ namespace BomBom_Kiosk.Service
 
         private string GetOrderNumber(int index)
         {
-            int orderNumber = 0;
+            int orderNumber = 1;
 
             cmd.CommandText = "SELECT order_number FROM order_number WHERE idx=" + index;
 
