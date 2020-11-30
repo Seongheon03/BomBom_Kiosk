@@ -31,6 +31,9 @@
                 <TabItem Header="통계">
                     <ctrl:StatisticsControl x:Name="ctrlStatistics"/>
                 </TabItem>
+                <TabItem Header="매출">
+                    <ctrl:SalesControl x:Name="ctrlSales"/>
+                </TabItem>
             </TabControl>
         </Grid>
     </Grid>

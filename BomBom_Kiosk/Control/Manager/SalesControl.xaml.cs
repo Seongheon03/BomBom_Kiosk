@@ -13,16 +13,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BomBom_Kiosk.Control.Manager.Statistics
+namespace BomBom_Kiosk.Control.Manager
 {
     /// <summary>
-    /// Interaction logic for DailyStatisticsControl.xaml
+    /// Interaction logic for SalesControl.xaml
     /// </summary>
-    public partial class DailyStatisticsControl : UserControl
+    public partial class SalesControl : UserControl
     {
-        public DailyStatisticsControl()
+        public SalesControl()
         {
             InitializeComponent();
+        }
+
+        private void lvNavi_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

@@ -145,26 +145,20 @@
     <Compile Include="Control\Manager\MenuManagerControl.xaml.cs">
       <DependentUpon>MenuManagerControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Control\Manager\SalesControl.xaml.cs">
+      <DependentUpon>SalesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Manager\Sales\DailySalesControl.xaml.cs">
+      <DependentUpon>DailySalesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Manager\Sales\SalesByMemberControl.xaml.cs">
+      <DependentUpon>SalesByMemberControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Control\Manager\Sales\TotalSalesControl.xaml.cs">
+      <DependentUpon>TotalSalesControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Control\Manager\StatisticsControl.xaml.cs">
       <DependentUpon>StatisticsControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Control\Manager\Statistics\DailyStatisticsControl.xaml.cs">
-      <DependentUpon>DailyStatisticsControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Control\Manager\Statistics\StatisticsByCategoryControl.xaml.cs">
-      <DependentUpon>StatisticsByCategoryControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Control\Manager\Statistics\StatisticsByMemberControl.xaml.cs">
-      <DependentUpon>StatisticsByMemberControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Control\Manager\Statistics\StatisticsByMenuControl.xaml.cs">
-      <DependentUpon>StatisticsByMenuControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Control\Manager\Statistics\StatisticsBySeatControl.xaml.cs">
-      <DependentUpon>StatisticsBySeatControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Control\Manager\Statistics\TotalSalesStatisticsControl.xaml.cs">
-      <DependentUpon>TotalSalesStatisticsControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Control\PaymentByCardControl.xaml.cs">
       <DependentUpon>PaymentByCardControl.xaml</DependentUpon>
@@ -209,31 +203,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Control\Manager\SalesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Manager\Sales\DailySalesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Manager\Sales\SalesByMemberControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Control\Manager\Sales\TotalSalesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Control\Manager\StatisticsControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Control\Manager\Statistics\DailyStatisticsControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Control\Manager\Statistics\StatisticsByCategoryControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Control\Manager\Statistics\StatisticsByMemberControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Control\Manager\Statistics\StatisticsByMenuControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Control\Manager\Statistics\StatisticsBySeatControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Control\Manager\Statistics\TotalSalesStatisticsControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

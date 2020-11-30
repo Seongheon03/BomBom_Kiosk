@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BomBom_Kiosk.Control.Manager.Statistics
+namespace BomBom_Kiosk.Control.Manager.Sales
 {
     /// <summary>
-    /// Interaction logic for StatisticsByCategoryControl.xaml
+    /// Interaction logic for SalesByMemberControl.xaml
     /// </summary>
-    public partial class StatisticsByCategoryControl : UserControl
+    public partial class SalesByMemberControl : UserControl
     {
-        public StatisticsByCategoryControl()
+        public SalesByMemberControl()
         {
             InitializeComponent();
         }

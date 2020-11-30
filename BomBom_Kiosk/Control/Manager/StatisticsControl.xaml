@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BomBom_Kiosk.Control.Manager"
-             xmlns:ctrl="clr-namespace:BomBom_Kiosk.Control.Manager.Statistics"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -15,7 +15,6 @@
 
         <Grid Grid.Row="0">
             <ListView x:Name="lvNavi" ItemsSource="{Binding NaviItems}"
-                      SelectedIndex="0"
                       SelectionChanged="lvNavi_SelectionChanged">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -32,12 +31,50 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <ctrl:TotalSalesStatisticsControl x:Name="ctrlTotalSalesStatistics"/>
-            <ctrl:StatisticsByMenuControl x:Name="ctrlStatisticsByMenu"/>
-            <ctrl:StatisticsByCategoryControl x:Name="ctrlStatisticsByCategory"/>
-            <ctrl:StatisticsBySeatControl x:Name="ctrlStatisticsBySeat"/>
-            <ctrl:DailyStatisticsControl x:Name="ctrlDailyStatistics"/>
-            <ctrl:StatisticsByMemberControl x:Name="ctrlStatisticsByMember"/>
+            <StackPanel Width="1850">
+                <DockPanel Margin="0 10 0 0">
+                    <TextBlock Text="판매 수"/>
+                    <ComboBox x:Name="cbSeat" 
+                              Width="300" HorizontalAlignment="Right"
+                              SelectionChanged="cbSeat_SelectionChanged">
+                        <ComboBoxItem Content="1번 좌석"/>
+                        <ComboBoxItem Content="2번 좌석"/>
+                        <ComboBoxItem Content="3번 좌석"/>
+                        <ComboBoxItem Content="4번 좌석"/>
+                        <ComboBoxItem Content="5번 좌석"/>
+                        <ComboBoxItem Content="6번 좌석"/>
+                        <ComboBoxItem Content="7번 좌석"/>
+                        <ComboBoxItem Content="8번 좌석"/>
+                        <ComboBoxItem Content="9번 좌석"/>
+                    </ComboBox>
+                </DockPanel>
+                <lvc:CartesianChart Series="{Binding CountSeriesCollection}" Height="330" Width="Auto">
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis Labels="{Binding Labels}">
+                            <lvc:Axis.Separator>
+                                <lvc:Separator Step="1"/>
+                            </lvc:Axis.Separator>
+                        </lvc:Axis>
+                    </lvc:CartesianChart.AxisX>
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis LabelFormatter="{Binding Formatter}"></lvc:Axis>
+                    </lvc:CartesianChart.AxisY>
+                </lvc:CartesianChart>
+
+                <TextBlock Text="총액"/>
+                <lvc:CartesianChart Series="{Binding PriceSeriesCollection}" Height="330">
+                    <lvc:CartesianChart.AxisX>
+                        <lvc:Axis Labels="{Binding Labels}">
+                            <lvc:Axis.Separator>
+                                <lvc:Separator Step="1"/>
+                            </lvc:Axis.Separator>
+                        </lvc:Axis>
+                    </lvc:CartesianChart.AxisX>
+                    <lvc:CartesianChart.AxisY>
+                        <lvc:Axis LabelFormatter="{Binding Formatter}"></lvc:Axis>
+                    </lvc:CartesianChart.AxisY>
+                </lvc:CartesianChart>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

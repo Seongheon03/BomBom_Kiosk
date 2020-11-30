@@ -1,31 +1,31 @@
 ﻿using BomBom_Kiosk.Model;
-using Prism.Mvvm;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace BomBom_Kiosk.Control.Manager.Statistics
+namespace BomBom_Kiosk.Control.Manager.Sales
 {
     /// <summary>
-    /// Interaction logic for TotalSalesStatisticsControl.xaml
+    /// Interaction logic for TotalSalesControl.xaml
     /// </summary>
-    public partial class TotalSalesStatisticsControl : UserControl
+    public partial class TotalSalesControl : UserControl
     {
-        public TotalSalesStatisticsControl()
+        public TotalSalesControl()
         {
             InitializeComponent();
 
-            Loaded += TotalSalesStatisticsControl_Loaded;
+            Loaded += TotalSalesControl_Loaded;
         }
 
-        private void TotalSalesStatisticsControl_Loaded(object sender, RoutedEventArgs e)
+        private void TotalSalesControl_Loaded(object sender, RoutedEventArgs e)
         {
             DataContext = this;
-            IsVisibleChanged += TotalSalesStatisticsControl_IsVisibleChanged;
+
+            IsVisibleChanged += TotalSalesControl_IsVisibleChanged;
         }
 
-        private void TotalSalesStatisticsControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void TotalSalesControl_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (((bool)e.NewValue) == true)
             {
@@ -50,14 +50,9 @@ namespace BomBom_Kiosk.Control.Manager.Statistics
         }
     }
 
-    public class Sales : BindableBase
+    public class Sales
     {
-        private int _totalPrice;
-        public int TotalPrice
-        {
-            get => _totalPrice;
-            set => SetProperty(ref _totalPrice, value);
-        }
+        public int TotalPrice { get; set; }
         public int NetSales { get; set; }
         public int DiscountPrice { get; set; }
     }
