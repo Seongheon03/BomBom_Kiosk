@@ -44,6 +44,8 @@ namespace BomBom_Kiosk.Control.Manager
             }
         }
 
+        private List<string> labelList = new List<string>();
+
         private string[] _labels;
         public string[] Labels
         {
@@ -124,6 +126,7 @@ namespace BomBom_Kiosk.Control.Manager
 
             cbSeat.Visibility = Visibility.Collapsed;
             items.Clear();
+            labelList.Clear();
 
             foreach (var orderedItem in App.managerViewModel.OrderedItems)
             {
@@ -153,12 +156,14 @@ namespace BomBom_Kiosk.Control.Manager
             {
                 items.Add(new OrderedItem()
                 {
-                    MenuName = name,
+                    MenuName = orderedItem.MenuName,
                     MenuType = orderedItem.MenuType,
                     Seat = orderedItem.Seat,
                     Count = orderedItem.Count,
                     TotalPrice = orderedItem.Count * orderedItem.MenuPrice
                 });
+
+                labelList.Add(name);
             }
             else
             {
@@ -176,12 +181,7 @@ namespace BomBom_Kiosk.Control.Manager
 
         private void SetLabels()
         {
-            Labels = new string[items.Count()];
-
-            for (int i = 0; i < items.Count(); i++)
-            {
-                Labels[i] = items[i].MenuName;
-            }
+            Labels = labelList.ToArray();
         }
 
         private void SetCountSeriesCollection()
@@ -228,6 +228,7 @@ namespace BomBom_Kiosk.Control.Manager
             }
 
             items.Clear();
+            labelList.Clear();
 
             foreach (var orderedItem in App.managerViewModel.OrderedItems)
             {
