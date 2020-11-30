@@ -56,6 +56,11 @@ namespace BomBom_Kiosk.ViewModel
 
                 if (_selectedDrink != null)
                 {
+                    if (_selectedDrink.IsSoldOut)
+                    {
+                        MessageBox.Show("해당 상품은 품절입니다.");
+                        return;
+                    }
                     AddToOrderList();
                 }
             }
@@ -169,7 +174,7 @@ namespace BomBom_Kiosk.ViewModel
 
         private void SetDrinks()
         {
-            Drinks = App.dbManager.GetDrinks();
+            Drinks = App.dbManager.GetMenus();
             //Drinks.Add(new Drink { Idx = 1, Name = "a", Price = 1000, DiscountPrice = 100, Category = ECategory.COFFEE });
             //Drinks.Add(new Drink { Idx = 2, Name = "a", Price = 2000, DiscountPrice = 100, Category = ECategory.COFFEE });
             //Drinks.Add(new Drink { Idx = 3, Name = "a", Price = 3000, DiscountPrice = 100, Category = ECategory.COFFEE });

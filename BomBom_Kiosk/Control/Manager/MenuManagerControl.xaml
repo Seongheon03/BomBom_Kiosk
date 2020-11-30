@@ -55,6 +55,7 @@
                 </StackPanel>
                 <TextBlock Text="{Binding Price, Converter={StaticResource PriceToString},
                                           StringFormat=가격 : {0}}" />
+                <CheckBox Content="품절" IsChecked="{Binding IsSoldOut}" HorizontalAlignment="Center"/>
             </StackPanel>
         </StackPanel>
     </Grid>

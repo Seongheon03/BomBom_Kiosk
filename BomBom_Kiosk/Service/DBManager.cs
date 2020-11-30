@@ -30,7 +30,7 @@ namespace BomBom_Kiosk.Service
             }
         }
 
-        public List<MenuModel> GetDrinks()
+        public List<MenuModel> GetMenus()
         {
             cmd.CommandText = "SELECT * FROM menu";
 
@@ -47,6 +47,7 @@ namespace BomBom_Kiosk.Service
                     menu.DiscountPrice = int.Parse(reader["discount_price"].ToString());
                     menu.Image = reader["image"].ToString();
                     menu.Type = (ECategory)int.Parse(reader["type"].ToString());
+                    menu.IsSoldOut = Convert.ToBoolean(int.Parse(reader["is_sold_out"].ToString()));
 
                     menus.Add(menu);
                 }
@@ -293,12 +294,13 @@ namespace BomBom_Kiosk.Service
             cmd.ExecuteNonQuery();
         }
 
-        public void SaveDiscountPrice(List<MenuModel> menus)
+        public void UpdateMenuInfo(List<MenuModel> menus)
         {
             foreach(var menu in menus)
             {
                 cmd.CommandText = "UPDATE menu " +
-                                 $"SET discount_price='{menu.DiscountPrice}' " +
+                                 $"SET discount_price='{menu.DiscountPrice}'," +
+                                 $"is_sold_out={menu.IsSoldOut} " +
                                  $"WHERE idx={menu.Idx}";
 
                 cmd.ExecuteNonQuery();

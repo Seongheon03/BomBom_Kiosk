@@ -111,7 +111,7 @@ namespace BomBom_Kiosk
         {
             if (App.dbManager.cmd != null)
             {
-                App.dbManager.SaveDiscountPrice(App.orderViewModel.Drinks);
+                App.dbManager.UpdateMenuInfo(App.orderViewModel.Drinks);
                 App.dbManager.SaveTime(App.managerViewModel.UsedTime);
             }
         }
