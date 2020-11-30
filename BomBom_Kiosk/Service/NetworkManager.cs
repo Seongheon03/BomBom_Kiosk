@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace BomBom_Kiosk.Service
@@ -20,18 +21,15 @@ namespace BomBom_Kiosk.Service
             {
                 client = new TcpClient(App.serverHost, App.serverPort);
                 networkStream = client.GetStream();
-            } catch (Exception ex)
+            } 
+            catch
             {
             }
         }
 
         public NetworkManager()
         {
-            Thread connect = new Thread(() => ConnectServer());
-            connect.Start();
-            Thread getMsg = new Thread(() => GetMsg());
-            getMsg.Start();
-            
+            ConnectServer();
         }
 
         public void ConnectServer()
@@ -42,12 +40,12 @@ namespace BomBom_Kiosk.Service
             if (!success)
             {
                 MessageBox.Show("서버 연결 실패");
-                Login();
             } 
             else
             {
                 MessageBox.Show("서버 연결 성공");
                 Login();
+                Task.Run(() => GetMsg());
             }
         }
 
@@ -76,7 +74,8 @@ namespace BomBom_Kiosk.Service
             if (type == EMessageType.GROUP)
             {
                 json.Add("Group", "true");
-            } else if (type == EMessageType.PERSONAL)
+            } 
+            else if (type == EMessageType.PERSONAL)
             {
                 json.Add("Group", "false");
             }
@@ -107,7 +106,7 @@ namespace BomBom_Kiosk.Service
             json.Add("Content", content);
             json.Add("ShopName", "봄봄");
             json.Add("OrderNumber", "");
-            json.Add("Group", "true");
+            json.Add("Group", "false");
             json.Add("Menus", "");
             
             SendData(json);
@@ -115,10 +114,10 @@ namespace BomBom_Kiosk.Service
 
         public void SendOrderData(List<OrderedItem> orderedDrinks)
         {
-            JObject menu = new JObject();
             JArray menus = new JArray();
             foreach (var orderedDrink in orderedDrinks)
             {
+                JObject menu = new JObject();
                 menu.Add("Name", orderedDrink.MenuName);
                 menu.Add("Count", orderedDrink.Count);
                 menu.Add("Price", orderedDrink.MenuPrice);
@@ -147,32 +146,19 @@ namespace BomBom_Kiosk.Service
 
         public void GetMsg()
         {
-            try
+            while(networkStream != null)
             {
-                setClient();
-
-                while (networkStream != null && networkStream.CanRead)
+                byte[] bytes = new byte[1024];
+                networkStream.Read (bytes, 0, (int)1024);
+                string message = Encoding.UTF8.GetString (bytes);
+                if (message.Contains("총매출액"))
                 {
-                    IAsyncResult asyncResult = client.BeginConnect(App.serverHost, App.serverPort, null, null);
-                    if (asyncResult.AsyncWaitHandle.WaitOne(0, false))
-                    {
-                        byte[] bytes = new byte[1024];
-                        networkStream.Read (bytes, 0, (int)1024);
-                        string message = Encoding.UTF8.GetString (bytes);
-                        if (message.Contains("총매출액"))
-                        {
-                           SendTotal();
-                        }
-                        else
-                        {
-                           MessageBox.Show(message);
-                        }
-                    }
+                    SendTotal();
                 }
-
-            }
-            catch
-            {
+                else
+                {
+                   MessageBox.Show(message);
+                }
             }
         }
 
