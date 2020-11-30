@@ -161,7 +161,8 @@ namespace BomBom_Kiosk.Service
         }
 
         public void Payment()
-        {
+        { 
+            App.network.sendOrderData(App.orderViewModel.OrderList.ToList());
             foreach (var item in App.orderViewModel.OrderList)
             {
                 AddOrderItem(item);

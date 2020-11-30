@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
+using System.Windows;
 
 namespace BomBom_Kiosk.Service
 {
@@ -120,7 +121,10 @@ namespace BomBom_Kiosk.Service
                 {
                     sendTotal();
                 }
-                Console.WriteLine(message);
+                else
+                {
+                MessageBox.Show(message);
+                }
             }
         }
 
