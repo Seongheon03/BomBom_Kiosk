@@ -38,7 +38,7 @@
                               Width="300" HorizontalAlignment="Right"
                               SelectionChanged="cbSeat_SelectionChanged"/>
                 </DockPanel>
-                <lvc:CartesianChart Series="{Binding CountSeriesCollection}" Height="330" Width="Auto">
+                <lvc:CartesianChart Series="{Binding CountSeriesCollection}" Height="360">
                     <lvc:CartesianChart.AxisX>
                         <lvc:Axis Labels="{Binding Labels}">
                             <lvc:Axis.Separator>
@@ -52,7 +52,7 @@
                 </lvc:CartesianChart>
 
                 <TextBlock Text="총액"/>
-                <lvc:CartesianChart Series="{Binding PriceSeriesCollection}" Height="330">
+                <lvc:CartesianChart Series="{Binding PriceSeriesCollection}" Height="360">
                     <lvc:CartesianChart.AxisX>
                         <lvc:Axis Labels="{Binding Labels}">
                             <lvc:Axis.Separator>
