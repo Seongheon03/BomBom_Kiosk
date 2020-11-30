@@ -1,6 +1,7 @@
 ﻿using BomBom_Kiosk.Service;
 using System;
 using System.Globalization;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -56,9 +57,18 @@ namespace BomBom_Kiosk
             App.uiManager.AddUC(UICategory.PAYMENTRESULT, ctrlPaymentByResult);
         }
 
-        private void btnConnect_Click(object sender, RoutedEventArgs e)
+        private async void btnConnect_Click(object sender, RoutedEventArgs e)
         {
-            App.network.ConnectServer();
+            progressRing.IsActive = true;
+            if (await Task.Run(() => App.network.ConnectServer()))
+            {
+                MessageBox.Show("서버에 연결되었습니다.");
+            }
+            else
+            {
+                MessageBox.Show("서버에 연결되지 않았습니다.");
+            }
+            progressRing.IsActive = false;
         }
 
         private void btnHome_Click(object sender, RoutedEventArgs e)

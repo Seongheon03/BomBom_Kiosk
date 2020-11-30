@@ -49,6 +49,7 @@ namespace BomBom_Kiosk.ViewModel
             UsedTime = App.dbManager.GetTime();
             Members = App.paymentViewModel.Members;
             Drinks = App.orderViewModel.Drinks;
+            OrderedItems = App.dbManager.GetOrderedItems();
 
             SetTimer();
         }

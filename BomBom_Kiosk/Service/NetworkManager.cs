@@ -16,7 +16,7 @@ namespace BomBom_Kiosk.Service
         NetworkStream networkStream = null;
         TcpClient client = null;
 
-        private void setClient() {
+        private void SetClient() {
             try
             {
                 client = new TcpClient(App.serverHost, App.serverPort);
@@ -27,25 +27,21 @@ namespace BomBom_Kiosk.Service
             }
         }
 
-        public NetworkManager()
-        {
-            ConnectServer();
-        }
-
-        public void ConnectServer()
+        public bool ConnectServer()
         {
             var client = new TcpClient();
             var result = client.BeginConnect(App.serverHost, App.serverPort, null, null);
-            var success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(1));
+            var success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(3));
             if (!success)
             {
-                MessageBox.Show("서버 연결 실패");
+                return false;
             } 
             else
             {
-                MessageBox.Show("서버 연결 성공");
                 Login();
-                Task.Run(() => GetMsg());
+                Thread thread = new Thread(() => GetMsg());
+                thread.Start();
+                return true;
             }
         }
 
@@ -146,7 +142,8 @@ namespace BomBom_Kiosk.Service
 
         public void GetMsg()
         {
-            while(networkStream != null)
+            bool success = true ;
+            while (success)
             {
                 byte[] bytes = new byte[1024];
                 networkStream.Read (bytes, 0, (int)1024);
@@ -155,11 +152,16 @@ namespace BomBom_Kiosk.Service
                 {
                     SendTotal();
                 }
-                else
+                else if (!message.Contains("200"))
                 {
-                   MessageBox.Show(message);
+                    MessageBox.Show(message);
                 }
+
+                var client = new TcpClient();
+                var result = client.BeginConnect(App.serverHost, App.serverPort, null, null);
+                success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(3));
             }
+            MessageBox.Show("서버에 연결이 끊어졌습니다.");
         }
 
         public void SendData(JObject json)
@@ -169,7 +171,7 @@ namespace BomBom_Kiosk.Service
             
             try
             {
-                setClient();
+                SetClient();
                 if (networkStream != null)
                 {
                     networkStream.Write(bytes, 0, bytes.Length);
