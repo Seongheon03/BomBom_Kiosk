@@ -35,9 +35,9 @@ namespace BomBom_Kiosk.Control.Manager.Sales
             }
         }
 
-        private Sales GetSales(List<OrderedItem> orderedItems)
+        private Model.Sales GetSales(List<OrderedItem> orderedItems)
         {
-            Sales sales = new Sales();
+            Model.Sales sales = new Model.Sales();
 
             foreach (var item in orderedItems)
             {
@@ -48,12 +48,5 @@ namespace BomBom_Kiosk.Control.Manager.Sales
 
             return sales;
         }
-    }
-
-    public class Sales
-    {
-        public int TotalPrice { get; set; }
-        public int NetSales { get; set; }
-        public int DiscountPrice { get; set; }
     }
 }

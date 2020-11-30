@@ -7,6 +7,34 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="이전" Width="50"
+                        Click="btnPrev_Click"/>
+                <TextBlock Text="{Binding SelectedDate, StringFormat={}{0:yyyy-MM-dd}}"/>
+                <Button Content="다음" Width="50"
+                        Click="btnNext_Click"/>
+            </StackPanel>
             
+            <TextBlock Text="{Binding TotalSales, Converter={StaticResource PriceToString},
+                                      StringFormat=총 매출액 : {0}}"
+                       FontSize="40" FontWeight="Bold"
+                       Margin="10 0 0 10"/>
+
+            <ListView x:Name="lvSales" FontSize="30">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Time}"
+                                       TextAlignment="Center" 
+                                       Width="500"/>
+                            <TextBlock Text="{Binding TotalPrice, Converter={StaticResource PriceToString},
+                                                      StringFormat=총 매출액 : {0}}" 
+                                       HorizontalAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackPanel>
     </Grid>
 </UserControl>

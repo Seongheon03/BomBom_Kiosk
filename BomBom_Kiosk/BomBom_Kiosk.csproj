@@ -180,6 +180,7 @@
     <Compile Include="Model\MenuModel.cs" />
     <Compile Include="Model\MemberModel.cs" />
     <Compile Include="Model\OrderedItem.cs" />
+    <Compile Include="Model\Sales.cs" />
     <Compile Include="Model\Table.cs" />
     <Compile Include="Service\DBManager.cs" />
     <Compile Include="Service\NetworkManager.cs" />
