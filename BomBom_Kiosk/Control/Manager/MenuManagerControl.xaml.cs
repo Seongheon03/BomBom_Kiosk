@@ -16,7 +16,9 @@ namespace BomBom_Kiosk.Control.Manager
 
         private void tbDiscount_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (!(e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key == Key.Back))
+            Key inputKey = e.Key.Equals(Key.ImeProcessed) ? e.ImeProcessedKey : e.Key;
+
+            if (!(inputKey >= Key.D0 && inputKey <= Key.D9 || inputKey == Key.Back))
             {
                 e.Handled = true;
             }

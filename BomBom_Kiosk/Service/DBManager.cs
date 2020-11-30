@@ -9,7 +9,7 @@ namespace BomBom_Kiosk.Service
 {
     public class DBManager
     {
-        private MySqlCommand cmd;
+        public MySqlCommand cmd;
 
         public bool ConnectDB()
         {
@@ -161,8 +161,8 @@ namespace BomBom_Kiosk.Service
         }
 
         public void Payment()
-        { 
-            App.network.sendOrderData(App.orderViewModel.OrderList.ToList());
+        {
+            //App.network.sendOrderData(App.orderViewModel.OrderList.ToList());
             foreach (var item in App.orderViewModel.OrderList)
             {
                 AddOrderItem(item);
@@ -289,8 +289,20 @@ namespace BomBom_Kiosk.Service
         public void SaveTime(TimeSpan usedTime)
         {
             cmd.CommandText = "UPDATE run_time " +
-                             $"SET run_time='{usedTime.ToString()}'";
+                             $"SET run_time='{usedTime}'";
             cmd.ExecuteNonQuery();
+        }
+
+        public void SaveDiscountPrice(List<MenuModel> menus)
+        {
+            foreach(var menu in menus)
+            {
+                cmd.CommandText = "UPDATE menu " +
+                                 $"SET discount_price='{menu.DiscountPrice}' " +
+                                 $"WHERE idx={menu.Idx}";
+
+                cmd.ExecuteNonQuery();
+            }
         }
     }
 }

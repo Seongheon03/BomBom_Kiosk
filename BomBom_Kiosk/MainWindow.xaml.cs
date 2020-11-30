@@ -104,7 +104,11 @@ namespace BomBom_Kiosk
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            App.dbManager.SaveTime(App.managerViewModel.UsedTime);
+            if (App.dbManager.cmd != null)
+            {
+                App.dbManager.SaveDiscountPrice(App.orderViewModel.Drinks);
+                App.dbManager.SaveTime(App.managerViewModel.UsedTime);
+            }
         }
     }
 }
