@@ -14,8 +14,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <ListView x:Name="lvNavi" ItemsSource="{Binding NaviItems}"
-                      SelectedIndex="0"
+            <ListView x:Name="lvNavi"
                       SelectionChanged="lvNavi_SelectionChanged">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
