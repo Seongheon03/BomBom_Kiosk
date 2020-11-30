@@ -4,6 +4,7 @@ using LiveCharts.Wpf;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -162,7 +163,6 @@ namespace BomBom_Kiosk.Control.Manager
                     Count = orderedItem.Count,
                     TotalPrice = orderedItem.Count * orderedItem.MenuPrice
                 });
-
                 labelList.Add(name);
             }
             else
@@ -241,6 +241,27 @@ namespace BomBom_Kiosk.Control.Manager
             }
 
             InitDatas();
+        }
+
+        private void Tofile_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                using (StreamWriter file = new StreamWriter(@"..\..\csv\test.csv", false, System.Text.Encoding.GetEncoding("utf-8")))
+                {
+                    file.WriteLine("메뉴이름,총가격,메뉴타입");
+
+                    foreach (var item in items)
+                    {
+                        file.WriteLine("{0},{1},{2}", item.MenuName, item.TotalPrice, item.MenuType);
+                    }
+                }
+                MessageBox.Show("저장되었습니다.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 
