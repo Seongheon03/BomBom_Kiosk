@@ -14,20 +14,25 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <ListView x:Name="lvNavi" ItemsSource="{Binding StatisticsNavi}"
+            <DockPanel>
+                <ListView x:Name="lvNavi" ItemsSource="{Binding StatisticsNavi}"
                       SelectionChanged="lvNavi_SelectionChanged">
-                <ListView.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <StackPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ListView.ItemsPanel>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <TextBlock Text="{Binding Title}" FontSize="15"
+                    <ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ListView.ItemsPanel>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Title}" FontSize="15"
                                    HorizontalAlignment="Center"/>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button x:Name="btnExport" Content="엑셀파일로 데이터 저장" 
+                        HorizontalAlignment="Right"
+                        Click="btnExport_Click"/>
+            </DockPanel>
         </Grid>
 
         <Grid Grid.Row="1">
@@ -66,12 +71,5 @@
                 </lvc:CartesianChart>
             </StackPanel>
         </Grid>
-        <Button HorizontalAlignment="Right" VerticalAlignment="Center"
-                    Content="엑셀파일로 데이터 저장"
-                    Background="#FFEA00"
-                    Height="20"
-                    Width="100"
-                    Click="Tofile_Click"
-                    Margin="0 10 10 0" FontSize="8" />
     </Grid>
 </UserControl>

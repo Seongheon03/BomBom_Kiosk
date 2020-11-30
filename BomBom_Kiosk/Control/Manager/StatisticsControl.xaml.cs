@@ -14,7 +14,7 @@ namespace BomBom_Kiosk.Control.Manager
     /// <summary>
     /// Interaction logic for StatisticsControl.xaml
     /// </summary>
-    public partial class StatisticsControl : UserControl, INotifyPropertyChanged
+    public partial class StatisticsControl : UserControl, INotifyPropertyChanged, ExportInterface
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -126,6 +126,8 @@ namespace BomBom_Kiosk.Control.Manager
             StatisticsMenu selectedMenu = (StatisticsMenu)lvNavi.SelectedIndex;
 
             cbSeat.Visibility = Visibility.Collapsed;
+            btnExport.Visibility = Visibility.Collapsed;
+
             items.Clear();
             labelList.Clear();
 
@@ -134,6 +136,7 @@ namespace BomBom_Kiosk.Control.Manager
                 switch (selectedMenu)
                 {
                     case StatisticsMenu.ByMenu:
+                        btnExport.Visibility = Visibility.Visible;
                         SetItems(new Func<OrderedItem, bool>(x => x.MenuName == orderedItem.MenuName), orderedItem, orderedItem.MenuName);
                         break;
                     case StatisticsMenu.ByCategory:
@@ -243,13 +246,18 @@ namespace BomBom_Kiosk.Control.Manager
             InitDatas();
         }
 
-        private void Tofile_Click(object sender, RoutedEventArgs e)
+        private void btnExport_Click(object sender, RoutedEventArgs e)
+        {
+            Export();
+        }
+
+        public void Export()
         {
             try
             {
                 using (StreamWriter file = new StreamWriter(@"..\..\csv\test.csv", false, System.Text.Encoding.GetEncoding("utf-8")))
                 {
-                    file.WriteLine("메뉴이름,총가격,메뉴타입");
+                    file.WriteLine("이름,총가격,카테고리");
 
                     foreach (var item in items)
                     {
@@ -263,6 +271,11 @@ namespace BomBom_Kiosk.Control.Manager
                 MessageBox.Show(ex.Message);
             }
         }
+    }
+
+    interface ExportInterface
+    {
+        void Export();
     }
 
     public class StatisticsNaviData
