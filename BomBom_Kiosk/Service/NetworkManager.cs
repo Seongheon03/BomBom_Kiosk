@@ -12,15 +12,16 @@ namespace BomBom_Kiosk.Service
 {
     public class NetworkManager
     {
+        NetworkStream networkStream = null;
         TcpClient client = null;
 
         private void setClient() {
             try
             {
                 client = new TcpClient(App.serverHost, App.serverPort);
+                networkStream = client.GetStream();
             } catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -149,9 +150,8 @@ namespace BomBom_Kiosk.Service
             try
             {
                 setClient();
-                NetworkStream networkStream = client.GetStream();
 
-                while (networkStream.CanRead)
+                while (networkStream != null && networkStream.CanRead)
                 {
                     IAsyncResult asyncResult = client.BeginConnect(App.serverHost, App.serverPort, null, null);
                     if (asyncResult.AsyncWaitHandle.WaitOne(0, false))
@@ -184,8 +184,10 @@ namespace BomBom_Kiosk.Service
             try
             {
                 setClient();
-                NetworkStream networkStream = client.GetStream();
-                networkStream.Write(bytes, 0, bytes.Length);
+                if (networkStream != null)
+                {
+                    networkStream.Write(bytes, 0, bytes.Length);
+                }
             }
             catch
             {
