@@ -39,8 +39,16 @@ namespace BomBom_Kiosk.Control.Manager.Sales
 
         private void SalesByMemberControl_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            cbMember.SelectedIndex = 0;
-            SetMemberComboBox();
+            IsVisibleChanged += SalesByMemberControl_IsVisibleChanged;
+        }
+
+        private void SalesByMemberControl_IsVisibleChanged(object sender, System.Windows.DependencyPropertyChangedEventArgs e)
+        {
+            if ((bool)e.NewValue == true)
+            {
+                SetMemberComboBox();
+                cbMember.SelectedIndex = 0;
+            }
         }
 
         private void SetMemberComboBox()
@@ -55,8 +63,11 @@ namespace BomBom_Kiosk.Control.Manager.Sales
 
         private void cbMember_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TotalSales = 0;
-            SetMenuDataGrid();
+            if (cbMember.SelectedIndex != -1)
+            {
+                TotalSales = 0;
+                SetMenuDataGrid();
+            }
         }
 
         private void SetMenuDataGrid()
