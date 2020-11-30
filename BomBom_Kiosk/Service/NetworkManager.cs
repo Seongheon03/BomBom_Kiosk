@@ -5,23 +5,40 @@ using System;
 using System.Collections.Generic;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Windows;
 
 namespace BomBom_Kiosk.Service
 {
     public class NetworkManager
     {
-         NetworkStream networkStream = null;
-         TcpClient socketForServer = new TcpClient(App.serverHost, App.serverPort);
+         TcpClient client = new TcpClient();
         public NetworkManager()
         {
-            login();
-            sendCommonMsg(EMessageType.GROUP, "aaa");
-            sendCommonMsg(EMessageType.PERSONAL, "aaa");
-            getMsg();
+            Thread connect = new Thread(() => ConnectServer());
+            connect.Start();
+            Login();
+            Thread getMsg = new Thread(() => GetMsg());
+            getMsg.Start();
+            
         }
 
-        public void login()
+        public void ConnectServer()
+        {
+            var client = new TcpClient();
+            var result = client.BeginConnect(App.serverHost, App.serverPort, null, null);
+            var success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(1));
+            if (!success)
+            {
+                MessageBox.Show("서버 연결 실패");
+            } 
+            else
+            {
+                MessageBox.Show("서버 연결 성공");
+            }
+        }
+
+        public void Login()
         {
             JObject json = new JObject();
             json.Add("MSGType", 0);
@@ -32,10 +49,10 @@ namespace BomBom_Kiosk.Service
             json.Add("Group", "false");
             json.Add("Menus", "");
             
-            sendData(json);
+            SendData(json);
         }
 
-        public void sendCommonMsg(EMessageType type, string content)
+        public void SendCommonMsg(EMessageType type, string content)
         {
             JObject json = new JObject();
             json.Add("MSGType", 1);
@@ -52,7 +69,7 @@ namespace BomBom_Kiosk.Service
             }
             json.Add("Menus", "");
             
-            sendData(json);
+            SendData(json);
         }
 
         private int GetTotalPrice(List<OrderedItem> orderedItems)
@@ -67,7 +84,7 @@ namespace BomBom_Kiosk.Service
             return totalPrice;
         }
 
-        public void sendTotal()
+        public void SendTotal()
         {
             int total = GetTotalPrice(App.managerViewModel.OrderedItems);
             string content = "총매출액: " + total;
@@ -80,10 +97,10 @@ namespace BomBom_Kiosk.Service
             json.Add("Group", "true");
             json.Add("Menus", "");
             
-            sendData(json);
+            SendData(json);
         }
 
-        public void sendOrderData(List<OrderedItem> orderedDrinks)
+        public void SendOrderData(List<OrderedItem> orderedDrinks)
         {
             JObject menu = new JObject();
             JArray menus = new JArray();
@@ -102,38 +119,63 @@ namespace BomBom_Kiosk.Service
             json.Add("Content", "");
             json.Add("ShopName", "봄봄");
             json.Add("OrderNumber", "002");
+            if (orderedDrinks.Count > 1)
+            {
+                json.Add("Group", "true");
+            }
+            else
+            {
+                json.Add("Group", "false");
+            }
             json.Add("Menus", menus);
 
-            sendData(json);
+            SendData(json);
         }
 
-        public void getMsg()
+        public void GetMsg()
         {
-
-            NetworkStream networkStream = socketForServer.GetStream();
-
-            if (networkStream.CanRead)
+            try
             {
-                byte[] bytes = new byte[1024];
-                networkStream.Read (bytes, 0, (int)1024);
-                string message = Encoding.UTF8.GetString (bytes);
-                if (message.Contains("총매출액"))
+                NetworkStream networkStream = client.GetStream();
+
+                while (networkStream.CanRead)
                 {
-                    sendTotal();
+                    IAsyncResult asyncResult = client.BeginConnect(App.serverHost, App.serverPort, null, null);
+                    if (asyncResult.AsyncWaitHandle.WaitOne(0, false))
+                    {
+                        byte[] bytes = new byte[1024];
+                        networkStream.Read (bytes, 0, (int)1024);
+                        string message = Encoding.UTF8.GetString (bytes);
+                        if (message.Contains("총매출액"))
+                        {
+                           SendTotal();
+                        }
+                        else
+                        {
+                           MessageBox.Show(message);
+                        }
+                    }
                 }
-                else
-                {
-                MessageBox.Show(message);
-                }
+
+            }
+            catch
+            {
             }
         }
 
-        public void sendData(JObject json)
+        public void SendData(JObject json)
         {
             string data = JsonConvert.SerializeObject(json);
             byte[] bytes = Encoding.UTF8.GetBytes(data);
-            networkStream = socketForServer.GetStream();
-            networkStream.Write(bytes, 0, bytes.Length);
+            
+            try
+            {
+                NetworkStream networkStream = client.GetStream();
+                networkStream.Write(bytes, 0, bytes.Length);
+            } 
+            catch
+            {
+            }
         }
     }
 
