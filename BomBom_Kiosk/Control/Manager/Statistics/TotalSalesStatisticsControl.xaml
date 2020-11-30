@@ -27,8 +27,7 @@
             </StackPanel.Resources>
             
             <TextBlock Text="총매출 액" Style="{StaticResource tbTitle}"/>
-            <StackPanel Orientation="Horizontal"
-                        DataContext="{Binding TotalSales}">
+            <StackPanel x:Name="spTotal" Orientation="Horizontal">
                 <TextBlock Text="{Binding TotalPrice, Converter={StaticResource PriceToString}, 
                                           StringFormat=총 금액 : {0}}"/>
                 <TextBlock Text="{Binding NetSales, Converter={StaticResource PriceToString}, 
@@ -38,8 +37,7 @@
             </StackPanel>
 
             <TextBlock Text="현금 총매출 액" Style="{StaticResource tbTitle}"/>
-            <StackPanel Orientation="Horizontal" 
-                        DataContext="{Binding CashSales}">
+            <StackPanel x:Name="spCash" Orientation="Horizontal" >
                 <TextBlock Text="{Binding TotalPrice, Converter={StaticResource PriceToString}, 
                                           StringFormat=총 금액 : {0}}"/>
                 <TextBlock Text="{Binding NetSales, Converter={StaticResource PriceToString}, 
@@ -49,8 +47,7 @@
             </StackPanel>
 
             <TextBlock Text="카드 총매출 액" Style="{StaticResource tbTitle}"/>
-            <StackPanel Orientation="Horizontal"
-                        DataContext="{Binding CardlSales}">
+            <StackPanel x:Name="spCard" Orientation="Horizontal">
                 <TextBlock Text="{Binding TotalPrice, Converter={StaticResource PriceToString}, 
                                           StringFormat=총 금액 : {0}}"/>
                 <TextBlock Text="{Binding NetSales, Converter={StaticResource PriceToString}, 

@@ -1,4 +1,5 @@
 ﻿using BomBom_Kiosk.Model;
+using Prism.Mvvm;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -11,10 +12,6 @@ namespace BomBom_Kiosk.Control.Manager.Statistics
     /// </summary>
     public partial class TotalSalesStatisticsControl : UserControl
     {
-        public Sales TotalSales { get; set; }
-        public Sales CashSales { get; set; }
-        public Sales CardlSales { get; set; }
-
         public TotalSalesStatisticsControl()
         {
             InitializeComponent();
@@ -32,9 +29,9 @@ namespace BomBom_Kiosk.Control.Manager.Statistics
         {
             if (((bool)e.NewValue) == true)
             {
-                TotalSales = GetSales(App.managerViewModel.OrderedItems);
-                CardlSales = GetSales(App.managerViewModel.OrderedItems.Where(x => x.Type == EOrderType.Card).ToList());
-                CashSales = GetSales(App.managerViewModel.OrderedItems.Where(x => x.Type == EOrderType.Cash).ToList());
+                spTotal.DataContext = GetSales(App.managerViewModel.OrderedItems);
+                spCard.DataContext = GetSales(App.managerViewModel.OrderedItems.Where(x => x.Type == EOrderType.Card).ToList());
+                spCash.DataContext = GetSales(App.managerViewModel.OrderedItems.Where(x => x.Type == EOrderType.Cash).ToList());
             }
         }
 
@@ -53,9 +50,14 @@ namespace BomBom_Kiosk.Control.Manager.Statistics
         }
     }
 
-    public class Sales
+    public class Sales : BindableBase
     {
-        public int TotalPrice { get; set; }
+        private int _totalPrice;
+        public int TotalPrice
+        {
+            get => _totalPrice;
+            set => SetProperty(ref _totalPrice, value);
+        }
         public int NetSales { get; set; }
         public int DiscountPrice { get; set; }
     }
