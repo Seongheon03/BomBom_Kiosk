@@ -7,6 +7,21 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <StackPanel>
+            <ComboBox x:Name="cbMember"
+                      SelectionChanged="cbMember_SelectionChanged"/>
+
+            <TextBlock Text="{Binding TotalSales, Converter={StaticResource PriceToString},
+                                      StringFormat=총 매출액 : {0}}"/>
+
+            <DataGrid x:Name="dgMenu">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Width="200" Header="메뉴 이름" Binding="{Binding MenuName}" />
+                    <DataGridTextColumn Width="100" Header="수량" Binding="{Binding Count}" />
+                    <DataGridTextColumn Width="300" Header="가격" 
+                                        Binding="{Binding TotalPrice, Converter={StaticResource PriceToString}}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
     </Grid>
 </UserControl>

@@ -27,5 +27,12 @@ namespace BomBom_Kiosk.Model
                 Price = OriginalPrice - DiscountPrice;
             }
         }
+
+        private bool _isSoldOut;
+        public bool IsSoldOut
+        {
+            get => _isSoldOut;
+            set => SetProperty(ref _isSoldOut, value);
+        }
     }
 }

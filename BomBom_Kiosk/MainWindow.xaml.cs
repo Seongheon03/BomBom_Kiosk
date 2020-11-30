@@ -56,6 +56,11 @@ namespace BomBom_Kiosk
             App.uiManager.AddUC(UICategory.PAYMENTRESULT, ctrlPaymentByResult);
         }
 
+        private void btnConnect_Click(object sender, RoutedEventArgs e)
+        {
+            App.network.ConnectServer();
+        }
+
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
             if (App.orderViewModel.OrderList.Count != 0)
@@ -106,7 +111,7 @@ namespace BomBom_Kiosk
         {
             if (App.dbManager.cmd != null)
             {
-                App.dbManager.SaveDiscountPrice(App.orderViewModel.Drinks);
+                App.dbManager.UpdateMenuInfo(App.orderViewModel.Drinks);
                 App.dbManager.SaveTime(App.managerViewModel.UsedTime);
             }
         }
