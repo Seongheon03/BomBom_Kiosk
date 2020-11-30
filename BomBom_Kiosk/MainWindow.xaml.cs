@@ -56,6 +56,11 @@ namespace BomBom_Kiosk
             App.uiManager.AddUC(UICategory.PAYMENTRESULT, ctrlPaymentByResult);
         }
 
+        private void btnConnect_Click(object sender, RoutedEventArgs e)
+        {
+            App.network.ConnectServer();
+        }
+
         private void btnHome_Click(object sender, RoutedEventArgs e)
         {
             if (App.orderViewModel.OrderList.Count != 0)
