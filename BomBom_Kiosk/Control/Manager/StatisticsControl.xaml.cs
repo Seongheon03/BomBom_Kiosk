@@ -55,16 +55,16 @@ namespace BomBom_Kiosk.Control.Manager
             }
         }
 
-        private List<Item> items = new List<Item>();
+        private List<OrderedItem> items = new List<OrderedItem>();
 
-        private List<NaviData> _naviItems = new List<NaviData>();
-        public List<NaviData> NaviItems
+        private List<StatisticsNaviData> _statisticsNavi = new List<StatisticsNaviData>();
+        public List<StatisticsNaviData> StatisticsNavi
         {
-            get => _naviItems;
+            get => _statisticsNavi;
             set
             {
-                _naviItems = value;
-                NotifyPropertyChanged(nameof(NaviItems));
+                _statisticsNavi = value;
+                NotifyPropertyChanged(nameof(StatisticsNavi));
             }
         }
 
@@ -73,6 +73,7 @@ namespace BomBom_Kiosk.Control.Manager
             InitializeComponent();
 
             SetNaviItems();
+            SetCbSeat();
 
             Loaded += StatisticsControl_Loaded;
         }
@@ -99,9 +100,17 @@ namespace BomBom_Kiosk.Control.Manager
 
         private void SetNaviItems()
         {
-            NaviItems.Add(new NaviData(EMenu.StatisticsByMenu, "메뉴별"));
-            NaviItems.Add(new NaviData(EMenu.StatisticsByCategory, "카테고리별"));
-            NaviItems.Add(new NaviData(EMenu.StatisticsBySeat, "좌석별"));
+            StatisticsNavi.Add(new StatisticsNaviData(StatisticsMenu.ByMenu, "메뉴별"));
+            StatisticsNavi.Add(new StatisticsNaviData(StatisticsMenu.ByCategory, "카테고리별"));
+            StatisticsNavi.Add(new StatisticsNaviData(StatisticsMenu.BySeat, "좌석별"));
+        }
+
+        private void SetCbSeat()
+        {
+            foreach(var table in App.paymentViewModel.Tables)
+            {
+                cbSeat.Items.Add($"{table.Number}번 좌석");
+            }
         }
 
         private void lvNavi_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -111,7 +120,7 @@ namespace BomBom_Kiosk.Control.Manager
                 return;
             }
 
-            EMenu selectedMenu = (EMenu)lvNavi.SelectedIndex;
+            StatisticsMenu selectedMenu = (StatisticsMenu)lvNavi.SelectedIndex;
 
             cbSeat.Visibility = Visibility.Collapsed;
             items.Clear();
@@ -120,13 +129,13 @@ namespace BomBom_Kiosk.Control.Manager
             {
                 switch (selectedMenu)
                 {
-                    case EMenu.StatisticsByMenu:
-                        SetItems(new Func<Item, bool>(x => x.Name == orderedItem.MenuName), orderedItem, orderedItem.MenuName);
+                    case StatisticsMenu.ByMenu:
+                        SetItems(new Func<OrderedItem, bool>(x => x.MenuName == orderedItem.MenuName), orderedItem, orderedItem.MenuName);
                         break;
-                    case EMenu.StatisticsByCategory:
-                        SetItems(new Func<Item, bool>(x => x.Type == orderedItem.MenuType), orderedItem, orderedItem.MenuType.ToString());
+                    case StatisticsMenu.ByCategory:
+                        SetItems(new Func<OrderedItem, bool>(x => x.MenuType == orderedItem.MenuType), orderedItem, orderedItem.MenuType.ToString());
                         break;
-                    case EMenu.StatisticsBySeat:
+                    case StatisticsMenu.BySeat:
                         cbSeat.Visibility = Visibility.Visible;
                         cbSeat.SelectedIndex = 0;
                         break;
@@ -136,25 +145,25 @@ namespace BomBom_Kiosk.Control.Manager
             InitDatas();
         }
 
-        private void SetItems(Func<Item, bool> func, OrderedItem orderedItem, string name)
+        private void SetItems(Func<OrderedItem, bool> func, Model.OrderedItem orderedItem, string name)
         {
-            Item item = items.Where(func).FirstOrDefault();
+            OrderedItem item = items.Where(func).FirstOrDefault();
 
             if (item == null)
             {
-                items.Add(new Item()
+                items.Add(new OrderedItem()
                 {
-                    Name = name,
-                    Type = orderedItem.MenuType,
+                    MenuName = name,
+                    MenuType = orderedItem.MenuType,
                     Seat = orderedItem.Seat,
                     Count = orderedItem.Count,
-                    Price = orderedItem.Count * orderedItem.MenuPrice
+                    TotalPrice = orderedItem.Count * orderedItem.MenuPrice
                 });
             }
             else
             {
                 item.Count += orderedItem.Count;
-                item.Price += orderedItem.Count * orderedItem.MenuPrice;
+                item.TotalPrice += orderedItem.Count * orderedItem.MenuPrice;
             }
         }
 
@@ -171,7 +180,7 @@ namespace BomBom_Kiosk.Control.Manager
 
             for (int i = 0; i < items.Count(); i++)
             {
-                Labels[i] = items[i].Name;
+                Labels[i] = items[i].MenuName;
             }
         }
 
@@ -199,7 +208,7 @@ namespace BomBom_Kiosk.Control.Manager
 
             for (int i = 0; i < items.Count(); i++)
             {
-                chartValues.Add(items[i].Price);
+                chartValues.Add(items[i].TotalPrice);
             }
 
             PriceSeriesCollection = new SeriesCollection
@@ -226,7 +235,7 @@ namespace BomBom_Kiosk.Control.Manager
 
                 if (orderedItem.Seat != null && orderedItem.Seat == selectedSeat)
                 {
-                    SetItems(new Func<Item, bool>(x => x.Seat == selectedSeat), orderedItem, $"{selectedSeat}번 좌석");
+                    SetItems(new Func<OrderedItem, bool>(x => x.Seat == selectedSeat), orderedItem, $"{selectedSeat}번 좌석");
                 }
             }
 
@@ -234,31 +243,22 @@ namespace BomBom_Kiosk.Control.Manager
         }
     }
 
-    public class Item
+    public class StatisticsNaviData
     {
-        public string Name { get; set; }
-        public ECategory Type { get; set; }
-        public int? Seat { get; set; }
-        public int Count { get; set; }
-        public int Price { get; set; }
-    }
-
-    public class NaviData
-    {
-        public EMenu Idx { get; set; }
+        public StatisticsMenu Idx { get; set; }
         public string Title { get; set; }
 
-        public NaviData(EMenu Idx, string Title)
+        public StatisticsNaviData(StatisticsMenu Idx, string Title)
         {
             this.Idx = Idx;
             this.Title = Title;
         }
     }
 
-    public enum EMenu
+    public enum StatisticsMenu
     {
-        StatisticsByMenu,
-        StatisticsByCategory,
-        StatisticsBySeat
+        ByMenu,
+        ByCategory,
+        BySeat
     }
 }

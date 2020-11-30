@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <ListView x:Name="lvNavi" ItemsSource="{Binding NaviItems}"
+            <ListView x:Name="lvNavi" ItemsSource="{Binding StatisticsNavi}"
                       SelectionChanged="lvNavi_SelectionChanged">
                 <ListView.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -36,17 +36,7 @@
                     <TextBlock Text="판매 수"/>
                     <ComboBox x:Name="cbSeat" 
                               Width="300" HorizontalAlignment="Right"
-                              SelectionChanged="cbSeat_SelectionChanged">
-                        <ComboBoxItem Content="1번 좌석"/>
-                        <ComboBoxItem Content="2번 좌석"/>
-                        <ComboBoxItem Content="3번 좌석"/>
-                        <ComboBoxItem Content="4번 좌석"/>
-                        <ComboBoxItem Content="5번 좌석"/>
-                        <ComboBoxItem Content="6번 좌석"/>
-                        <ComboBoxItem Content="7번 좌석"/>
-                        <ComboBoxItem Content="8번 좌석"/>
-                        <ComboBoxItem Content="9번 좌석"/>
-                    </ComboBox>
+                              SelectionChanged="cbSeat_SelectionChanged"/>
                 </DockPanel>
                 <lvc:CartesianChart Series="{Binding CountSeriesCollection}" Height="330" Width="Auto">
                     <lvc:CartesianChart.AxisX>
