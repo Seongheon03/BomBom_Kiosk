@@ -12,12 +12,22 @@ namespace BomBom_Kiosk.Service
 {
     public class NetworkManager
     {
-         TcpClient client = new TcpClient();
+        TcpClient client = null;
+
+        private void setClient() {
+            try
+            {
+                client = new TcpClient(App.serverHost, App.serverPort);
+            } catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
         public NetworkManager()
         {
             Thread connect = new Thread(() => ConnectServer());
             connect.Start();
-            Login();
             Thread getMsg = new Thread(() => GetMsg());
             getMsg.Start();
             
@@ -31,10 +41,12 @@ namespace BomBom_Kiosk.Service
             if (!success)
             {
                 MessageBox.Show("서버 연결 실패");
+                Login();
             } 
             else
             {
                 MessageBox.Show("서버 연결 성공");
+                Login();
             }
         }
 
@@ -136,6 +148,7 @@ namespace BomBom_Kiosk.Service
         {
             try
             {
+                setClient();
                 NetworkStream networkStream = client.GetStream();
 
                 while (networkStream.CanRead)
@@ -170,11 +183,13 @@ namespace BomBom_Kiosk.Service
             
             try
             {
+                setClient();
                 NetworkStream networkStream = client.GetStream();
                 networkStream.Write(bytes, 0, bytes.Length);
-            } 
+            }
             catch
             {
+                MessageBox.Show("서버 연결 실패");
             }
         }
     }
