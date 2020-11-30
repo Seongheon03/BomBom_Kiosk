@@ -14,8 +14,24 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
         <Grid Grid.Row="0" Background="#ffea00">
+        <Button x:Name="btnConnect"
+                Width="70" Height="25"
+                HorizontalAlignment="Left" Margin="10 10 10 10"
+                Click="btnConnect_Click">
+                <TextBlock Text="서버 연결하기" FontSize="10"/>
+                <Button.Style>
+                <Style TargetType="{x:Type Button}">
+                    <Setter Property="Background" Value="White">
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
             <TextBlock x:Name="tbCurrentTime"
                        FontWeight="Bold" FontSize="20" Width="330"
                        TextAlignment="Center" VerticalAlignment="Center"/>
@@ -23,7 +39,7 @@
             <Button x:Name="btnHome"
                     BorderThickness="0"
                     Width="30" Height="30"
-                    HorizontalAlignment="Right" Margin="0 0 10 0"
+                    HorizontalAlignment="Right" Margin="0 0 0 10"
                     Click="btnHome_Click" >
                 <Button.Style>
                     <Style TargetType="{x:Type Button}">
