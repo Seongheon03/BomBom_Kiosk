@@ -163,7 +163,6 @@ namespace BomBom_Kiosk.Service
 
         public void Payment()
         {
-            App.network.SendOrderData(App.orderViewModel.OrderList.ToList());
             foreach (var item in App.orderViewModel.OrderList)
             {
                 AddOrderItem(item);
@@ -184,6 +183,7 @@ namespace BomBom_Kiosk.Service
             }
 
             App.paymentViewModel.OrderNumber = orderNumber;
+            App.network.SendOrderData(App.orderViewModel.OrderList.ToList());
         }
 
         private void AddOrderItem(OrderedItem orderedItem)

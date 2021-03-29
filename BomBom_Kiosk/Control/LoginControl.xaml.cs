@@ -63,24 +63,31 @@ namespace BomBom_Kiosk.Control
             
             if (await Task.Run(() => App.dbManager.ConnectDB()))
             {
-                tbStatus.Text = "서버에 연결중입니다...";
-                if (await Task.Run(() => App.network.ConnectServer()))
+                tbStatus.Text = "데이터를 로드중입니다...";
+
+                await Task.Run(() =>
                 {
                     App.orderViewModel.InitData();
                     App.paymentViewModel.InitMembers();
                     App.managerViewModel.InitData();
                     SetMembers();
                     App.network.ConnectServer();
+                });
 
-                    CheckIsAutoLogin();
+                tbStatus.Text = "서버에 연결중입니다...";
 
+                if (await Task.Run(() => App.network.ConnectServer()))
+                {
                     tbStatus.Text = "로그인을 해주세요.";
-                    btnLogin.IsEnabled = true;
                 }
                 else
                 {
                     tbStatus.Text = "서버에 연결되지 않았습니다.";
                 }
+
+                CheckIsAutoLogin();
+
+                btnLogin.IsEnabled = true;
             }
             else
             {

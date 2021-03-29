@@ -9,8 +9,8 @@ namespace BomBom_Kiosk
     /// </summary>
     public partial class App : Application
     {
-        public static readonly string connStr = DB주소;
-        public static readonly string serverHost = "10.80.163.141";
+        public static readonly string connStr = "server=localhost;database=kiosk;uid=root;pwd=1234";
+        public static readonly string serverHost = "10.80.161.175";
         public static readonly int serverPort = 80;
         public static NetworkManager network = new NetworkManager();
 

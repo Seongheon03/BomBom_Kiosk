@@ -49,7 +49,7 @@ namespace BomBom_Kiosk.Service
         {
             JObject json = new JObject();
             json.Add("MSGType", 0);
-            json.Add("id", "2203");
+            json.Add("id", "2207");
             json.Add("Content", "");
             json.Add("ShopName", "");
             json.Add("OrderNumber", "");
@@ -63,7 +63,7 @@ namespace BomBom_Kiosk.Service
         {
             JObject json = new JObject();
             json.Add("MSGType", 1);
-            json.Add("id", "2203");
+            json.Add("id", "2207");
             json.Add("Content", content);
             json.Add("ShopName", "봄봄");
             json.Add("OrderNumber", "");
@@ -98,7 +98,7 @@ namespace BomBom_Kiosk.Service
             string content = "총매출액: " + total;
             JObject json = new JObject();
             json.Add("MSGType", 1);
-            json.Add("id", "2203");
+            json.Add("id", "2207");
             json.Add("Content", content);
             json.Add("ShopName", "봄봄");
             json.Add("OrderNumber", "");
@@ -123,18 +123,11 @@ namespace BomBom_Kiosk.Service
             JObject json = new JObject();
            
             json.Add("MSGType", "2");
-            json.Add("id", "2203");
+            json.Add("id", "2207");
             json.Add("Content", "");
             json.Add("ShopName", "봄봄");
-            json.Add("OrderNumber", "002");
-            if (orderedDrinks.Count > 1)
-            {
-                json.Add("Group", "true");
-            }
-            else
-            {
-                json.Add("Group", "false");
-            }
+            json.Add("OrderNumber", App.paymentViewModel.OrderNumber);
+            json.Add("Group", "true");
             json.Add("Menus", menus);
 
             SendData(json);
